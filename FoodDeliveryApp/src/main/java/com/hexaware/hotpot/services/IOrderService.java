@@ -1,10 +1,11 @@
 package com.hexaware.hotpot.services;
 
+import com.hexaware.hotpot.dto.OrdersDTO;
 import com.hexaware.hotpot.entities.Orders;
 
 public interface IOrderService {
 
-	public Long placeOrder(Orders order);
+	public Long placeOrder(OrdersDTO orderDTO);
 
 	public Orders getOrderById(Long orderId);
 
