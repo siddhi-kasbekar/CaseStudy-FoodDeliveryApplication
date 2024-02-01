@@ -1,20 +1,20 @@
 package com.hexaware.hotpot.services;
 
-import java.awt.Menu;
 import java.util.List;
 
+import com.hexaware.hotpot.dto.MenuItemsDTO;
+import com.hexaware.hotpot.dto.RestaurantsDTO;
 import com.hexaware.hotpot.entities.MenuItems;
-import com.hexaware.hotpot.entities.Restaurants;
 
 public interface IRestaurantService {
 
-	public Long registerRestaurant(Restaurants restaurant);
+	public Long registerRestaurant(RestaurantsDTO restaurantDTO);
 
-	public String loginRestaurant(Restaurants restaurant);
+	public String loginRestaurant(RestaurantsDTO restaurantDTO);
 
-	public void addMenu(Menu menuDTO);
+	public void addMenu(MenuItemsDTO menuDTO);
 
-	public void updateMenu(MenuItems menu);
+	public void updateMenu(MenuItemsDTO menuDTO);
 
 	public void deleteMenu(Long menuId);
 

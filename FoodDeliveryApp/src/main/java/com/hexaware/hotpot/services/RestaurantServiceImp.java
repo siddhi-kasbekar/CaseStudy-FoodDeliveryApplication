@@ -1,33 +1,39 @@
 package com.hexaware.hotpot.services;
 
-import java.awt.Menu;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.hexaware.hotpot.dto.MenuItemsDTO;
+import com.hexaware.hotpot.dto.RestaurantsDTO;
 import com.hexaware.hotpot.entities.MenuItems;
-import com.hexaware.hotpot.entities.Restaurants;
+import com.hexaware.hotpot.repository.RestaurantsRepository;
 
 public class RestaurantServiceImp implements IRestaurantService {
 
+	@Autowired
+	RestaurantsRepository repo;
+	
 	@Override
-	public Long registerRestaurant(Restaurants restaurant) {
+	public Long registerRestaurant(RestaurantsDTO restaurantDTO) {
 		
 		return null;
 	}
 
 	@Override
-	public String loginRestaurant(Restaurants restaurant) {
+	public String loginRestaurant(RestaurantsDTO restaurantDTO) {
 		
 		return null;
 	}
 
 	@Override
-	public void addMenu(Menu menuDTO) {
+	public void addMenu(MenuItemsDTO menuDTO) {
 		
 
 	}
 
 	@Override
-	public void updateMenu(MenuItems menu) {
+	public void updateMenu(MenuItemsDTO menuDTO) {
 		
 
 	}
