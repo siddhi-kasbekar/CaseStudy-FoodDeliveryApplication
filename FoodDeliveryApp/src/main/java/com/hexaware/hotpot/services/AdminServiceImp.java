@@ -2,6 +2,8 @@ package com.hexaware.hotpot.services;
 
 import java.util.List;
 
+import com.hexaware.hotpot.dto.AdminDTO;
+import com.hexaware.hotpot.dto.CustomersDTO;
 import com.hexaware.hotpot.entities.Administrator;
 import com.hexaware.hotpot.entities.Customers;
 import com.hexaware.hotpot.entities.MenuItems;
@@ -10,14 +12,16 @@ import com.hexaware.hotpot.entities.Restaurants;
 
 public class AdminServiceImp implements IAdminService {
 
+	
+	
 	@Override
-	public String adminLogin(Administrator admin) {
+	public String adminLogin(AdminDTO admindto) {
 		
 		return null;
 	}
 
 	@Override
-	public Restaurants addRestaurant(Restaurants restaurant) {
+	public Restaurants addRestaurant(RestaurantsDTO restaurant) {
 		
 		return null;
 	}
@@ -47,12 +51,12 @@ public class AdminServiceImp implements IAdminService {
 	}
 
 	@Override
-	public Restaurants addCustomers(Customers customer) {
+	public Restaurants addCustomers(CustomersDTO customer) {
 		return null;
 	}
 
 	@Override
-	public Restaurants addMenuItem(MenuItems menuItem) {
+	public Restaurants addMenuItem(MenuItemsDTO menuItem) {
 		return null;
 	}
 
