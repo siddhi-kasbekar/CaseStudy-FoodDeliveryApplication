@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.hexaware.hotpot.entities.Customers;
 
 @Repository
-public interface CustomersRepository extends JpaRepository<Customers, Integer> {
+public interface CustomersRepository extends JpaRepository<Customers, Long> {
 
 }

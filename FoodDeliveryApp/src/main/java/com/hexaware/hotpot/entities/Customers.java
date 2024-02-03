@@ -18,7 +18,7 @@ import jakarta.validation.constraints.Size;
 public final class Customers {
 	
 	@Id
-	private int custId;
+	private long custId;
 	
 	@NotBlank(message = "Customer name is required")
     @Pattern(regexp = "^[a-zA-Z\\s]+$", message = "Customer name should contain only alphabets")
@@ -59,7 +59,7 @@ public final class Customers {
 		super();
 	}
 
-	public Customers(int custId, String custName, String gender, String email, String phone, String username,
+	public Customers(long custId, String custName, String gender, String email, String phone, String username,
 			String password, DeliveryAddress address) {
 		super();
 		this.custId = custId;
@@ -72,11 +72,11 @@ public final class Customers {
 		this.address = address;
 	}
 
-	public int getCustId() {
+	public long getCustId() {
 		return custId;
 	}
 
-	public void setCustId(int custId) {
+	public void setCustId(long custId) {
 		this.custId = custId;
 	}
 
