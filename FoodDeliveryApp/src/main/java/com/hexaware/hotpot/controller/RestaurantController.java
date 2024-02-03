@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hexaware.hotpot.dto.MenuItemsDTO;
 import com.hexaware.hotpot.dto.RestaurantsDTO;
 import com.hexaware.hotpot.entities.MenuItems;
+import com.hexaware.hotpot.entities.Restaurants;
 import com.hexaware.hotpot.services.IRestaurantService;
 
 @RestController
@@ -57,8 +58,8 @@ public class RestaurantController {
 	}
 
 	@GetMapping("/getorder/{restaurantId}")
-	public List<MenuItems> getOrdersByRestaurantId( @PathVariable Long restaurantId){
-		return service.getOrdersByRestaurantId(restaurantId);
+	public List<MenuItems> getOrdersByRestaurantId( @PathVariable Restaurants restaurant){
+		return service.getOrdersByRestaurantId(restaurant);
 	}
 	
 }

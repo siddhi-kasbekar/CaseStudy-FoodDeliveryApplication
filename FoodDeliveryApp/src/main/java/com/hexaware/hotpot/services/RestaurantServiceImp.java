@@ -107,9 +107,9 @@ public class RestaurantServiceImp implements IRestaurantService {
 	}
 
 	@Override
-	public List<MenuItems> getOrdersByRestaurantId(Long restaurantId) {
+	public List<MenuItems> getOrdersByRestaurantId(Restaurants restaurant) {
 		
-		return mrepo.findByMenuItemsRestaurantId(restaurantId);
+		return mrepo.findByMenuItemsRestaurantId(restaurant);
 	}
 
 }

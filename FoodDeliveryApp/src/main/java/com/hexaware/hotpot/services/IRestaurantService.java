@@ -5,6 +5,7 @@ import java.util.List;
 import com.hexaware.hotpot.dto.MenuItemsDTO;
 import com.hexaware.hotpot.dto.RestaurantsDTO;
 import com.hexaware.hotpot.entities.MenuItems;
+import com.hexaware.hotpot.entities.Restaurants;
 
 public interface IRestaurantService {
 
@@ -20,5 +21,5 @@ public interface IRestaurantService {
 
 	public List<MenuItems> getMenuByCategory(String category);
 
-	public List<MenuItems> getOrdersByRestaurantId(Long restaurantId);
+	public List<MenuItems> getOrdersByRestaurantId(Restaurants restaurant);
 }

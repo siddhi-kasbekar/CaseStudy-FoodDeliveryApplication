@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.hexaware.hotpot.entities.MenuItems;
+import com.hexaware.hotpot.entities.Restaurants;
 
 @Repository
 public interface MenuItemsRepository extends JpaRepository<MenuItems, Long> {
@@ -16,6 +17,7 @@ public interface MenuItemsRepository extends JpaRepository<MenuItems, Long> {
 
 	List<MenuItems> findByMenuItemsCategory(String category);
 
-	List<MenuItems> findByMenuItemsRestaurantId(Long restaurantId);
+	//List<MenuItems> findByMenuItemsRestaurantId(Long restaurantId);
+	List<MenuItems> findByMenuItemsRestaurantId(Restaurants restaurant);
 
 }
