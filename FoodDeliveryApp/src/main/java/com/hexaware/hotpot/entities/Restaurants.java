@@ -20,7 +20,7 @@ import jakarta.validation.constraints.Pattern;
 public class Restaurants {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    
     @Column(name="RestaurantID")
     private int restaurantId;
     

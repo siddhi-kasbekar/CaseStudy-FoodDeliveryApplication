@@ -28,7 +28,7 @@ public class OrdersController {
 	}
 
 	@GetMapping("/getbyid/{orderId}")
-	public Orders getOrderById(@PathVariable Long orderId) {
+	public Orders getOrderById(@PathVariable int orderId) {
 		return service.getOrderById(orderId);
 	}
 

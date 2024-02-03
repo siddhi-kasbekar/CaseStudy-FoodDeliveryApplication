@@ -45,33 +45,36 @@ public class RestaurantServiceImp implements IRestaurantService {
 		return "login successful";
 	}
 
+	
 	@Override
-	public void addMenu(MenuItemsDTO menuDTO) {
-		Integer restaurantId = menuDTO.getRestaurantId(); 
+	public MenuItems addMenu(MenuItemsDTO menuItemDTO,int restaurantId){
 	    Optional<Restaurants> restaurantOptional = repo.findById(restaurantId);
+	    
+	    MenuItems menuItem = new MenuItems();
+        menuItem.setMenuitemId(menuItemDTO.getMenuitemId());
+        menuItem.setItemName(menuItemDTO.getItemName());
+        menuItem.setDescription(menuItemDTO.getDescription());
+        menuItem.setCategory(menuItemDTO.getCategory());
+        menuItem.setPrice(menuItemDTO.getPrice());
+        menuItem.setAvailabilityTime(menuItemDTO.getAvailabilityTime());
+        menuItem.setSpecialDietaryInfo(menuItemDTO.getSpecialDietaryInfo());
+        menuItem.setTasteInfo(menuItemDTO.getTasteInfo());
+        menuItem.setNutritionalInfo(menuItemDTO.getNutritionalInfo());
+        menuItem.setCookingTime(menuItemDTO.getCookingTime());
 
 	    if (restaurantOptional.isPresent()) {
-	        Restaurants restaurant = restaurantOptional.get();
+	        Restaurants restaurant = restaurantOptional.get();       
 
-	        MenuItems menuItem = new MenuItems();
-	        menuItem.setMenuitemId(menuDTO.getMenuitemId());
-	        menuItem.setItemName(menuDTO.getItemName());
-	        menuItem.setDescription(menuDTO.getDescription());
-	        menuItem.setCategory(menuDTO.getCategory());
-	        menuItem.setPrice(menuDTO.getPrice());
-	        menuItem.setAvailabilityTime(menuDTO.getAvailabilityTime());
-	        menuItem.setSpecialDietaryInfo(menuDTO.getSpecialDietaryInfo());
-	        menuItem.setTasteInfo(menuDTO.getTasteInfo());
-	        menuItem.setNutritionalInfo(menuDTO.getNutritionalInfo());
-	        menuItem.setCookingTime(menuDTO.getCookingTime());
-
-	        // Set the associated restaurant
+	        menuItemDTO.setRestaurantId(restaurantId);
 	        menuItem.setRestaurant(restaurant);
-	        mrepo.save(menuItem);
-	        // Save the menu item
-	    }
-		}
 
+	        
+	    } else {
+	        
+	    	System.out.println("restaurant with specified id not found ");
+	    }
+	    return mrepo.save(menuItem);
+	}
 	
 
 	@Override
@@ -95,7 +98,7 @@ public class RestaurantServiceImp implements IRestaurantService {
 	}
 
 	@Override
-	public void deleteMenu(Long menuId) {
+	public void deleteMenu(int menuId) {
 		
      repo.deleteById(menuId);
 	}
@@ -103,13 +106,13 @@ public class RestaurantServiceImp implements IRestaurantService {
 	@Override
 	public List<MenuItems> getMenuByCategory(String category) {
 		
-		 return mrepo.findByMenuItemsCategory(category);
+		 return mrepo.findByCategory( category);
 	}
 
 	@Override
 	public List<MenuItems> getOrdersByRestaurantId(Restaurants restaurant) {
 		
-		return mrepo.findByMenuItemsRestaurantId(restaurant);
+		return  null;                           //mrepo.findByMenuItemsRestaurantId(restaurant);
 	}
 
 }

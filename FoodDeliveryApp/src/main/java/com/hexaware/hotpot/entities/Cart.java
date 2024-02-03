@@ -33,8 +33,8 @@ public class Cart {
 	 @OneToMany(mappedBy = "cart",cascade = CascadeType.ALL)
 	    private Set<MenuItems> menuItemSet =  new HashSet<MenuItems>();;
 
-	    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
-	    private Set<Orders> orderSet = new HashSet<Orders>();
+//	    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
+//	    private Set<Orders> orderSet = new HashSet<Orders>();
 	    
 	    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
 	    private Set<Payment> paymentSet = new HashSet<Payment>();
@@ -99,14 +99,14 @@ public class Cart {
 		public void setMenuItemSet(Set<MenuItems> menuItemSet) {
 			this.menuItemSet = menuItemSet;
 		}
-
-		public Set<Orders> getOrderSet() {
-			return orderSet;
-		}
-
-		public void setOrderSet(Set<Orders> orderSet) {
-			this.orderSet = orderSet;
-		}
+//
+//		public Set<Orders> getOrderSet() {
+//			return orderSet;
+//		}
+//
+//		public void setOrderSet(Set<Orders> orderSet) {
+//			this.orderSet = orderSet;
+//		}
 
 		public Set<Payment> getPaymentSet() {
 			return paymentSet;

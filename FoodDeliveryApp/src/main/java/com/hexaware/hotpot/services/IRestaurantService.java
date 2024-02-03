@@ -13,11 +13,11 @@ public interface IRestaurantService {
 
 	public String loginRestaurant(RestaurantsDTO restaurantDTO);
 
-	public void addMenu(MenuItemsDTO menuDTO);
+	public MenuItems addMenu(MenuItemsDTO menuDTO,int restaurantId);
 
 	public void updateMenu(MenuItemsDTO menuDTO);
 
-	public void deleteMenu(Long menuId);
+	public void deleteMenu(int menuId);
 
 	public List<MenuItems> getMenuByCategory(String category);
 

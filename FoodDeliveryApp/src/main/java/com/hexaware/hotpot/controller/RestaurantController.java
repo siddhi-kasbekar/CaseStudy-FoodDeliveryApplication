@@ -34,9 +34,9 @@ public class RestaurantController {
 //		return service.loginRestaurant(restaurantDTO);
 //	}
 
-	@PostMapping("/add")
-	public String addMenu(@RequestBody MenuItemsDTO menuDTO) {
-		service.addMenu(menuDTO);
+	@PostMapping("/add/{restaurantId}")
+	public String addMenu(@RequestBody MenuItemsDTO menuDTO,@PathVariable int restaurantId) {
+		service.addMenu(menuDTO,restaurantId);
 		return "menu added successfully";
 	}
 
@@ -47,7 +47,7 @@ public class RestaurantController {
 	}
 
 	@DeleteMapping("/delete/{menuId}")
-	public String deleteMenu(@PathVariable Long menuId) {
+	public String deleteMenu(@PathVariable int menuId) {
 		service.deleteMenu(menuId);
 		return "menu deleted successfully";
 	}

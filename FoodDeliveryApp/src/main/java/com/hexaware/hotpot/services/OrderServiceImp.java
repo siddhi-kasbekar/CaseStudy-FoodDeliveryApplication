@@ -32,13 +32,13 @@ public class OrderServiceImp implements IOrderService {
 	}
 
 	@Override
-	public Orders getOrderById(Long orderId) {
+	public Orders getOrderById(int orderId) {
 		
 		return repo.findById(orderId);
 	}
 
 	@Override
-	public void updateOrderStatus(Long orderId, String status) {
+	public void updateOrderStatus(int orderId, String status) {
 		
 		Orders order = repo.findById(orderId);
 		if (order != null) {

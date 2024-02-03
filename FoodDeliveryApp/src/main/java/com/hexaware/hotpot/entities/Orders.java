@@ -24,7 +24,7 @@ public class Orders {
 	
 	@Id
     @Column(name = "OrderID")
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	
     private int orderId;
 	
 	@Column(name = "OrderDate",columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
@@ -38,9 +38,9 @@ public class Orders {
     @Column(name = "Status")
     private String status;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "CartID")
-    private Cart cart;
+//	@ManyToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "CartID")
+//    private Cart cart;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "custID")
@@ -57,14 +57,14 @@ public class Orders {
 		super();
 	}
 
-	public Orders(int orderId, LocalDateTime orderDate, BigDecimal totalCost, String status, Cart cart, Customers customer,
+	public Orders(int orderId, LocalDateTime orderDate, BigDecimal totalCost, String status,  Customers customer,
 			Restaurants restaurant, Set<MenuItems> menuItems) {
 		super();
 		this.orderId = orderId;
 		this.orderDate = orderDate;
 		this.totalCost = totalCost;
 		this.status = status;
-		this.cart = cart;
+		//this.cart = cart;
 		this.customer = customer;
 		this.restaurant = restaurant;
 		this.menuItems = menuItems;
@@ -102,13 +102,13 @@ public class Orders {
 		this.status = status;
 	}
 
-	public Cart getCart() {
-		return cart;
-	}
-
-	public void setCart(Cart cart) {
-		this.cart = cart;
-	}
+//	public Cart getCart() {
+//		return cart;
+//	}
+//
+//	public void setCart(Cart cart) {
+//		this.cart = cart;
+//	}
 
 	public Customers getCustomer() {
 		return customer;
@@ -137,7 +137,7 @@ public class Orders {
 	@Override
 	public String toString() {
 		return "Orders [orderId=" + orderId + ", orderDate=" + orderDate + ", totalCost=" + totalCost + ", status="
-				+ status + ", cart=" + cart + ", customer=" + customer + ", restaurant=" + restaurant + ", menuItems="
+				+ status +  ", customer=" + customer + ", restaurant=" + restaurant + ", menuItems="
 				+ menuItems + "]";
 	}
 	

@@ -7,7 +7,7 @@ public interface IOrderService {
 
 	public void placeOrder(OrdersDTO orderDTO);
 
-	public Orders getOrderById(Long orderId);
+	public Orders getOrderById(int orderId);
 
-	public void updateOrderStatus(Long orderId, String status);
+	public void updateOrderStatus(int orderId, String status);
 }

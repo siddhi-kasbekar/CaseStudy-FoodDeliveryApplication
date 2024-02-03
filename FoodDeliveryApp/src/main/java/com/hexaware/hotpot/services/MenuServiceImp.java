@@ -18,7 +18,6 @@ public class MenuServiceImp implements IMenuService {
 	MenuItemsRepository repo;
 	
 	@Override
-	@Transactional
 	public List<MenuItems> getMenuByCategory(String category) {
 		
 		return  repo.findByCategory(category);

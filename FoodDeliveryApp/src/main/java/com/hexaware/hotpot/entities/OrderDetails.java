@@ -14,7 +14,7 @@ import jakarta.validation.constraints.NotNull;
 public class OrderDetails {
 	@Id
     @Column(name = "OrderDetailID")
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	
     private int orderDetailId;
 
     @ManyToOne(cascade = CascadeType.ALL)

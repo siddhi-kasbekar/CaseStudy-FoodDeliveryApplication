@@ -10,6 +10,6 @@ import com.hexaware.hotpot.entities.Orders;
 @Repository
 public interface OrdersRepository extends JpaRepository<Orders, Integer> {
 
-	Orders findById(Long orderId);
+	Orders findById(int orderId);
 
 }
