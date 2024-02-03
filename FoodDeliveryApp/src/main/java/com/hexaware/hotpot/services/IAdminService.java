@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.hexaware.hotpot.dto.AdminDTO;
 import com.hexaware.hotpot.dto.CustomersDTO;
+import com.hexaware.hotpot.dto.MenuItemsDTO;
+import com.hexaware.hotpot.dto.RestaurantsDTO;
 import com.hexaware.hotpot.entities.Customers;
 import com.hexaware.hotpot.entities.MenuItems;
 import com.hexaware.hotpot.entities.Orders;
@@ -15,7 +17,7 @@ public interface IAdminService {
 
 	public Restaurants addRestaurant(RestaurantsDTO restaurant);
 
-	public void removeRestaurant(Long restaurantId);
+	public void removeRestaurant(Integer restaurantId);
 
 	public List<MenuItems> getAllMenus();
 
@@ -23,9 +25,9 @@ public interface IAdminService {
 
 	public List<Orders> getAllOrders();
 
-	public Restaurants addCustomers(CustomersDTO customer);
-	public Restaurants addMenuItem(MenuItemsDTO menuItem);
+	public Customers addCustomers(CustomersDTO customerDTO);
+	public MenuItems addMenuItem(MenuItemsDTO menuItemDTO,int restaurantId);
 	
-	public void removeCustomers(Long custId);
+	public void removeCustomers(Long customerId);
 	public void removeMenuItems(Long menuItemId);
 }

@@ -25,6 +25,8 @@ public class MenuItemsDTO {
 	private String nutritionalInfo;
 
 	private Integer cookingTime;
+	
+	private int restaurantId;
 
 	public MenuItemsDTO() {
 		super();
@@ -124,6 +126,14 @@ public class MenuItemsDTO {
 
 	public void setCookingTime(Integer cookingTime) {
 		this.cookingTime = cookingTime;
+	}
+
+	public int getRestaurantId() {
+		return restaurantId;
+	}
+
+	public void setRestaurantId(int restaurantId) {
+		this.restaurantId = restaurantId;
 	}
 
 	

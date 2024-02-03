@@ -19,20 +19,20 @@ public class Restaurants {
     @Id
     private int restaurantId;
     
-    @NotBlank(message = "Name is required")
+    @NotNull(message = "Name is required")
     private String name;
 
-    @NotBlank(message = "Location is required")
+    @NotNull(message = "Location is required")
     private String location;
 
     @Pattern(regexp = "[0-9]{10}", message = "Contact number must be a 10-digit number")
+    @NotNull(message = "contact number  is required")
     private String contactNumber;
 
     @NotNull(message = "Rating is required")
     private Double rating = 0.0;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "resId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "restaurant")
 	private Set<MenuItems> menuItemSet = new HashSet<MenuItems>(); // collections should be initialized to avoid nullPoitner Escep
 
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
