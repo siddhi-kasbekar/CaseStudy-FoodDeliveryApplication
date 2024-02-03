@@ -5,20 +5,21 @@ import java.util.List;
 import com.hexaware.hotpot.dto.MenuItemsDTO;
 import com.hexaware.hotpot.dto.RestaurantsDTO;
 import com.hexaware.hotpot.entities.MenuItems;
+import com.hexaware.hotpot.entities.Restaurants;
 
 public interface IRestaurantService {
 
-	public Long registerRestaurant(RestaurantsDTO restaurantDTO);
+	public int registerRestaurant(RestaurantsDTO restaurantDTO);
 
 	public String loginRestaurant(RestaurantsDTO restaurantDTO);
 
-	public void addMenu(MenuItemsDTO menuDTO);
+	public MenuItems addMenu(MenuItemsDTO menuDTO,int restaurantId);
 
 	public void updateMenu(MenuItemsDTO menuDTO);
 
-	public void deleteMenu(Long menuId);
+	public void deleteMenu(int menuId);
 
 	public List<MenuItems> getMenuByCategory(String category);
 
-	public List<MenuItems> getOrdersByRestaurantId(Long restaurantId);
+	public List<MenuItems> getOrdersByRestaurantId(Restaurants restaurant);
 }

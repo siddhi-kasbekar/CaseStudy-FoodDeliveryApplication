@@ -1,19 +1,14 @@
 package com.hexaware.hotpot.dto;
 
-import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import java.util.Set;
 
 public class MenuItemsDTO {
 
 	private Long menuitemId;
-
-	private String itemName;
-
-	private String description;
-
-	private String category;
-
+    private String itemName;
+    private String description;
+    private String category;
+   
 	private Double price;
 
 	private String availabilityTime;
@@ -138,5 +133,6 @@ public class MenuItemsDTO {
 
 	
 	
+
 	
 }

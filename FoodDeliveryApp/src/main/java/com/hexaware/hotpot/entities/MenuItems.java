@@ -4,7 +4,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
@@ -14,194 +17,189 @@ import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-
 @Entity
 public class MenuItems {
-	
 
-	    @Id
-	    private Long menuitemId;
+	@Id
 
-	    @NotBlank(message = "Item name is required")
-	    private String itemName;
+	@Column(name = "MenuItemID")
+	private Long menuitemId;
 
-	    private String description;
+	@NotBlank(message = "Item name is required")
+	private String itemName;
 
-	    @NotBlank(message = "Category is required")
-	    private String category;
+	private String description;
 
-	    @NotNull(message = "Price is required")
-	    @DecimalMin(value = "0.01", message = "Price must be greater than 0")
-	    private Double price;
+	@NotBlank(message = "Category is required")
+	private String category;
 
-	    private String availabilityTime;
+	@NotNull(message = "Price is required")
+	@DecimalMin(value = "0.01", message = "Price must be greater than 0")
+	private Double price;
 
-	    private String specialDietaryInfo;
+	private String availabilityTime;
 
-	    private String tasteInfo;
+	private String specialDietaryInfo;
 
-	    private String nutritionalInfo;
+	private String tasteInfo;
 
-	    private Integer cookingTime;
+	private String nutritionalInfo;
 
-	    
-	    @ManyToOne(cascade = CascadeType.ALL)
-	    @JoinColumn(name = "RestaurantID")
-	    private Restaurants restaurant;
-	    
-	    @OneToMany(mappedBy = "menuItem",cascade = CascadeType.ALL)
-	    private Set<OrderDetails> orderDetailsSet = new HashSet<OrderDetails>();
-	    
-		@ManyToOne(cascade = CascadeType.ALL)
-	    @JoinColumn(name = "CartID")
-	    private Cart cart;
-		
-		@ManyToMany(mappedBy = "menuItems")
-	    private Set<Orders> orders = new HashSet<>();
+	private Integer cookingTime;
 
-		public MenuItems() {
-			super();
-		}
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "RestaurantID")
+	private Restaurants restaurant;
 
-		public MenuItems(Long menuitemId, String itemName, String description, String category, Double price,
-				String availabilityTime, String specialDietaryInfo, String tasteInfo, String nutritionalInfo,
-				Integer cookingTime) {
-			super();
-			this.menuitemId = menuitemId;
-			this.itemName = itemName;
-			this.description = description;
-			this.category = category;
-			this.price = price;
-			this.availabilityTime = availabilityTime;
-			this.specialDietaryInfo = specialDietaryInfo;
-			this.tasteInfo = tasteInfo;
-			this.nutritionalInfo = nutritionalInfo;
-			this.cookingTime = cookingTime;
-		}
+	@OneToMany(mappedBy = "menuItem", cascade = CascadeType.ALL)
+	private Set<OrderDetails> orderDetailsSet = new HashSet<OrderDetails>();
 
-		public Long getMenuitemId() {
-			return menuitemId;
-		}
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "CartID")
+	private Cart cart;
 
-		public void setMenuitemId(Long menuitemId) {
-			this.menuitemId = menuitemId;
-		}
+	@ManyToMany(mappedBy = "menuItems")
+	private Set<Orders> orders = new HashSet<>();
 
-		public String getItemName() {
-			return itemName;
-		}
+	public MenuItems() {
+		super();
+	}
 
-		public void setItemName(String itemName) {
-			this.itemName = itemName;
-		}
+	public MenuItems(Long menuitemId, String itemName, String description, String category, Double price,
+			String availabilityTime, String specialDietaryInfo, String tasteInfo, String nutritionalInfo,
+			Integer cookingTime) {
+		super();
+		this.menuitemId = menuitemId;
+		this.itemName = itemName;
+		this.description = description;
+		this.category = category;
+		this.price = price;
+		this.availabilityTime = availabilityTime;
+		this.specialDietaryInfo = specialDietaryInfo;
+		this.tasteInfo = tasteInfo;
+		this.nutritionalInfo = nutritionalInfo;
+		this.cookingTime = cookingTime;
+	}
 
-		public String getDescription() {
-			return description;
-		}
+	public Long getMenuitemId() {
+		return menuitemId;
+	}
 
-		public void setDescription(String description) {
-			this.description = description;
-		}
+	public void setMenuitemId(Long menuitemId) {
+		this.menuitemId = menuitemId;
+	}
 
-		public String getCategory() {
-			return category;
-		}
+	public String getItemName() {
+		return itemName;
+	}
 
-		public void setCategory(String category) {
-			this.category = category;
-		}
+	public void setItemName(String itemName) {
+		this.itemName = itemName;
+	}
 
-		public Double getPrice() {
-			return price;
-		}
+	public String getDescription() {
+		return description;
+	}
 
-		public void setPrice(Double price) {
-			this.price = price;
-		}
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-		public String getAvailabilityTime() {
-			return availabilityTime;
-		}
+	public String getCategory() {
+		return category;
+	}
 
-		public void setAvailabilityTime(String availabilityTime) {
-			this.availabilityTime = availabilityTime;
-		}
+	public void setCategory(String category) {
+		this.category = category;
+	}
 
-		public String getSpecialDietaryInfo() {
-			return specialDietaryInfo;
-		}
+	public Double getPrice() {
+		return price;
+	}
 
-		public void setSpecialDietaryInfo(String specialDietaryInfo) {
-			this.specialDietaryInfo = specialDietaryInfo;
-		}
+	public void setPrice(Double price) {
+		this.price = price;
+	}
 
-		public String getTasteInfo() {
-			return tasteInfo;
-		}
+	public String getAvailabilityTime() {
+		return availabilityTime;
+	}
 
-		public void setTasteInfo(String tasteInfo) {
-			this.tasteInfo = tasteInfo;
-		}
+	public void setAvailabilityTime(String availabilityTime) {
+		this.availabilityTime = availabilityTime;
+	}
 
-		public String getNutritionalInfo() {
-			return nutritionalInfo;
-		}
+	public String getSpecialDietaryInfo() {
+		return specialDietaryInfo;
+	}
 
-		public void setNutritionalInfo(String nutritionalInfo) {
-			this.nutritionalInfo = nutritionalInfo;
-		}
+	public void setSpecialDietaryInfo(String specialDietaryInfo) {
+		this.specialDietaryInfo = specialDietaryInfo;
+	}
 
-		public Integer getCookingTime() {
-			return cookingTime;
-		}
+	public String getTasteInfo() {
+		return tasteInfo;
+	}
 
-		public void setCookingTime(Integer cookingTime) {
-			this.cookingTime = cookingTime;
-		}
+	public void setTasteInfo(String tasteInfo) {
+		this.tasteInfo = tasteInfo;
+	}
 
-		public Restaurants getRestaurant() {
-			return restaurant;
-		}
+	public String getNutritionalInfo() {
+		return nutritionalInfo;
+	}
 
-		public void setRestaurant(Restaurants restaurant) {
-			this.restaurant = restaurant;
-		}
+	public void setNutritionalInfo(String nutritionalInfo) {
+		this.nutritionalInfo = nutritionalInfo;
+	}
 
-		public Set<OrderDetails> getOrderDetailsSet() {
-			return orderDetailsSet;
-		}
+	public Integer getCookingTime() {
+		return cookingTime;
+	}
 
-		public void setOrderDetailsSet(Set<OrderDetails> orderDetailsSet) {
-			this.orderDetailsSet = orderDetailsSet;
-		}
+	public void setCookingTime(Integer cookingTime) {
+		this.cookingTime = cookingTime;
+	}
 
-		public Cart getCart() {
-			return cart;
-		}
+	public Restaurants getRestaurant() {
+		return restaurant;
+	}
 
-		public void setCart(Cart cart) {
-			this.cart = cart;
-		}
+	public void setRestaurant(Restaurants restaurant) {
+		this.restaurant = restaurant;
+	}
 
-		public Set<Orders> getOrders() {
-			return orders;
-		}
+	public Set<OrderDetails> getOrderDetailsSet() {
+		return orderDetailsSet;
+	}
 
-		public void setOrders(Set<Orders> orders) {
-			this.orders = orders;
-		}
+	public void setOrderDetailsSet(Set<OrderDetails> orderDetailsSet) {
+		this.orderDetailsSet = orderDetailsSet;
+	}
 
-		@Override
-		public String toString() {
-			return "MenuItems [menuitemId=" + menuitemId + ", itemName=" + itemName + ", description=" + description
-					+ ", category=" + category + ", price=" + price + ", availabilityTime=" + availabilityTime
-					+ ", specialDietaryInfo=" + specialDietaryInfo + ", tasteInfo=" + tasteInfo + ", nutritionalInfo="
-					+ nutritionalInfo + ", cookingTime=" + cookingTime + ", restaurant=" + restaurant
-					+ ", orderDetailsSet=" + orderDetailsSet + ", cart=" + cart + ", orders=" + orders + "]";
-		}
+	public Cart getCart() {
+		return cart;
+	}
 
-		
-		
+	public void setCart(Cart cart) {
+		this.cart = cart;
+	}
 
+	public Set<Orders> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(Set<Orders> orders) {
+		this.orders = orders;
+	}
+
+	@Override
+	public String toString() {
+		return "MenuItems [menuitemId=" + menuitemId + ", itemName=" + itemName + ", description=" + description
+				+ ", category=" + category + ", price=" + price + ", availabilityTime=" + availabilityTime
+				+ ", specialDietaryInfo=" + specialDietaryInfo + ", tasteInfo=" + tasteInfo + ", nutritionalInfo="
+				+ nutritionalInfo + ", cookingTime=" + cookingTime + ", restaurant=" + restaurant + ", orderDetailsSet="
+				+ orderDetailsSet + ", cart=" + cart + ", orders=" + orders + "]";
+	}
 
 }

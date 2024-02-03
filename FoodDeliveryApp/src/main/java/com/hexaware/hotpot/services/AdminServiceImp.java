@@ -6,13 +6,18 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import org.springframework.stereotype.Service;
+
 import com.hexaware.hotpot.dto.AdminDTO;
 import com.hexaware.hotpot.dto.CustomersDTO;
+
+
 import com.hexaware.hotpot.dto.DeliveryAddressDTO;
 import com.hexaware.hotpot.dto.MenuItemsDTO;
 import com.hexaware.hotpot.dto.RestaurantsDTO;
 import com.hexaware.hotpot.entities.Customers;
 import com.hexaware.hotpot.entities.DeliveryAddress;
+
 import com.hexaware.hotpot.entities.MenuItems;
 import com.hexaware.hotpot.entities.Orders;
 import com.hexaware.hotpot.entities.Restaurants;
@@ -22,6 +27,7 @@ import com.hexaware.hotpot.repository.OrdersRepository;
 import com.hexaware.hotpot.repository.RestaurantsRepository;
 
 import jakarta.transaction.Transactional;
+
 
 @Service
 @Transactional

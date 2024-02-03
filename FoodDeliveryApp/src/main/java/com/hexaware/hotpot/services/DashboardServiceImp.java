@@ -1,8 +1,11 @@
 package com.hexaware.hotpot.services;
 
+import org.springframework.stereotype.Service;
+
 import com.hexaware.hotpot.entities.Customers;
 import com.hexaware.hotpot.entities.Restaurants;
 
+@Service
 public class DashboardServiceImp implements IDashboardService {
 
 	@Override

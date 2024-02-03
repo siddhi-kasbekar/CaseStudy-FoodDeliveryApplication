@@ -2,12 +2,15 @@ package com.hexaware.hotpot.entities;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
@@ -21,10 +24,11 @@ public class Orders {
 	
 	@Id
     @Column(name = "OrderID")
+	
     private int orderId;
 	
 	@Column(name = "OrderDate",columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    private Timestamp orderDate;
+    private LocalDateTime orderDate;
 
 	@NotNull(message = "Total cost is required")
     @Column(name = "TotalCost", nullable = false)
@@ -34,9 +38,9 @@ public class Orders {
     @Column(name = "Status")
     private String status;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "CartID")
-    private Cart cart;
+//	@ManyToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "CartID")
+//    private Cart cart;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "custID")
@@ -53,14 +57,14 @@ public class Orders {
 		super();
 	}
 
-	public Orders(int orderId, Timestamp orderDate, BigDecimal totalCost, String status, Cart cart, Customers customer,
+	public Orders(int orderId, LocalDateTime orderDate, BigDecimal totalCost, String status,  Customers customer,
 			Restaurants restaurant, Set<MenuItems> menuItems) {
 		super();
 		this.orderId = orderId;
 		this.orderDate = orderDate;
 		this.totalCost = totalCost;
 		this.status = status;
-		this.cart = cart;
+		//this.cart = cart;
 		this.customer = customer;
 		this.restaurant = restaurant;
 		this.menuItems = menuItems;
@@ -74,11 +78,11 @@ public class Orders {
 		this.orderId = orderId;
 	}
 
-	public Timestamp getOrderDate() {
+	public LocalDateTime getOrderDate() {
 		return orderDate;
 	}
 
-	public void setOrderDate(Timestamp orderDate) {
+	public void setOrderDate(LocalDateTime orderDate) {
 		this.orderDate = orderDate;
 	}
 
@@ -98,13 +102,13 @@ public class Orders {
 		this.status = status;
 	}
 
-	public Cart getCart() {
-		return cart;
-	}
-
-	public void setCart(Cart cart) {
-		this.cart = cart;
-	}
+//	public Cart getCart() {
+//		return cart;
+//	}
+//
+//	public void setCart(Cart cart) {
+//		this.cart = cart;
+//	}
 
 	public Customers getCustomer() {
 		return customer;
@@ -133,7 +137,7 @@ public class Orders {
 	@Override
 	public String toString() {
 		return "Orders [orderId=" + orderId + ", orderDate=" + orderDate + ", totalCost=" + totalCost + ", status="
-				+ status + ", cart=" + cart + ", customer=" + customer + ", restaurant=" + restaurant + ", menuItems="
+				+ status +  ", customer=" + customer + ", restaurant=" + restaurant + ", menuItems="
 				+ menuItems + "]";
 	}
 	

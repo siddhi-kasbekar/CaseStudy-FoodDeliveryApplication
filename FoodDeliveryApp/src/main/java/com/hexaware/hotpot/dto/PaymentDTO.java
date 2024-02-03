@@ -16,68 +16,87 @@ import jakarta.validation.constraints.NotNull;
 public class PaymentDTO {
 
 	private int paymentId;
+    private int customerId; 
+    private int cartId; 
+    private Timestamp paymentDate;
+    private BigDecimal amount;
+    private String paymentMethod;
+    private String transactionID;
 
-	private Timestamp paymentDate;
+    public PaymentDTO() {
+    	super();
+    }
 
-	private BigDecimal amount;
+    public PaymentDTO(int paymentId, int customerId, int cartId, Timestamp paymentDate, BigDecimal amount,
+            String paymentMethod, String transactionID) {
+       
+    	super();
+    	this.paymentId = paymentId;
+        this.customerId = customerId;
+        this.cartId = cartId;
+        this.paymentDate = paymentDate;
+        this.amount = amount;
+        this.paymentMethod = paymentMethod;
+        this.transactionID = transactionID;
+    }
 
-	private String paymentMethod;
+   
 
-	private String transactionID;
+    public int getPaymentId() {
+        return paymentId;
+    }
 
-	public PaymentDTO() {
-		super();
-	}
+    public void setPaymentId(int paymentId) {
+        this.paymentId = paymentId;
+    }
 
-	public PaymentDTO(int paymentId, Timestamp paymentDate, BigDecimal amount, String paymentMethod,
-			String transactionID) {
-		super();
-		this.paymentId = paymentId;
-		this.paymentDate = paymentDate;
-		this.amount = amount;
-		this.paymentMethod = paymentMethod;
-		this.transactionID = transactionID;
-	}
+    public int getCustomerId() {
+        return customerId;
+    }
 
-	public int getPaymentId() {
-		return paymentId;
-	}
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
+    }
 
-	public void setPaymentId(int paymentId) {
-		this.paymentId = paymentId;
-	}
+    public int getCartId() {
+        return cartId;
+    }
 
-	public Timestamp getPaymentDate() {
-		return paymentDate;
-	}
+    public void setCartId(int cartId) {
+        this.cartId = cartId;
+    }
 
-	public void setPaymentDate(Timestamp paymentDate) {
-		this.paymentDate = paymentDate;
-	}
+    public Timestamp getPaymentDate() {
+        return paymentDate;
+    }
 
-	public BigDecimal getAmount() {
-		return amount;
-	}
+    public void setPaymentDate(Timestamp paymentDate) {
+        this.paymentDate = paymentDate;
+    }
 
-	public void setAmount(BigDecimal amount) {
-		this.amount = amount;
-	}
+    public BigDecimal getAmount() {
+        return amount;
+    }
 
-	public String getPaymentMethod() {
-		return paymentMethod;
-	}
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
+    }
 
-	public void setPaymentMethod(String paymentMethod) {
-		this.paymentMethod = paymentMethod;
-	}
+    public String getPaymentMethod() {
+        return paymentMethod;
+    }
 
-	public String getTransactionID() {
-		return transactionID;
-	}
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
 
-	public void setTransactionID(String transactionID) {
-		this.transactionID = transactionID;
-	}
+    public String getTransactionID() {
+        return transactionID;
+    }
+
+    public void setTransactionID(String transactionID) {
+        this.transactionID = transactionID;
+    }
 	
 	
 }
