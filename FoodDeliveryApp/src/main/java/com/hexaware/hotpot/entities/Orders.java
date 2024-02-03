@@ -2,12 +2,15 @@ package com.hexaware.hotpot.entities;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
@@ -21,10 +24,11 @@ public class Orders {
 	
 	@Id
     @Column(name = "OrderID")
+	@GeneratedValue(strategy = GenerationType.AUTO)
     private int orderId;
 	
 	@Column(name = "OrderDate",columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    private Timestamp orderDate;
+    private LocalDateTime orderDate;
 
 	@NotNull(message = "Total cost is required")
     @Column(name = "TotalCost", nullable = false)
@@ -53,7 +57,7 @@ public class Orders {
 		super();
 	}
 
-	public Orders(int orderId, Timestamp orderDate, BigDecimal totalCost, String status, Cart cart, Customers customer,
+	public Orders(int orderId, LocalDateTime orderDate, BigDecimal totalCost, String status, Cart cart, Customers customer,
 			Restaurants restaurant, Set<MenuItems> menuItems) {
 		super();
 		this.orderId = orderId;
@@ -74,11 +78,11 @@ public class Orders {
 		this.orderId = orderId;
 	}
 
-	public Timestamp getOrderDate() {
+	public LocalDateTime getOrderDate() {
 		return orderDate;
 	}
 
-	public void setOrderDate(Timestamp orderDate) {
+	public void setOrderDate(LocalDateTime orderDate) {
 		this.orderDate = orderDate;
 	}
 

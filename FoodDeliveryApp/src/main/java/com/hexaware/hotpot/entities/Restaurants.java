@@ -4,7 +4,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
@@ -17,6 +20,8 @@ import jakarta.validation.constraints.Pattern;
 public class Restaurants {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="RestaurantID")
     private int restaurantId;
     
     @NotBlank(message = "Name is required")
@@ -31,8 +36,8 @@ public class Restaurants {
     @NotNull(message = "Rating is required")
     private Double rating = 0.0;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "resId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy="restaurant") //restaurant
+    //@JoinColumn(name = "resId")
 	private Set<MenuItems> menuItemSet = new HashSet<MenuItems>(); // collections should be initialized to avoid nullPoitner Escep
 
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)

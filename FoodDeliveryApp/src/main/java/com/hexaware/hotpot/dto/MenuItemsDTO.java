@@ -1,132 +1,161 @@
 package com.hexaware.hotpot.dto;
 
-import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import java.util.Set;
 
 public class MenuItemsDTO {
 
 	private Long menuitemId;
+    private String itemName;
+    private String description;
+    private String category;
+    private Double price;
+    private String availabilityTime;
+    private String specialDietaryInfo;
+    private String tasteInfo;
+    private String nutritionalInfo;
+    private Integer cookingTime;
+    private int restaurantId; 
+    private Set<Integer> orderDetailsIds; 
+    private int cartId;
+    private Set<Integer> orderIds; 
 
-	private String itemName;
+    public MenuItemsDTO() {
+    	super();
+    }
 
-	private String description;
+    public MenuItemsDTO(Long menuitemId, String itemName, String description, String category, Double price,
+            String availabilityTime, String specialDietaryInfo, String tasteInfo, String nutritionalInfo,
+            Integer cookingTime, int restaurantId, Set<Integer> orderDetailsIds, int cartId, Set<Integer> orderIds) {
+        
+    	super();
+    	this.menuitemId = menuitemId;
+        this.itemName = itemName;
+        this.description = description;
+        this.category = category;
+        this.price = price;
+        this.availabilityTime = availabilityTime;
+        this.specialDietaryInfo = specialDietaryInfo;
+        this.tasteInfo = tasteInfo;
+        this.nutritionalInfo = nutritionalInfo;
+        this.cookingTime = cookingTime;
+        this.restaurantId = restaurantId;
+        this.orderDetailsIds = orderDetailsIds;
+        this.cartId = cartId;
+        this.orderIds = orderIds;
+    }
 
-	private String category;
+    // Getter and Setter methods
 
-	private Double price;
+    public Long getMenuitemId() {
+        return menuitemId;
+    }
 
-	private String availabilityTime;
+    public void setMenuitemId(Long menuitemId) {
+        this.menuitemId = menuitemId;
+    }
 
-	private String specialDietaryInfo;
+    public String getItemName() {
+        return itemName;
+    }
 
-	private String tasteInfo;
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
+    }
 
-	private String nutritionalInfo;
+    public String getDescription() {
+        return description;
+    }
 
-	private Integer cookingTime;
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public MenuItemsDTO() {
-		super();
-	}
+    public String getCategory() {
+        return category;
+    }
 
-	public MenuItemsDTO(Long menuitemId, String itemName, String description, String category, Double price,
-			String availabilityTime, String specialDietaryInfo, String tasteInfo, String nutritionalInfo,
-			Integer cookingTime) {
-		super();
-		this.menuitemId = menuitemId;
-		this.itemName = itemName;
-		this.description = description;
-		this.category = category;
-		this.price = price;
-		this.availabilityTime = availabilityTime;
-		this.specialDietaryInfo = specialDietaryInfo;
-		this.tasteInfo = tasteInfo;
-		this.nutritionalInfo = nutritionalInfo;
-		this.cookingTime = cookingTime;
-	}
+    public void setCategory(String category) {
+        this.category = category;
+    }
 
-	public Long getMenuitemId() {
-		return menuitemId;
-	}
+    public Double getPrice() {
+        return price;
+    }
 
-	public void setMenuitemId(Long menuitemId) {
-		this.menuitemId = menuitemId;
-	}
+    public void setPrice(Double price) {
+        this.price = price;
+    }
 
-	public String getItemName() {
-		return itemName;
-	}
+    public String getAvailabilityTime() {
+        return availabilityTime;
+    }
 
-	public void setItemName(String itemName) {
-		this.itemName = itemName;
-	}
+    public void setAvailabilityTime(String availabilityTime) {
+        this.availabilityTime = availabilityTime;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public String getSpecialDietaryInfo() {
+        return specialDietaryInfo;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public void setSpecialDietaryInfo(String specialDietaryInfo) {
+        this.specialDietaryInfo = specialDietaryInfo;
+    }
 
-	public String getCategory() {
-		return category;
-	}
+    public String getTasteInfo() {
+        return tasteInfo;
+    }
 
-	public void setCategory(String category) {
-		this.category = category;
-	}
+    public void setTasteInfo(String tasteInfo) {
+        this.tasteInfo = tasteInfo;
+    }
 
-	public Double getPrice() {
-		return price;
-	}
+    public String getNutritionalInfo() {
+        return nutritionalInfo;
+    }
 
-	public void setPrice(Double price) {
-		this.price = price;
-	}
+    public void setNutritionalInfo(String nutritionalInfo) {
+        this.nutritionalInfo = nutritionalInfo;
+    }
 
-	public String getAvailabilityTime() {
-		return availabilityTime;
-	}
+    public Integer getCookingTime() {
+        return cookingTime;
+    }
 
-	public void setAvailabilityTime(String availabilityTime) {
-		this.availabilityTime = availabilityTime;
-	}
+    public void setCookingTime(Integer cookingTime) {
+        this.cookingTime = cookingTime;
+    }
 
-	public String getSpecialDietaryInfo() {
-		return specialDietaryInfo;
-	}
+    public int getRestaurantId() {
+        return restaurantId;
+    }
 
-	public void setSpecialDietaryInfo(String specialDietaryInfo) {
-		this.specialDietaryInfo = specialDietaryInfo;
-	}
+    public void setRestaurantId(int restaurantId) {
+        this.restaurantId = restaurantId;
+    }
 
-	public String getTasteInfo() {
-		return tasteInfo;
-	}
+    public Set<Integer> getOrderDetailsIds() {
+        return orderDetailsIds;
+    }
 
-	public void setTasteInfo(String tasteInfo) {
-		this.tasteInfo = tasteInfo;
-	}
+    public void setOrderDetailsIds(Set<Integer> orderDetailsIds) {
+        this.orderDetailsIds = orderDetailsIds;
+    }
 
-	public String getNutritionalInfo() {
-		return nutritionalInfo;
-	}
+    public int getCartId() {
+        return cartId;
+    }
 
-	public void setNutritionalInfo(String nutritionalInfo) {
-		this.nutritionalInfo = nutritionalInfo;
-	}
+    public void setCartId(int cartId) {
+        this.cartId = cartId;
+    }
 
-	public Integer getCookingTime() {
-		return cookingTime;
-	}
+    public Set<Integer> getOrderIds() {
+        return orderIds;
+    }
 
-	public void setCookingTime(Integer cookingTime) {
-		this.cookingTime = cookingTime;
-	}
-
-	
-	
+    public void setOrderIds(Set<Integer> orderIds) {
+        this.orderIds = orderIds;
+    }
 	
 }

@@ -9,68 +9,97 @@ import jakarta.validation.constraints.Pattern;
 public class RestaurantsDTO {
 
 	private int restaurantId;
+    private String name;
+    private String location;
+    private String contactNumber;
+    private Double rating;
+    private Set<Integer> menuItemIds; 
+    private Set<Integer> orderIds; 
+    private Set<Integer> discountIds;
 
-	private String name;
+    public RestaurantsDTO() {
+    	super();
+    }
 
-	private String location;
+    public RestaurantsDTO(int restaurantId, String name, String location, String contactNumber, Double rating,
+            Set<Integer> menuItemIds, Set<Integer> orderIds, Set<Integer> discountIds) {
+        
+    	super();
+    	this.restaurantId = restaurantId;
+        this.name = name;
+        this.location = location;
+        this.contactNumber = contactNumber;
+        this.rating = rating;
+        this.menuItemIds = menuItemIds;
+        this.orderIds = orderIds;
+        this.discountIds = discountIds;
+    }
 
-	private String contactNumber;
+    
 
-	private Double rating = 0.0;
+    public int getRestaurantId() {
+        return restaurantId;
+    }
 
-	public RestaurantsDTO() {
-		super();
-	}
+    public void setRestaurantId(int restaurantId) {
+        this.restaurantId = restaurantId;
+    }
 
-	public RestaurantsDTO(int restaurantId, String name, String location, String contactNumber, Double rating) {
-		super();
-		this.restaurantId = restaurantId;
-		this.name = name;
-		this.location = location;
-		this.contactNumber = contactNumber;
-		this.rating = rating;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public int getRestaurantId() {
-		return restaurantId;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setRestaurantId(int restaurantId) {
-		this.restaurantId = restaurantId;
-	}
+    public String getLocation() {
+        return location;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public void setLocation(String location) {
+        this.location = location;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public String getContactNumber() {
+        return contactNumber;
+    }
 
-	public String getLocation() {
-		return location;
-	}
+    public void setContactNumber(String contactNumber) {
+        this.contactNumber = contactNumber;
+    }
 
-	public void setLocation(String location) {
-		this.location = location;
-	}
+    public Double getRating() {
+        return rating;
+    }
 
-	public String getContactNumber() {
-		return contactNumber;
-	}
+    public void setRating(Double rating) {
+        this.rating = rating;
+    }
 
-	public void setContactNumber(String contactNumber) {
-		this.contactNumber = contactNumber;
-	}
+    public Set<Integer> getMenuItemIds() {
+        return menuItemIds;
+    }
 
-	public Double getRating() {
-		return rating;
-	}
+    public void setMenuItemIds(Set<Integer> menuItemIds) {
+        this.menuItemIds = menuItemIds;
+    }
 
-	public void setRating(Double rating) {
-		this.rating = rating;
-	}
-	
+    public Set<Integer> getOrderIds() {
+        return orderIds;
+    }
+
+    public void setOrderIds(Set<Integer> orderIds) {
+        this.orderIds = orderIds;
+    }
+
+    public Set<Integer> getDiscountIds() {
+        return discountIds;
+    }
+
+    public void setDiscountIds(Set<Integer> discountIds) {
+        this.discountIds = discountIds;
+    }
 	
 
 }

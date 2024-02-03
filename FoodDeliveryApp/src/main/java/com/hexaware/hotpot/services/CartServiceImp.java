@@ -2,8 +2,11 @@ package com.hexaware.hotpot.services;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.hexaware.hotpot.entities.Cart;
 
+@Service
 public class CartServiceImp implements ICartService {
 
 	@Override

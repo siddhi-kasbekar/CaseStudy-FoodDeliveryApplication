@@ -5,7 +5,7 @@ import com.hexaware.hotpot.entities.Orders;
 
 public interface IOrderService {
 
-	public Long placeOrder(OrdersDTO orderDTO);
+	public void placeOrder(OrdersDTO orderDTO);
 
 	public Orders getOrderById(Long orderId);
 

@@ -2,14 +2,17 @@ package com.hexaware.hotpot.services;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.hexaware.hotpot.dto.AdminDTO;
 import com.hexaware.hotpot.dto.CustomersDTO;
-import com.hexaware.hotpot.entities.Administrator;
-import com.hexaware.hotpot.entities.Customers;
+import com.hexaware.hotpot.dto.MenuItemsDTO;
+import com.hexaware.hotpot.dto.RestaurantsDTO;
 import com.hexaware.hotpot.entities.MenuItems;
 import com.hexaware.hotpot.entities.Orders;
 import com.hexaware.hotpot.entities.Restaurants;
 
+@Service
 public class AdminServiceImp implements IAdminService {
 
 	

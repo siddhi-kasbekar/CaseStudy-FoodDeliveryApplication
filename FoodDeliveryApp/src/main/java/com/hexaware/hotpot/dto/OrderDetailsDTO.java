@@ -10,35 +10,56 @@ import jakarta.validation.constraints.NotNull;
 
 public class OrderDetailsDTO {
 
-	 private int orderDetailId;
+	private int orderDetailId;
+	private int orderId;
+	private int menuItemId;
+	private int quantity;
 
-	    private int quantity;
+	public OrderDetailsDTO() {
+		super();
+	}
 
-		public OrderDetailsDTO() {
-			super();
-		}
+	public OrderDetailsDTO(int orderDetailId, int orderId, int menuItemId, int quantity) {
+		
+		super();
+		this.orderDetailId = orderDetailId;
+		this.orderId = orderId;
+		this.menuItemId = menuItemId;
+		this.quantity = quantity;
+	}
 
-		public OrderDetailsDTO(int orderDetailId, int quantity) {
-			super();
-			this.orderDetailId = orderDetailId;
-			this.quantity = quantity;
-		}
+	
 
-		public int getOrderDetailId() {
-			return orderDetailId;
-		}
+	public int getOrderDetailId() {
+		return orderDetailId;
+	}
 
-		public void setOrderDetailId(int orderDetailId) {
-			this.orderDetailId = orderDetailId;
-		}
+	public void setOrderDetailId(int orderDetailId) {
+		this.orderDetailId = orderDetailId;
+	}
 
-		public int getQuantity() {
-			return quantity;
-		}
+	public int getOrderId() {
+		return orderId;
+	}
 
-		public void setQuantity(int quantity) {
-			this.quantity = quantity;
-		}
+	public void setOrderId(int orderId) {
+		this.orderId = orderId;
+	}
 
-    
+	public int getMenuItemId() {
+		return menuItemId;
+	}
+
+	public void setMenuItemId(int menuItemId) {
+		this.menuItemId = menuItemId;
+	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
 }

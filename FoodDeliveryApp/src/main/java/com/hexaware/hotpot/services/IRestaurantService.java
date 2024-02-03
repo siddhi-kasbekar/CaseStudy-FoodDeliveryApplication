@@ -8,7 +8,7 @@ import com.hexaware.hotpot.entities.MenuItems;
 
 public interface IRestaurantService {
 
-	public Long registerRestaurant(RestaurantsDTO restaurantDTO);
+	public int registerRestaurant(RestaurantsDTO restaurantDTO);
 
 	public String loginRestaurant(RestaurantsDTO restaurantDTO);
 
