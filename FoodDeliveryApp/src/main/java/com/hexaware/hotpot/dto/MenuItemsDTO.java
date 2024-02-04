@@ -4,12 +4,12 @@ import java.util.Set;
 
 public class MenuItemsDTO {
 
-	private Long menuitemId;
+	private long menuitemId;
     private String itemName;
     private String description;
     private String category;
    
-	private Double price;
+	private double price;
 
 	private String availabilityTime;
 
@@ -19,7 +19,7 @@ public class MenuItemsDTO {
 
 	private String nutritionalInfo;
 
-	private Integer cookingTime;
+	private int cookingTime;
 	
 	private int restaurantId;
 
@@ -27,9 +27,9 @@ public class MenuItemsDTO {
 		super();
 	}
 
-	public MenuItemsDTO(Long menuitemId, String itemName, String description, String category, Double price,
+	public MenuItemsDTO(long menuitemId, String itemName, String description, String category, double price,
 			String availabilityTime, String specialDietaryInfo, String tasteInfo, String nutritionalInfo,
-			Integer cookingTime) {
+			int cookingTime) {
 		super();
 		this.menuitemId = menuitemId;
 		this.itemName = itemName;
@@ -43,11 +43,11 @@ public class MenuItemsDTO {
 		this.cookingTime = cookingTime;
 	}
 
-	public Long getMenuitemId() {
+	public long getMenuitemId() {
 		return menuitemId;
 	}
 
-	public void setMenuitemId(Long menuitemId) {
+	public void setMenuitemId(long menuitemId) {
 		this.menuitemId = menuitemId;
 	}
 
@@ -79,7 +79,7 @@ public class MenuItemsDTO {
 		return price;
 	}
 
-	public void setPrice(Double price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
 
@@ -115,11 +115,11 @@ public class MenuItemsDTO {
 		this.nutritionalInfo = nutritionalInfo;
 	}
 
-	public Integer getCookingTime() {
+	public int getCookingTime() {
 		return cookingTime;
 	}
 
-	public void setCookingTime(Integer cookingTime) {
+	public void setCookingTime(int cookingTime) {
 		this.cookingTime = cookingTime;
 	}
 
