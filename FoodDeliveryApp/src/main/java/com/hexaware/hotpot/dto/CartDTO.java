@@ -12,6 +12,9 @@ public class CartDTO {
 	
 	private double total;
 	
+	private long menuId;
+	
+	private long customerId;
 	
 
 	public CartDTO() {
@@ -74,6 +77,30 @@ public class CartDTO {
 
 	public void setTotal(double total) {
 		this.total = total;
+	}
+
+
+
+	public Long getMenuId() {
+		return menuId;
+	}
+
+
+
+	public void setMenuId(Long menuId) {
+		this.menuId = menuId;
+	}
+
+
+
+	public long getCustomerId() {
+		return customerId;
+	}
+
+
+
+	public void setCustomerId(long customerId) {
+		this.customerId = customerId;
 	}
 	
 	

@@ -3,11 +3,10 @@ package com.hexaware.hotpot.entities;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
@@ -21,9 +20,7 @@ import jakarta.validation.constraints.NotNull;
 public class MenuItems {
 
 	@Id
-
-	@Column(name = "MenuItemID")
-	private Long menuitemId;
+	private long menuitem_id;
 
 	@NotBlank(message = "Item name is required")
 	private String itemName;
@@ -45,18 +42,20 @@ public class MenuItems {
 
 	private String nutritionalInfo;
 
-	private Integer cookingTime;
+	private int cookingTime;
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "RestaurantID")
+	@JsonIgnore
 	private Restaurants restaurant;
 
 	@OneToMany(mappedBy = "menuItem", cascade = CascadeType.ALL)
 	private Set<OrderDetails> orderDetailsSet = new HashSet<OrderDetails>();
 
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "CartID")
-	private Cart cart;
+	
+	@ManyToOne
+    @JoinColumn(name = "cart_id") 
+    private Cart cart;
 
 	@ManyToMany(mappedBy = "menuItems")
 	private Set<Orders> orders = new HashSet<>();
@@ -65,11 +64,11 @@ public class MenuItems {
 		super();
 	}
 
-	public MenuItems(Long menuitemId, String itemName, String description, String category, Double price,
+	public MenuItems(long menuitemId, String itemName, String description, String category, double price,
 			String availabilityTime, String specialDietaryInfo, String tasteInfo, String nutritionalInfo,
-			Integer cookingTime) {
+			int cookingTime) {
 		super();
-		this.menuitemId = menuitemId;
+		this.menuitem_id = menuitemId;
 		this.itemName = itemName;
 		this.description = description;
 		this.category = category;
@@ -81,12 +80,12 @@ public class MenuItems {
 		this.cookingTime = cookingTime;
 	}
 
-	public Long getMenuitemId() {
-		return menuitemId;
+	public long getMenuitemId() {
+		return menuitem_id;
 	}
 
-	public void setMenuitemId(Long menuitemId) {
-		this.menuitemId = menuitemId;
+	public void setMenuitemId(long menuitemId) {
+		this.menuitem_id = menuitemId;
 	}
 
 	public String getItemName() {
@@ -113,11 +112,11 @@ public class MenuItems {
 		this.category = category;
 	}
 
-	public Double getPrice() {
+	public double getPrice() {
 		return price;
 	}
 
-	public void setPrice(Double price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
 
@@ -157,7 +156,7 @@ public class MenuItems {
 		return cookingTime;
 	}
 
-	public void setCookingTime(Integer cookingTime) {
+	public void setCookingTime(int cookingTime) {
 		this.cookingTime = cookingTime;
 	}
 
@@ -177,13 +176,7 @@ public class MenuItems {
 		this.orderDetailsSet = orderDetailsSet;
 	}
 
-	public Cart getCart() {
-		return cart;
-	}
-
-	public void setCart(Cart cart) {
-		this.cart = cart;
-	}
+	
 
 	public Set<Orders> getOrders() {
 		return orders;
@@ -195,11 +188,11 @@ public class MenuItems {
 
 	@Override
 	public String toString() {
-		return "MenuItems [menuitemId=" + menuitemId + ", itemName=" + itemName + ", description=" + description
+		return "MenuItems [menuitemId=" + menuitem_id + ", itemName=" + itemName + ", description=" + description
 				+ ", category=" + category + ", price=" + price + ", availabilityTime=" + availabilityTime
 				+ ", specialDietaryInfo=" + specialDietaryInfo + ", tasteInfo=" + tasteInfo + ", nutritionalInfo="
 				+ nutritionalInfo + ", cookingTime=" + cookingTime + ", restaurant=" + restaurant + ", orderDetailsSet="
-				+ orderDetailsSet + ", cart=" + cart + ", orders=" + orders + "]";
+				+ orderDetailsSet +  ", orders=" + orders + "]";
 	}
 
 }

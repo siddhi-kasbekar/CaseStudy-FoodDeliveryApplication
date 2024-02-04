@@ -15,8 +15,7 @@ public interface RestaurantsRepository extends JpaRepository<Restaurants, Intege
 
 	
 
-//	@Modifying
-//	@Query("Delete from MenuItems mi where menuId=?1")
-//	void deleteById(int menuId);
+
+	List<Restaurants> findByLocation(String location);
 
 }
