@@ -33,7 +33,9 @@ public class RestaurantServiceImp implements IRestaurantService {
 		res.setName(restaurant.getName());
 		res.setLocation(restaurant.getLocation());
 		res.setContactNumber(restaurant.getContactNumber());
-		res.setRating(restaurant.getRating());		
+		
+	    res.setRating(restaurant.getRating());
+		
 		
 		return repo.save(res);
 	}
@@ -112,6 +114,12 @@ public class RestaurantServiceImp implements IRestaurantService {
 	public List<MenuItems> getOrdersByRestaurantId(Restaurants restaurant) {
 		
 		return null;// mrepo.findByRestaurantId(restaurant);
+	}
+
+	@Override
+	public List<Restaurants> searchRestaurants(String keyword) {
+		
+		return repo.findByNameContainingIgnoreCase(keyword);
 	}
 
 }

@@ -25,6 +25,6 @@ public class MenuItemsController {
 
 	@GetMapping("/getbykeyword/{keyword}")
 	public List<MenuItems> searchMenuItems(@PathVariable String keyword){
-		return service.searchMenuItems(keyword);
+		return service.searchMenuItemsByKeyword(keyword);
 	}
 }

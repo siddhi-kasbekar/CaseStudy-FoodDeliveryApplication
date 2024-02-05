@@ -8,7 +8,7 @@ import jakarta.validation.constraints.Pattern;
 
 public class RestaurantsDTO {
 
-	private int restaurantId;
+	private int restaurant_id;
     private String name;
     private String location;
     private String contactNumber;
@@ -25,7 +25,7 @@ public class RestaurantsDTO {
             Set<Integer> menuItemIds, Set<Integer> orderIds, Set<Integer> discountIds) {
         
     	super();
-    	this.restaurantId = restaurantId;
+    	this.restaurant_id = restaurantId;
         this.name = name;
         this.location = location;
         this.contactNumber = contactNumber;
@@ -38,11 +38,11 @@ public class RestaurantsDTO {
     
 
     public int getRestaurantId() {
-        return restaurantId;
+        return restaurant_id;
     }
 
     public void setRestaurantId(int restaurantId) {
-        this.restaurantId = restaurantId;
+        this.restaurant_id = restaurantId;
     }
 
     public String getName() {

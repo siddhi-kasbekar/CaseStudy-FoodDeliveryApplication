@@ -19,10 +19,12 @@ import jakarta.validation.constraints.Pattern;
 @Entity
 public class Restaurants {
 
+
    
 	 @Id
     @Column(name="RestaurantID")
-    private int restaurantId;
+    private int restaurant_id;
+
     
     @NotNull(message = "Name is required")
     private String name;
@@ -35,13 +37,11 @@ public class Restaurants {
     private String contactNumber;
 
     @NotNull(message = "Rating is required")
-    private Double rating = 0.0;
+    private double rating =0.0;
 
 
-    
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "restaurant")
-
 	private Set<MenuItems> menuItemSet = new HashSet<MenuItems>(); // collections should be initialized to avoid nullPoitner Escep
 
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
@@ -54,9 +54,9 @@ public class Restaurants {
 		super();
 	}
 
-	public Restaurants(int restaurantId, String name, String location, String contactNumber, Double rating) {
+	public Restaurants(int restaurantId, String name, String location, String contactNumber, double rating) {
 		super();
-		this.restaurantId = restaurantId;
+		this.restaurant_id = restaurantId;
 		this.name = name;
 		this.location = location;
 		this.contactNumber = contactNumber;
@@ -64,11 +64,11 @@ public class Restaurants {
 	}
 
 	public int getRestaurantId() {
-		return restaurantId;
+		return restaurant_id;
 	}
 
 	public void setRestaurantId(int restaurantId) {
-		this.restaurantId = restaurantId;
+		this.restaurant_id = restaurantId;
 	}
 
 	public String getName() {
@@ -95,11 +95,11 @@ public class Restaurants {
 		this.contactNumber = contactNumber;
 	}
 
-	public Double getRating() {
+	public double getRating() {
 		return rating;
 	}
 
-	public void setRating(Double rating) {
+	public void setRating(double rating) {
 		this.rating = rating;
 	}
 
@@ -129,11 +129,11 @@ public class Restaurants {
 
 	@Override
 	public String toString() {
-		return "Restaurants [restaurantId=" + restaurantId + ", name=" + name + ", location=" + location
-				+ ", contactNumber=" + contactNumber + ", rating=" + rating + ", menuItemSet=" + menuItemSet
-				+ ", orderSet=" + orderSet + ", discountSet=" + discountSet + "]";
+		return "Restaurants [restaurant_id=" + restaurant_id + ", name=" + name + ", location=" + location
+				+ ", contactNumber=" + contactNumber + ", rating=" + rating + "]";
 	}
-    
+
+	
     
 
 

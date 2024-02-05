@@ -30,9 +30,8 @@ public class Cart {
 	    private Customers customer;
 
 
-	 @OneToMany(mappedBy = "cart",cascade = CascadeType.ALL)
-	    private Set<MenuItems> menuItemSet =  new HashSet<MenuItems>();;
-
+	 @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
+	 private Set<MenuItems> menuItemSet = new HashSet<MenuItems>();
 //	    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
 //	    private Set<Orders> orderSet = new HashSet<Orders>();
 	    
@@ -115,6 +114,8 @@ public class Cart {
 		public void setPaymentSet(Set<Payment> paymentSet) {
 			this.paymentSet = paymentSet;
 		}
+
+		
 	    
 	    
 	    

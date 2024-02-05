@@ -33,7 +33,7 @@ public class Orders {
 
 	@NotNull(message = "Total cost is required")
     @Column(name = "TotalCost", nullable = false)
-    private BigDecimal totalCost;
+    private double totalCost;
 
 	@NotBlank(message = "Status is required")
     @Column(name = "Status")
@@ -60,7 +60,7 @@ public class Orders {
 		super();
 	}
 
-	public Orders(int orderId, LocalDateTime orderDate, BigDecimal totalCost, String status,  Customers customer,
+	public Orders(int orderId, LocalDateTime orderDate, double totalCost, String status,  Customers customer,
 			Restaurants restaurant, Set<MenuItems> menuItems) {
 		super();
 		this.orderId = orderId;
@@ -89,11 +89,11 @@ public class Orders {
 		this.orderDate = orderDate;
 	}
 
-	public BigDecimal getTotalCost() {
+	public double getTotalCost() {
 		return totalCost;
 	}
 
-	public void setTotalCost(BigDecimal totalCost) {
+	public void setTotalCost(double totalCost) {
 		this.totalCost = totalCost;
 	}
 
