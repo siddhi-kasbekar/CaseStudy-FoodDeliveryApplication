@@ -26,7 +26,7 @@ public class RestaurantController {
 	IRestaurantService service ;
 	
 	@PostMapping("/register")
-	public String registerRestaurant(RestaurantsDTO restaurantDTO) {
+	public String registerRestaurant(@RequestBody RestaurantsDTO restaurantDTO) {
 		 service.registerRestaurant(restaurantDTO);
 		 return "restaurant registerd successfully";
 	}
@@ -63,4 +63,8 @@ public class RestaurantController {
 		return service.getOrdersByRestaurantId(restaurant);
 	}
 	
+	@GetMapping("/getrestaurant/{keyword}")
+	public List<Restaurants> searchRestaurants(@PathVariable String keyword){
+		return service.searchRestaurants(keyword);
+	}
 }

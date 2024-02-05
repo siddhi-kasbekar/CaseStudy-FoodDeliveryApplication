@@ -48,6 +48,13 @@ public class MenuItemsDTO {
 		return menuitemId;
 	}
 
+
+
+	
+
+
+    
+
 	public void setMenuitemId(long menuitemId) {
 		this.menuitemId = menuitemId;
 	}
@@ -55,6 +62,7 @@ public class MenuItemsDTO {
 	public String getItemName() {
 		return itemName;
 	}
+
 
 	public void setItemName(String itemName) {
 		this.itemName = itemName;
@@ -115,6 +123,7 @@ public class MenuItemsDTO {
 	public void setNutritionalInfo(String nutritionalInfo) {
 		this.nutritionalInfo = nutritionalInfo;
 	}
+
 
 	public int getCookingTime() {
 		return cookingTime;

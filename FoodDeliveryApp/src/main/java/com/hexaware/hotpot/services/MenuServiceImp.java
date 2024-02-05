@@ -24,7 +24,7 @@ public class MenuServiceImp implements IMenuService {
 	}
 
 	@Override
-	public List<MenuItems> searchMenuItems(String keyword) {
+	public List<MenuItems> searchMenuItemsByKeyword(String keyword) {
 		
 		return repo.findByItemNameContainingIgnoreCase(keyword);
 	}

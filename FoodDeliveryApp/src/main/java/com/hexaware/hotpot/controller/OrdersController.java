@@ -1,5 +1,7 @@
 package com.hexaware.hotpot.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,6 +37,11 @@ public class OrdersController {
 	@PutMapping("/update/{orderId}/{status}")
 	public String updateOrderStatus(@PathVariable int orderId,@PathVariable String status) {
 		service.updateOrderStatus(orderId, status);
-		return "status updated successfully";
+		return service.updateOrderStatus(orderId, status);
+	}
+	
+	@GetMapping("/viewhistory/{customerId}")
+	public List<Orders> viewOrderHistory(@PathVariable int customerId){
+		return service.viewOrderHistory(customerId);
 	}
 }
