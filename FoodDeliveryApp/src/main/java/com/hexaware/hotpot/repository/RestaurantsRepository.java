@@ -18,6 +18,8 @@ public interface RestaurantsRepository extends JpaRepository<Restaurants, Intege
 
 	List<Restaurants> findByLocation(String location);
 
+
 	List<Restaurants> findByNameContainingIgnoreCase(String keyword);
+
 
 }

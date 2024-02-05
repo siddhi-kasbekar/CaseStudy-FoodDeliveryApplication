@@ -11,6 +11,7 @@ public class MenuItemsDTO {
    
 	private double price;
 
+
 	private String availabilityTime;
 
 	private String specialDietaryInfo;
@@ -122,6 +123,7 @@ public class MenuItemsDTO {
 	public void setNutritionalInfo(String nutritionalInfo) {
 		this.nutritionalInfo = nutritionalInfo;
 	}
+
 
 	public int getCookingTime() {
 		return cookingTime;
