@@ -19,8 +19,11 @@ import jakarta.validation.constraints.Pattern;
 @Entity
 public class Restaurants {
 
+
+    @Column(name="RestaurantID")  
     @Id
     private int restaurant_id;
+
     
     @NotNull(message = "Name is required")
     private String name;
@@ -34,6 +37,7 @@ public class Restaurants {
 
     @NotNull(message = "Rating is required")
     private double rating = 0.0;
+
 
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "restaurant")

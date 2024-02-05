@@ -19,7 +19,6 @@ public class Payment {
 	
 	@Id
     @Column(name = "PaymentID")
-	
     private int paymentId;
 
 

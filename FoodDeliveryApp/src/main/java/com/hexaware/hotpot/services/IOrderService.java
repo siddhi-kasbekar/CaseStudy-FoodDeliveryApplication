@@ -5,9 +5,9 @@ import com.hexaware.hotpot.entities.Orders;
 
 public interface IOrderService {
 
-	public void placeOrder(OrdersDTO orderDTO);
+	public Orders placeOrder(OrdersDTO orderDTO);
 
 	public Orders getOrderById(int orderId);
 
-	public void updateOrderStatus(int orderId, String status);
+	public void updateOrderStatus(int orderId,String status);
 }

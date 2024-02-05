@@ -1,10 +1,11 @@
 package com.hexaware.hotpot.entities;
 
 import java.math.BigDecimal;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -22,13 +23,13 @@ import jakarta.validation.constraints.NotNull;
 @Entity
 public class Orders {
 	
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
     @Column(name = "OrderID")
-	
     private int orderId;
 	
-	@Column(name = "OrderDate",columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    private LocalDateTime orderDate;
+	@Column(name = "OrderDate")
+    private LocalDateTime orderDate;  //format for json, "2024-02-04T10:30:00"
 
 	@NotNull(message = "Total cost is required")
     @Column(name = "TotalCost", nullable = false)
@@ -42,10 +43,12 @@ public class Orders {
 //    @JoinColumn(name = "CartID")
 //    private Cart cart;
 	
+	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "custID")
     private Customers customer;
 	
+	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "resId")
     private Restaurants restaurant;

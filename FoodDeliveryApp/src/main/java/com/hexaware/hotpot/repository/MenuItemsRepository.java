@@ -15,6 +15,10 @@ public interface MenuItemsRepository extends JpaRepository<MenuItems, Long> {
 
 	List<MenuItems> findByItemNameContainingIgnoreCase(String keyword);
 
+	//List<MenuItems> findByRestaurantId(Restaurants restaurant);
+
+	
+
 	//List<MenuItems> findByMenuItemsCategory(String category);
 
 	//List<MenuItems> findByMenuItemsRestaurantId(int restaurantId);

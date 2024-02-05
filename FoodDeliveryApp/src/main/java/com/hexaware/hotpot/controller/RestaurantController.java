@@ -26,8 +26,9 @@ public class RestaurantController {
 	IRestaurantService service ;
 	
 	@PostMapping("/register")
-	public int registerRestaurant(RestaurantsDTO restaurantDTO) {
-		return service.registerRestaurant(restaurantDTO);
+	public String registerRestaurant(RestaurantsDTO restaurantDTO) {
+		 service.registerRestaurant(restaurantDTO);
+		 return "restaurant registerd successfully";
 	}
 
 //	public String loginRestaurant(RestaurantsDTO restaurantDTO) {

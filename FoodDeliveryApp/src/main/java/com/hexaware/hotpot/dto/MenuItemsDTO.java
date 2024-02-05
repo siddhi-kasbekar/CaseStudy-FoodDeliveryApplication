@@ -11,6 +11,7 @@ public class MenuItemsDTO {
    
 	private double price;
 
+
 	private String availabilityTime;
 
 	private String specialDietaryInfo;
@@ -133,6 +134,7 @@ public class MenuItemsDTO {
 
 	
 	
+
 
 	
 }

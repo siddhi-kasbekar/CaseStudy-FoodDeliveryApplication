@@ -19,8 +19,11 @@ import jakarta.validation.constraints.NotNull;
 @Entity
 public class MenuItems {
 
+	
 	@Id
+	@Column(name = "MenuItemID")
 	private long menuitem_id;
+
 
 	@NotBlank(message = "Item name is required")
 	private String itemName;
@@ -44,6 +47,7 @@ public class MenuItems {
 
 	private int cookingTime;
 
+	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "RestaurantID")
 	@JsonIgnore
@@ -57,6 +61,7 @@ public class MenuItems {
     @JoinColumn(name = "cart_id") 
     private Cart cart;
 
+	@JsonIgnore
 	@ManyToMany(mappedBy = "menuItems")
 	private Set<Orders> orders = new HashSet<>();
 

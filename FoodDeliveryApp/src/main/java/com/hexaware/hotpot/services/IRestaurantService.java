@@ -9,7 +9,7 @@ import com.hexaware.hotpot.entities.Restaurants;
 
 public interface IRestaurantService {
 
-	public int registerRestaurant(RestaurantsDTO restaurantDTO);
+	public Restaurants registerRestaurant(RestaurantsDTO restaurantDTO);
 
 	public String loginRestaurant(RestaurantsDTO restaurantDTO);
 
