@@ -33,7 +33,8 @@ public class OrdersController {
 	}
 
 	@PutMapping("/update/{orderId}/{status}")
-	public void updateOrderStatus(@PathVariable Long orderId,@PathVariable String status) {
-		
+	public String updateOrderStatus(@PathVariable int orderId,@PathVariable String status) {
+		service.updateOrderStatus(orderId, status);
+		return "status updated successfully";
 	}
 }

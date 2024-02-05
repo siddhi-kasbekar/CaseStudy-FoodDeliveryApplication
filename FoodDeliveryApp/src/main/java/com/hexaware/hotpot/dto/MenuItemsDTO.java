@@ -67,9 +67,13 @@ public class MenuItemsDTO {
         return description;
     }
 
+
     public void setDescription(String description) {
         this.description = description;
     }
+
+	
+
 
     public String getCategory() {
         return category;
@@ -155,8 +159,8 @@ public class MenuItemsDTO {
         return orderIds;
     }
 
-    public void setOrderIds(Set<Integer> orderIds) {
-        this.orderIds = orderIds;
-    }
+
+	
+	
 	
 }

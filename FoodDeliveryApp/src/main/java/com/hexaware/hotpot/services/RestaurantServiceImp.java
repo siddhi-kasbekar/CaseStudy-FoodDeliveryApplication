@@ -27,16 +27,15 @@ public class RestaurantServiceImp implements IRestaurantService {
 	MenuItemsRepository mrepo;
 	
 	@Override
-	public int registerRestaurant(RestaurantsDTO restaurantDTO) {
+	public Restaurants registerRestaurant(RestaurantsDTO restaurant) {
+		Restaurants res = new Restaurants();
+		res.setRestaurantId(restaurant.getRestaurantId());
+		res.setName(restaurant.getName());
+		res.setLocation(restaurant.getLocation());
+		res.setContactNumber(restaurant.getContactNumber());
+		res.setRating(restaurant.getRating());		
 		
-		Restaurants restaurant = new Restaurants();
-        restaurant.setName(restaurantDTO.getName());
-        restaurant.setLocation(restaurantDTO.getLocation());
-        restaurant.setContactNumber(restaurantDTO.getContactNumber());
-        
-
-        Restaurants savedRestaurant = repo.save(restaurant);
-        return savedRestaurant.getRestaurantId();
+		return repo.save(res);
 	}
 
 	@Override
@@ -112,7 +111,7 @@ public class RestaurantServiceImp implements IRestaurantService {
 	@Override
 	public List<MenuItems> getOrdersByRestaurantId(Restaurants restaurant) {
 		
-		return  null;                           //mrepo.findByMenuItemsRestaurantId(restaurant);
+		return null;// mrepo.findByRestaurantId(restaurant);
 	}
 
 }

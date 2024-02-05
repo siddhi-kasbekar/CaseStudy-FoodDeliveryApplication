@@ -3,11 +3,11 @@ package com.hexaware.hotpot.entities;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
@@ -20,8 +20,8 @@ import jakarta.validation.constraints.NotNull;
 @Entity
 public class MenuItems {
 
+	
 	@Id
-
 	@Column(name = "MenuItemID")
 	private Long menuitemId;
 
@@ -47,6 +47,7 @@ public class MenuItems {
 
 	private Integer cookingTime;
 
+	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "RestaurantID")
 	private Restaurants restaurant;
@@ -58,6 +59,7 @@ public class MenuItems {
 	@JoinColumn(name = "CartID")
 	private Cart cart;
 
+	@JsonIgnore
 	@ManyToMany(mappedBy = "menuItems")
 	private Set<Orders> orders = new HashSet<>();
 

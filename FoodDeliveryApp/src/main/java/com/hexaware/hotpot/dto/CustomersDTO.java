@@ -4,7 +4,7 @@ package com.hexaware.hotpot.dto;
 
 public class CustomersDTO {
 
-	private int custId;
+	private long custId;
 
 	private String custName;
 	
@@ -17,12 +17,16 @@ public class CustomersDTO {
 	 private String username;
 	 
 	private String password;
+	
+	private DeliveryAddressDTO addressDTO;
+
+	
 
 	public CustomersDTO() {
 		super();
 	}
 
-	public CustomersDTO(int custId, String custName, String gender, String email, String phone, String username,
+	public CustomersDTO(long custId, String custName, String gender, String email, String phone, String username,
 			String password) {
 		super();
 		this.custId = custId;
@@ -34,11 +38,11 @@ public class CustomersDTO {
 		this.password = password;
 	}
 
-	public int getCustId() {
+	public long getCustId() {
 		return custId;
 	}
 
-	public void setCustId(int custId) {
+	public void setCustId(long custId) {
 		this.custId = custId;
 	}
 
@@ -90,5 +94,13 @@ public class CustomersDTO {
 		this.password = password;
 	}
 	
+	
+	public DeliveryAddressDTO getAddressDTO() {
+		return addressDTO;
+	}
+
+	public void setAddressDTO(DeliveryAddressDTO addressDTO) {
+		this.addressDTO = addressDTO;
+	}
 	
 }

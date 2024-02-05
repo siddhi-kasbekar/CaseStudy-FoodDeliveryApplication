@@ -1,9 +1,12 @@
 package com.hexaware.hotpot.dto;
 
 import java.math.BigDecimal;
-import java.security.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Set;
+
+import com.hexaware.hotpot.entities.Cart;
+import com.hexaware.hotpot.entities.Customers;
+import com.hexaware.hotpot.entities.Restaurants;
 
 public class OrdersDTO {
 
@@ -11,17 +14,17 @@ public class OrdersDTO {
 	private LocalDateTime orderDate;
 	private BigDecimal totalCost;
 	private String status;
-	private int cartId;
-	private int customerId;
-	private int restaurantId;
+	private Cart cartId;
+	private Customers customerId;
+	private Restaurants restaurantId;
 	private Set<Integer> menuItemIds;
 
 	public OrdersDTO() {
 		super();
 	}
 
-	public OrdersDTO(int orderId, LocalDateTime orderDate, BigDecimal totalCost, String status, int cartId, int customerId,
-			int restaurantId, Set<Integer> menuItemIds) {
+	public OrdersDTO(int orderId, LocalDateTime orderDate, BigDecimal totalCost, String status, Cart cartId, Customers customerId,
+			Restaurants restaurantId, Set<Integer> menuItemIds) {
 		
 		super();
 		this.orderId = orderId;
@@ -67,27 +70,27 @@ public class OrdersDTO {
 		this.status = status;
 	}
 
-	public int getCartId() {
+	public Cart getCartId() {
 		return cartId;
 	}
 
-	public void setCartId(int cartId) {
+	public void setCartId(Cart cartId) {
 		this.cartId = cartId;
 	}
 
-	public int getCustomerId() {
+	public Customers getCustomerId() {
 		return customerId;
 	}
 
-	public void setCustomerId(int customerId) {
+	public void setCustomerId(Customers customerId) {
 		this.customerId = customerId;
 	}
 
-	public int getRestaurantId() {
+	public Restaurants getRestaurantId() {
 		return restaurantId;
 	}
 
-	public void setRestaurantId(int restaurantId) {
+	public void setRestaurantId(Restaurants restaurantId) {
 		this.restaurantId = restaurantId;
 	}
 

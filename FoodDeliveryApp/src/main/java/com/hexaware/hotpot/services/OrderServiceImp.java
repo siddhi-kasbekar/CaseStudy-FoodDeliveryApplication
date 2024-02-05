@@ -17,17 +17,18 @@ public class OrderServiceImp implements IOrderService {
 	OrdersRepository repo;
 	
 	@Override
-	public void placeOrder(OrdersDTO orderDTO) {
-//		 Orders order = new Orders();
-//	        order.setOrderDate(orderDTO.getOrderDate());
-//	        order.setTotalCost(orderDTO.getTotalCost());
-//	        order.setStatus(orderDTO.getStatus());
-//	        order.setCart(orderDTO.getCartId());  // Assuming there is a setCartId method in the Orders entity
-//	        order.setCustomerId(orderDTO.getCustomerId());
-//	        order.setRestaurantId(orderDTO.getRestaurantId());
-//
-//	        Orders savedOrder = repo.save(order);
-//	        return savedOrder.getOrderId();
+	public Orders placeOrder(OrdersDTO orderDTO) {
+		 Orders order = new Orders();
+		    //orderDTO.setOrderId(orderDTO.getOrderId());
+	        order.setOrderDate(orderDTO.getOrderDate());
+	        order.setTotalCost(orderDTO.getTotalCost());
+	        order.setStatus(orderDTO.getStatus());
+	        //order.setCart(orderDTO.getCartId());  // Assuming there is a setCartId method in the Orders entity
+	        order.setCustomer(orderDTO.getCustomerId());
+	        order.setRestaurant(orderDTO.getRestaurantId());
+
+	         return repo.save(order);
+	       
 		
 	}
 
