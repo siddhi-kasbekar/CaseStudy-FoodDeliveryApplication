@@ -26,10 +26,10 @@ public interface IAdminService {
 	public List<Restaurants> getAllRestaurants();
 
 	public List<Orders> getAllOrders();
+	
+	public List<Customers> getAllCustomers();
 
-	public Customers addCustomers(CustomersDTO customerDTO);
 	public MenuItems addMenuItem(MenuItemsDTO menuItemDTO,int restaurantId);
 	
-	public void removeCustomers(Long customerId);
 	public void removeMenuItems(Long menuItemId);
 }

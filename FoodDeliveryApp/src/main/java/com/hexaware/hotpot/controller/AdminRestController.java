@@ -57,18 +57,13 @@ public class AdminRestController {
 	public List<Orders> getAllOrders() {
 		return adminservice.getAllOrders();
 	}
-
-	@PostMapping("/addCutomer")
-	public String addCustomers(@RequestBody CustomersDTO customerDTO) {
-		Customers customer = adminservice.addCustomers(customerDTO);
-		
-		if(customer != null) {
-			return "customer added successfully ";
-		}
-		else {
-			return "failed to add customer ";
-		}
+	
+	@GetMapping("/getAllCustomers")
+	public List<Customers> getAllCustomers() {
+		return adminservice.getAllCustomers();
 	}
+
+
 
 	@PostMapping("/addMenuItem/{restaurantId}")
 	public String addMenuItem(@RequestBody MenuItemsDTO menuItemDTO,@PathVariable int restaurantId) {
@@ -82,11 +77,7 @@ public class AdminRestController {
 
 	}
 	
-	@DeleteMapping("/removeCustomers/{customerId}")
-    public String removeCustomers(@PathVariable Long customerId) {
-        adminservice.removeCustomers(customerId);
-        return "Customer removed successfully";
-    }
+	
 
     @DeleteMapping("/removeMenuItems/{menuItemId}")
     public String removeMenuItems(@PathVariable Long menuItemId) {

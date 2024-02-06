@@ -1,16 +1,21 @@
 package com.hexaware.hotpot.services;
 
+
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.hexaware.hotpot.dto.CartDTO;
 import com.hexaware.hotpot.entities.Cart;
+import com.hexaware.hotpot.entities.CartMenuItems;
 import com.hexaware.hotpot.entities.Customers;
+import com.hexaware.hotpot.entities.MenuItems;
+import com.hexaware.hotpot.repository.CartMenuitemsRepository;
 import com.hexaware.hotpot.repository.CartRepository;
 import com.hexaware.hotpot.repository.CustomersRepository;
+import com.hexaware.hotpot.repository.MenuItemsRepository;
+
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class CartServiceImp implements ICartService {
@@ -21,67 +26,102 @@ public class CartServiceImp implements ICartService {
 	@Autowired
 	private CustomersRepository customerRepo;
 	
+	@Autowired
+    private MenuItemsRepository menuItemsRepo;
+	
+	@Autowired
+    private CartMenuitemsRepository cartMenuItemsRepo;
 
-	@Override
-	public int addToCart(Long customerId, Long menuId, int quantity) {
-		
-//	    Optional<Customers> customerOptional = customerRepo.findById(customerId);
-//	    if (customerOptional.isPresent()) {
-//	        Customers customer = customerOptional.get();
+	
+
+
+
+
+
+//	@Override
+//	public void removeFromCart(long customerId, long menuItemId) {
+//        Customers customer = customerRepo.findById(customerId)
+//                .orElseThrow(() -> new EntityNotFoundException("Customer not found with id: " + customerId));
 //
-//	        // Check if the item already exists in the cart
-//	        Cart existingCartItem = cartRepository.findByCustomer_CustIdAndMenuItemSet_Menuitem_id(customerId, menuId);
+//        MenuItems menuItem = menuItemsRepo.findById(menuItemId)
+//                .orElseThrow(() -> new EntityNotFoundException("Menu item not found with id: " + menuItemId));
 //
-//	        if (existingCartItem != null) {
-//	            // If the item exists, update quantity
-//	            existingCartItem.setQuantity(existingCartItem.getQuantity() + quantity);
-//	            Cart updatedCartItem = cartRepository.save(existingCartItem);
-//	            return updatedCartItem.getCartId();
-//	        }
-//	        else {
-//	            // Create a new cart item
-//	        	CartDTO cartDTO = new CartDTO();
-//	            cartDTO.setCustomerId(customerId);
-//	            cartDTO.setMenuId(menuId);
-//	            cartDTO.setQuantity(quantity);
-//	            
-//	            Cart newCartItem = new Cart();
-//	            newCartItem.setCustomerId(customerId);
-//	            newCartItem.setMenuId(menuId);
-//	            newCartItem.setQuantity(quantity);
-//	            
-//	            newCartItem = cartRepository.save(newCartItem);
-//	            
-//	            return newCartItem.getCartId();
-//
-//
-//	        }
-//	    }
-		return 0;
+//        if (customer.getCart().getMenuItemSet().contains(menuItem)) {
+//            customer.getCart().getMenuItemSet().remove(menuItem);
+//            
+//            
+//            
+//         // Set the quantity to 0
+//            customer.getCart().setQuantity(0);
+//            updateCartTotal(customer.getCart());
+//            cartRepository.save(customer.getCart());
+//        }
+//    }
 
-	}
-
-	@Override
-	public void removeFromCart(long customerId, long menuId) {
-		Cart cartItem = cartRepository.findByCustomer_CustIdAndMenuItemSet_Menuitem_id(customerId, menuId);
-
-        if (cartItem != null) {
-            cartRepository.deleteById(cartItem.getCartId());
-        }
-		
-
-	}
-
-	@Override
-	public void updateCartQuantity(Long customerId, Long menuId, int newQuantity) {
-		
-
-	}
+	
 
 	@Override
 	public List<Cart> getCartItems(Long customerId) {
 		
 		return cartRepository.findByCustomer_CustId(customerId);
+	}
+
+
+
+	@Override
+	public void addToCart(long customerId, long menuItemId, int quantity) {
+        Customers customer = customerRepo.findById(customerId)
+                .orElseThrow(() -> new EntityNotFoundException("Customer not found with id: " + customerId));
+
+        MenuItems menuItem = menuItemsRepo.findById(menuItemId)
+                .orElseThrow(() -> new EntityNotFoundException("Menu item not found with id: " + menuItemId));
+
+        Cart cart = customer.getCart();
+
+        CartMenuItems existingCartItem = findCartItemByMenuItem(cart, menuItem);
+
+        if (existingCartItem != null) {
+            existingCartItem.setQuantity(existingCartItem.getQuantity() + quantity);
+        } else {
+            CartMenuItems cartItem = new CartMenuItems(cart, menuItem, quantity);
+            cart.getCartMenuItems().add(cartItem);
+        }
+
+        updateCartTotal(cart);
+
+        cartRepository.save(cart);
+
+        cartMenuItemsRepo.saveAll(cart.getCartMenuItems());
+    }
+
+    private CartMenuItems findCartItemByMenuItem(Cart cart, MenuItems menuItem) {
+        for (CartMenuItems cartItem : cart.getCartMenuItems()) {
+            if (cartItem.getMenuItems().equals(menuItem)) {
+                return cartItem;
+            }
+        }
+        return null;
+    }
+
+    private void updateCartTotal(Cart cart) {
+        double total = 0.0;
+
+        for (CartMenuItems cartItem : cart.getCartMenuItems()) {
+            total += cartItem.getMenuItems().getPrice() * cartItem.getQuantity();
+        }
+
+        cart.setTotal(total);
+
+
+		
+	}
+
+
+
+	@Override
+	public void removeFromCart(long customerId, long menuId) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

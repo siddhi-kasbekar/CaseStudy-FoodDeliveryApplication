@@ -57,6 +57,7 @@ public final class Customers {
 
 	public Customers() {
 		super();
+		this.cart = new Cart();
 	}
 
 	public Customers(long custId, String custName, String gender, String email, String phone, String username,
@@ -72,6 +73,7 @@ public final class Customers {
 		this.address = address;
 	}
 
+	
 	public long getCustId() {
 		return custId;
 	}
@@ -134,6 +136,15 @@ public final class Customers {
 
 	public void setAddress(DeliveryAddress address) {
 		this.address = address;
+	}
+
+	
+	public Cart getCart() {
+		return cart;
+	}
+
+	public void setCart(Cart cart) {
+		this.cart = cart;
 	}
 
 	@Override
