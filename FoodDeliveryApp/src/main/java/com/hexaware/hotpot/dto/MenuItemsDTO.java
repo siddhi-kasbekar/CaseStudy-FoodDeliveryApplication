@@ -13,6 +13,7 @@ public class MenuItemsDTO {
 
 	private String availabilityTime;
 
+
 	private String specialDietaryInfo;
 
 	private String tasteInfo;
@@ -26,6 +27,7 @@ public class MenuItemsDTO {
 	public MenuItemsDTO() {
 		super();
 	}
+
 
 	public MenuItemsDTO(long menuitemId, String itemName, String description, String category, double price,
 			String availabilityTime, String specialDietaryInfo, String tasteInfo, String nutritionalInfo,
@@ -46,13 +48,6 @@ public class MenuItemsDTO {
 	public long getMenuitemId() {
 		return menuitemId;
 	}
-
-
-
-	
-
-
-    
 
 	public void setMenuitemId(long menuitemId) {
 		this.menuitemId = menuitemId;
