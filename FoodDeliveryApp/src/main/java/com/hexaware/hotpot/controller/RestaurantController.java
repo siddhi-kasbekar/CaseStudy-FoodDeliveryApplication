@@ -67,4 +67,11 @@ public class RestaurantController {
 	public List<Restaurants> searchRestaurants(@PathVariable String keyword){
 		return service.searchRestaurants(keyword);
 	}
+	
+	@GetMapping("/serachbylocation/{location}")
+	public List<Restaurants> searchByLocation(String location){
+		
+		return service.searchByLocation(location);
+		
+	}
 }
