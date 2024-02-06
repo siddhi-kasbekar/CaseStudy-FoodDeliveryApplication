@@ -12,7 +12,7 @@ public class OrdersDTO {
 
 	private int orderId;
 	private LocalDateTime orderDate;
-	private BigDecimal totalCost;
+	private double totalCost;
 	private String status;
 	private Cart cartId;
 	private Customers customerId;
@@ -23,7 +23,7 @@ public class OrdersDTO {
 		super();
 	}
 
-	public OrdersDTO(int orderId, LocalDateTime orderDate, BigDecimal totalCost, String status, Cart cartId, Customers customerId,
+	public OrdersDTO(int orderId, LocalDateTime orderDate, double totalCost, String status, Cart cartId, Customers customerId,
 			Restaurants restaurantId, Set<Integer> menuItemIds) {
 		
 		super();
@@ -54,11 +54,11 @@ public class OrdersDTO {
 		this.orderDate = orderDate;
 	}
 
-	public BigDecimal getTotalCost() {
+	public double getTotalCost() {
 		return totalCost;
 	}
 
-	public void setTotalCost(BigDecimal totalCost) {
+	public void setTotalCost(double totalCost) {
 		this.totalCost = totalCost;
 	}
 

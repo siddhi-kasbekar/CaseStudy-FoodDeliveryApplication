@@ -8,5 +8,5 @@ public interface IMenuService {
 
 	public List<MenuItems> getMenuByCategory(String category);
 
-	public List<MenuItems> searchMenuItems(String keyword);
+	public List<MenuItems> searchMenuItemsByKeyword(String keyword);
 }

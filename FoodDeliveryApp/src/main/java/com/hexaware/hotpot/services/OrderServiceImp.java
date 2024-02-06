@@ -1,5 +1,7 @@
 package com.hexaware.hotpot.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,13 +41,20 @@ public class OrderServiceImp implements IOrderService {
 	}
 
 	@Override
-	public void updateOrderStatus(int orderId, String status) {
+	public String updateOrderStatus(int orderId, String status) {
 		
 		Orders order = repo.findById(orderId);
 		if (order != null) {
             order.setStatus(status);
             repo.saveAndFlush(order);
         }
+		return "order updated";
+	}
+
+	@Override
+	public List<Orders> viewOrderHistory(int customerId) {
+		
+		return repo.findByCustomerCustId(customerId);
 	}
 
 }

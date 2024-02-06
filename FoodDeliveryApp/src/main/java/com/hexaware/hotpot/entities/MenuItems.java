@@ -46,6 +46,7 @@ public class MenuItems {
 
 	private int cookingTime;
 
+
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "RestaurantID")
 	@JsonIgnore

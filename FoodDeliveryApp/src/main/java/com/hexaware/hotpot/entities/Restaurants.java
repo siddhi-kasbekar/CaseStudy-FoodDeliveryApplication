@@ -20,7 +20,9 @@ import jakarta.validation.constraints.Pattern;
 public class Restaurants {
 
 
+
     @Id
+
     private int restaurant_id;
 
     
@@ -35,7 +37,11 @@ public class Restaurants {
     private String contactNumber;
 
     @NotNull(message = "Rating is required")
-    private double rating = 0.0;
+
+    private double rating =0.0;
+
+   
+
 
 
 
