@@ -102,34 +102,13 @@ public class AdminServiceImp implements IAdminService {
 		
 		return orderRepository.findAll();
 	}
-
+	
 	@Override
-	public Customers addCustomers(CustomersDTO customerDTO) {
-		
-		Customers customer = new Customers();
-		customer.setCustId(customerDTO.getCustId());
-		customer.setCustName(customerDTO.getCustName());
-		customer.setGender(customerDTO.getGender());
-		customer.setEmail(customerDTO.getEmail());
-		customer.setPhone(customerDTO.getPhone());
-		customer.setUsername(customerDTO.getUsername());
-		customer.setPassword(customerDTO.getPassword());
-		
-		DeliveryAddressDTO addressDTO = customerDTO.getAddressDTO();
-	    if (addressDTO != null) {
-	        DeliveryAddress address = new DeliveryAddress();
-	        address.setAddressId(addressDTO.getAddressId());
-	        address.setHouseNo(addressDTO.getHouseNo());
-	        address.setArea(addressDTO.getArea());
-	        address.setLandmark(addressDTO.getLandmark());
-	        address.setCity(addressDTO.getCity());
-	        address.setPincode(addressDTO.getPincode());
-
-	        customer.setAddress(address);
-	    }
-		
-		return customersRepository.save(customer);
+	public List<Customers> getAllCustomers() {
+		return customersRepository.findAll();
 	}
+
+	
 
 	@Override
 	public MenuItems addMenuItem(MenuItemsDTO menuItemDTO, int restaurantId) {
@@ -162,15 +141,14 @@ public class AdminServiceImp implements IAdminService {
 	}
 
 
-	@Override
-	public void removeCustomers(Long customerId) {
-		customersRepository.deleteById(customerId);;
-	}
+	
 
 	@Override
 	public void removeMenuItems(Long menuItemId) {
 		menuItemsRepository.deleteById(menuItemId);
 		
 	}
+
+	
 
 }

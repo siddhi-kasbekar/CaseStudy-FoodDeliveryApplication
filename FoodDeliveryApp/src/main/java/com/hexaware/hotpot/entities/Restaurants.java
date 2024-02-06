@@ -21,9 +21,8 @@ public class Restaurants {
 
 
 
-   
-	 @Id
-    @Column(name="RestaurantID")
+    @Id
+
     private int restaurant_id;
 
     
