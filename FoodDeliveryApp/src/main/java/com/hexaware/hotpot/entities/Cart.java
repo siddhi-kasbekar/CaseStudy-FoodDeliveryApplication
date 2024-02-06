@@ -5,8 +5,12 @@ import java.util.Set;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotNull;
@@ -14,13 +18,9 @@ import jakarta.validation.constraints.NotNull;
 @Entity
 public class Cart {
 	@Id
-	private int cartId;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int cart_id;
 	
-	@NotNull(message = "Price is required")
-	private double price;
-	
-	@NotNull(message = "Quantity is required")
-	private int quantity;
 	
 	private double total;
 	
@@ -30,50 +30,37 @@ public class Cart {
 	    private Customers customer;
 
 
-	 @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
-	 private Set<MenuItems> menuItemSet = new HashSet<MenuItems>();
-//	    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
-//	    private Set<Orders> orderSet = new HashSet<Orders>();
+	 @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
+	    private Set<CartMenuItems> cartMenuItems = new HashSet<>();
+
 	    
 	    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
 	    private Set<Payment> paymentSet = new HashSet<Payment>();
+	    
+	    
+	    
 
 		public Cart() {
 			super();
 		}
 
-		public Cart(int cartId, double price, int quantity, double total, Customers customer) {
+		public Cart(int cart_id, double total, Customers customer) {
 			super();
-			this.cartId = cartId;
-			this.price = price;
-			this.quantity = quantity;
+			this.cart_id = cart_id;
+			
 			this.total = total;
 			this.customer = customer;
 		}
 
 		public int getCartId() {
-			return cartId;
+			return cart_id;
 		}
 
-		public void setCartId(int cartId) {
-			this.cartId = cartId;
+		public void setCartId(int cart_id) {
+			this.cart_id = cart_id;
 		}
 
-		public double getPrice() {
-			return price;
-		}
-
-		public void setPrice(double price) {
-			this.price = price;
-		}
-
-		public int getQuantity() {
-			return quantity;
-		}
-
-		public void setQuantity(int quantity) {
-			this.quantity = quantity;
-		}
+		
 
 		public double getTotal() {
 			return total;
@@ -91,21 +78,8 @@ public class Cart {
 			this.customer = customer;
 		}
 
-		public Set<MenuItems> getMenuItemSet() {
-			return menuItemSet;
-		}
+		
 
-		public void setMenuItemSet(Set<MenuItems> menuItemSet) {
-			this.menuItemSet = menuItemSet;
-		}
-//
-//		public Set<Orders> getOrderSet() {
-//			return orderSet;
-//		}
-//
-//		public void setOrderSet(Set<Orders> orderSet) {
-//			this.orderSet = orderSet;
-//		}
 
 		public Set<Payment> getPaymentSet() {
 			return paymentSet;
@@ -115,7 +89,28 @@ public class Cart {
 			this.paymentSet = paymentSet;
 		}
 
+	
+
+		public Set<CartMenuItems> getCartMenuItems() {
+			return cartMenuItems;
+		}
+
+		public void setCartMenuItems(Set<CartMenuItems> cartMenuItems) {
+			this.cartMenuItems = cartMenuItems;
+		}
+
 		
+
+		public void addCartItem(CartMenuItems cartItem) {
+	        cartMenuItems.add(cartItem);
+	        cartItem.setCart(this);
+	    }
+
+	    public void removeCartItem(CartMenuItems cartItem) {
+	        cartMenuItems.remove(cartItem);
+	        cartItem.setCart(null);
+	    }
+
 	    
 	    
 	    

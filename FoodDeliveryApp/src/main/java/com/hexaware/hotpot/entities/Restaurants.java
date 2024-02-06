@@ -20,7 +20,6 @@ import jakarta.validation.constraints.Pattern;
 public class Restaurants {
 
 
-    @Column(name="RestaurantID")  
     @Id
     private int restaurant_id;
 

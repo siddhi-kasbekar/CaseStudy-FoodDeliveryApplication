@@ -21,7 +21,6 @@ public class MenuItems {
 
 	
 	@Id
-	@Column(name = "MenuItemID")
 	private long menuitem_id;
 
 
@@ -47,7 +46,6 @@ public class MenuItems {
 
 	private int cookingTime;
 
-	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "RestaurantID")
 	@JsonIgnore
@@ -57,9 +55,9 @@ public class MenuItems {
 	private Set<OrderDetails> orderDetailsSet = new HashSet<OrderDetails>();
 
 	
-	@ManyToOne
-    @JoinColumn(name = "cart_id") 
-    private Cart cart;
+	@OneToMany(mappedBy = "menuItem")
+    private Set<CartMenuItems> cartMenuItems = new HashSet<>();
+
 
 	@JsonIgnore
 	@ManyToMany(mappedBy = "menuItems")
@@ -190,6 +188,8 @@ public class MenuItems {
 	public void setOrders(Set<Orders> orders) {
 		this.orders = orders;
 	}
+	
+	
 
 	@Override
 	public String toString() {

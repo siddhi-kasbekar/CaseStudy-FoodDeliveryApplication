@@ -39,9 +39,7 @@ public class Orders {
     @Column(name = "Status")
     private String status;
 	
-//	@ManyToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "CartID")
-//    private Cart cart;
+
 	
 	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.ALL)
