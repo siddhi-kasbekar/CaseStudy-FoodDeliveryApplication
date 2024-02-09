@@ -21,7 +21,7 @@ public class Restaurants {
 
 
 
-   
+
 	 @Id
     @Column(name="RestaurantID")
     private int restaurant_id;
@@ -38,7 +38,11 @@ public class Restaurants {
     private String contactNumber;
 
     @NotNull(message = "Rating is required")
+
     private double rating =0.0;
+
+   
+
 
 
 

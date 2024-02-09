@@ -9,38 +9,41 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hexaware.hotpot.dto.OrdersDTO;
 import com.hexaware.hotpot.entities.Orders;
 import com.hexaware.hotpot.services.IOrderService;
 
+import jakarta.validation.Valid;
+
 @RestController
-@RequestMapping("/order")
+@RequestMapping("/api/order")
 public class OrdersController {
 
 	@Autowired
 	IOrderService service;
 	
-	@PostMapping("/placeorder")
-	public String placeOrder(@RequestBody OrdersDTO orderDTO) {
-		service.placeOrder(orderDTO);
+	@PostMapping("/placeOrder")
+	public void placeOrder(@Valid @RequestBody OrdersDTO orderDTO,@RequestParam int cartId,@RequestParam long customerId, @RequestParam List<Long> menuItemIds) {
+		service.placeOrder(orderDTO, cartId, customerId, menuItemIds);
 		
-		return "order placed";
+		
 	}
 
-	@GetMapping("/getbyid/{orderId}")
+	@GetMapping("/getById/{orderId}")
 	public Orders getOrderById(@PathVariable int orderId) {
 		return service.getOrderById(orderId);
 	}
 
 	@PutMapping("/update/{orderId}/{status}")
-	public String updateOrderStatus(@PathVariable int orderId,@PathVariable String status) {
+	public void updateOrderStatus(@PathVariable int orderId,@PathVariable String status) {
 		service.updateOrderStatus(orderId, status);
-		return service.updateOrderStatus(orderId, status);
+		
 	}
 	
-	@GetMapping("/viewhistory/{customerId}")
+	@GetMapping("/viewHistory/{customerId}")
 	public List<Orders> viewOrderHistory(@PathVariable int customerId){
 		return service.viewOrderHistory(customerId);
 	}

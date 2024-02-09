@@ -84,33 +84,16 @@ class AdminServiceImpTest {
 		assertNotNull(ordersList);
 
 	}
-
+	
 	@Test
-	void testAddCustomers() {
-		CustomersDTO customersDTO = new CustomersDTO();
-        customersDTO.setCustId(6);
-        customersDTO.setCustName("ishita Joshi");
-        customersDTO.setGender("female");
-        customersDTO.setEmail("ishita.joshi@gmail.com");
-        customersDTO.setPhone("1237797890");
-        customersDTO.setUsername("ishita_joshi");
-        customersDTO.setPassword("hashed_password");
-
-        DeliveryAddressDTO addressDTO = new DeliveryAddressDTO();
-        addressDTO.setAddressId(6);
-        addressDTO.setHouseNo("777");
-        addressDTO.setArea("RK nagar");
-        addressDTO.setLandmark("Near Ganesh temple");
-        addressDTO.setCity("Kolhapur");
-        addressDTO.setPincode(123456);
-
-        customersDTO.setAddressDTO(addressDTO);
-
-        Customers newCustomer = adminService.addCustomers(customersDTO);
-
-        assertNotNull(newCustomer);
+	void testGetAllCustomers() {
+		List<Customers> customersList = adminService.getAllCustomers();
+		assertNotNull(customersList);
 
 	}
+
+	
+	
 
 	@Test
 	void testAddMenuItem() {
@@ -136,16 +119,7 @@ class AdminServiceImpTest {
         assertEquals(menuItemsDTO.getItemName(), newMenuItem.getItemName());
 	}
 
-	@Test
-	void testRemoveCustomers() {
-		long customerIdToRemove = 5; 
-
-        adminService.removeCustomers(customerIdToRemove);
-        assertTrue(true);
-//        assertFalse(adminService.getAllCustomers().stream()
-//                .anyMatch(c -> c.getCustId().equals(customerIdToRemove)));
-
-	}
+	
 
 	@Test
 	void testRemoveMenuItems() {

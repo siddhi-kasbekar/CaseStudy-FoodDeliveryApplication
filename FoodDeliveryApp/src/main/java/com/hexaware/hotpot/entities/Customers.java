@@ -16,47 +16,48 @@ import jakarta.validation.constraints.Size;
 
 @Entity
 public final class Customers {
-	
+
 	@Id
 	private long custId;
-	
-	@NotBlank(message = "Customer name is required")
-    @Pattern(regexp = "^[a-zA-Z\\s]+$", message = "Customer name should contain only alphabets")
-	private String custName;
-	
-	private String gender;
-	
-	@NotBlank(message = "Email is required")
-    @Email(message = "Invalid email format")
-	private String email;
-	
-	@NotBlank(message = "Phone number is required")
-    @Pattern(regexp = "^[0-9]{10}$", message = "Phone number must be a 10-digit number")
-	private String phone;
-	
-	 @NotBlank(message = "Username is required")
-	 @Pattern(regexp = "^[a-zA-Z0-9_]+$", message = "Username should contain only alphanumeric characters and underscores")
-	private String username;
-	 
-	 @NotBlank(message = "Password is required")
-	 @Size(min = 6, message = "Password must be at least 6 characters long")
-	private String password;
-	
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name= "aid")
-	private DeliveryAddress address;
-	
-	 @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
-	 private Set<Orders> orderSet= new HashSet<>();
-	 
-	 @OneToMany(mappedBy = "customer",cascade = CascadeType.ALL)
-	    private Set<Payment> paymentSet = new HashSet<>(); 
 
-	    @OneToOne(mappedBy = "customer",cascade = CascadeType.ALL)
-	    private Cart cart;
+	@NotBlank(message = "Customer name is required")
+	@Pattern(regexp = "^[a-zA-Z\\s]+$", message = "Customer name should contain only alphabets")
+	private String custName;
+
+	private String gender;
+
+	@NotBlank(message = "Email is required")
+	@Email(message = "Invalid email format")
+	private String email;
+
+	@NotBlank(message = "Phone number is required")
+	@Pattern(regexp = "^[0-9]{10}$", message = "Phone number must be a 10-digit number")
+	private String phone;
+
+	@NotBlank(message = "Username is required")
+	@Pattern(regexp = "^[a-zA-Z0-9_]+$", message = "Username should contain only alphanumeric characters and underscores")
+	private String username;
+
+	@NotBlank(message = "Password is required")
+	@Size(min = 6, message = "Password must be at least 6 characters long")
+	private String password;
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "aid")
+	private DeliveryAddress address;
+
+	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+	private Set<Orders> orderSet = new HashSet<>();
+
+	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+	private Set<Payment> paymentSet = new HashSet<>();
+
+	@OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
+	private Cart cart;
 
 	public Customers() {
 		super();
+		this.cart = new Cart();
 	}
 
 	public Customers(long custId, String custName, String gender, String email, String phone, String username,
@@ -136,17 +137,19 @@ public final class Customers {
 		this.address = address;
 	}
 
+	public Cart getCart() {
+		return cart;
+	}
+
+	public void setCart(Cart cart) {
+		this.cart = cart;
+	}
+
 	@Override
 	public String toString() {
 		return "Customers [custId=" + custId + ", custName=" + custName + ", gender=" + gender + ", email=" + email
 				+ ", phone=" + phone + ", username=" + username + ", password=" + password + ", address=" + address
 				+ "]";
 	}
-	
-	
-	
-	
-	
-	
 
 }

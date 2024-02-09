@@ -6,7 +6,6 @@ import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -22,8 +21,7 @@ public class MenuItems {
 
 	
 	@Id
-	@Column(name = "MenuItemID")
-	private long menuitem_id;
+	private long menuItem_id;
 
 
 	@NotBlank(message = "Item name is required")
@@ -48,7 +46,7 @@ public class MenuItems {
 
 	private int cookingTime;
 
-	
+
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "RestaurantID")
 	@JsonIgnore
@@ -58,9 +56,9 @@ public class MenuItems {
 	private Set<OrderDetails> orderDetailsSet = new HashSet<OrderDetails>();
 
 	
-	@ManyToOne
-    @JoinColumn(name = "cart_id") 
-    private Cart cart;
+	@OneToMany(mappedBy = "menuItem")
+    private Set<CartMenuItems> cartMenuItems = new HashSet<>();
+
 
 	@JsonIgnore
 	@ManyToMany(mappedBy = "menuItems")
@@ -70,11 +68,11 @@ public class MenuItems {
 		super();
 	}
 
-	public MenuItems(long menuitemId, String itemName, String description, String category, double price,
+	public MenuItems(long menuItemId, String itemName, String description, String category, double price,
 			String availabilityTime, String specialDietaryInfo, String tasteInfo, String nutritionalInfo,
 			int cookingTime) {
 		super();
-		this.menuitem_id = menuitemId;
+		this.menuItem_id = menuItemId;
 		this.itemName = itemName;
 		this.description = description;
 		this.category = category;
@@ -87,11 +85,11 @@ public class MenuItems {
 	}
 
 	public long getMenuitemId() {
-		return menuitem_id;
+		return menuItem_id;
 	}
 
 	public void setMenuitemId(long menuitemId) {
-		this.menuitem_id = menuitemId;
+		this.menuItem_id = menuitemId;
 	}
 
 	public String getItemName() {
@@ -191,10 +189,12 @@ public class MenuItems {
 	public void setOrders(Set<Orders> orders) {
 		this.orders = orders;
 	}
+	
+	
 
 	@Override
 	public String toString() {
-		return "MenuItems [menuitemId=" + menuitem_id + ", itemName=" + itemName + ", description=" + description
+		return "MenuItems [menuitemId=" + menuItem_id + ", itemName=" + itemName + ", description=" + description
 				+ ", category=" + category + ", price=" + price + ", availabilityTime=" + availabilityTime
 				+ ", specialDietaryInfo=" + specialDietaryInfo + ", tasteInfo=" + tasteInfo + ", nutritionalInfo="
 				+ nutritionalInfo + ", cookingTime=" + cookingTime + ", restaurant=" + restaurant + ", orderDetailsSet="

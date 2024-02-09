@@ -7,11 +7,11 @@ import com.hexaware.hotpot.entities.Orders;
 
 public interface IOrderService {
 
-	public Orders placeOrder(OrdersDTO orderDTO);
+	public void placeOrder(OrdersDTO orderDTO, int cartId, long customerId, List<Long> menuItemIds);
 
 	public Orders getOrderById(int orderId);
 
-	public String updateOrderStatus(int orderId,String status);
+	public void updateOrderStatus(int orderId,String status);
 	
 	public List<Orders> viewOrderHistory(int customerId);
 	
