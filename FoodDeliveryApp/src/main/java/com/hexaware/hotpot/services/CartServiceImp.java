@@ -53,12 +53,6 @@ public class CartServiceImp implements ICartService {
 
 
 	
-	@Autowired
-    private MenuItemsRepository menuItemsRepo;
-	
-	@Autowired
-    private CartMenuItemsRepository cartMenuItemsRepo
-
 	
 
 	

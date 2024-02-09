@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.hexaware.hotpot.dto.CustomersDTO;
@@ -33,14 +34,10 @@ public class CustomerServiceImp implements ICustomerService {
 	@Autowired
 	private RestaurantsRepository restaurantRepo;
 	
-	@Autowired
-    private CartRepository cartRepository;
 	
-	@Override
-	public String loginCustomer(CustomersDTO customer) {
-		
-		return null;
-	}
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
 
 	@Autowired
@@ -61,9 +58,9 @@ public class CustomerServiceImp implements ICustomerService {
 		customer.setEmail(customerDTO.getEmail());
 		customer.setPhone(customerDTO.getPhone());
 		customer.setUsername(customerDTO.getUsername());
-		customer.setPassword(customerDTO.getPassword());
+		customer.setPassword(passwordEncoder.encode(customerDTO.getPassword()));
 		
-
+		
 		 // Set the role to the predefined value
 	    customer.setRole("customer");
 

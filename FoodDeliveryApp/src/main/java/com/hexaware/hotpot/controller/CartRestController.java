@@ -4,6 +4,7 @@ package com.hexaware.hotpot.controller;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 
 import org.slf4j.Logger;
@@ -36,6 +37,7 @@ public class CartRestController {
 	
 	
 	@PostMapping("/save-cart/{customerId}/{cartId}")
+    @PreAuthorize("hasAuthority('customer')")
 	public Cart saveCartState(@RequestBody Cart cart,@PathVariable long customerId,@PathVariable int cartId) throws CustomerNotFoundException {
 		
 		return cartService.saveCartState(cart,customerId,cartId);
