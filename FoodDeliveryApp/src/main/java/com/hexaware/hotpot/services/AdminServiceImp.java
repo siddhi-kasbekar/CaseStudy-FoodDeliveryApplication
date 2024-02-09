@@ -3,40 +3,29 @@ package com.hexaware.hotpot.services;
 import java.util.List;
 import java.util.Optional;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 
 import com.hexaware.hotpot.dto.AdminDTO;
-import com.hexaware.hotpot.dto.CustomersDTO;
-
-
-
-
-
-import com.hexaware.hotpot.dto.DeliveryAddressDTO;
+import com.hexaware.hotpot.dto.DiscountDTO;
 import com.hexaware.hotpot.dto.MenuItemsDTO;
 import com.hexaware.hotpot.dto.RestaurantsDTO;
 import com.hexaware.hotpot.entities.Customers;
-import com.hexaware.hotpot.entities.DeliveryAddress;
-
+import com.hexaware.hotpot.entities.Discount;
 import com.hexaware.hotpot.entities.MenuItems;
 import com.hexaware.hotpot.entities.Orders;
 import com.hexaware.hotpot.entities.Restaurants;
 import com.hexaware.hotpot.repository.CustomersRepository;
+import com.hexaware.hotpot.repository.DiscountRepository;
 import com.hexaware.hotpot.repository.MenuItemsRepository;
 import com.hexaware.hotpot.repository.OrdersRepository;
 import com.hexaware.hotpot.repository.RestaurantsRepository;
 
-
-
-
 import jakarta.transaction.Transactional;
+
+
+
+
 
 
 
@@ -59,6 +48,9 @@ public class AdminServiceImp implements IAdminService {
 
     @Autowired
     private CustomersRepository customersRepository;
+    
+    @Autowired
+    private DiscountRepository discountRepo;
 
 	
 	@Override
@@ -148,6 +140,25 @@ public class AdminServiceImp implements IAdminService {
 		menuItemsRepository.deleteById(menuItemId);
 		
 	}
+
+
+	@Override
+	public Discount addDiscount(DiscountDTO discountdto) {
+
+		Discount discount = new Discount();
+		discount.setDiscountPercentage(discountdto.getDiscountPercentage());
+		discount.setStartDate(discountdto.getStartDate());
+		discount.setEndDate(discountdto.getEndDate());
+
+		return discountRepo.save(discount);
+	}
+
+	@Override
+	public void removeDiscount(int discountId) {
+
+		discountRepo.deleteById(discountId);
+	}
+
 
 	
 

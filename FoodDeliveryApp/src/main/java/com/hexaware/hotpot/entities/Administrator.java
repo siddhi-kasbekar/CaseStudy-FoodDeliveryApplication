@@ -39,6 +39,8 @@ public class Administrator {
     @Email(message = "Invalid email format")
     @Column(name = "Email", unique = true)
     private String email;
+    
+    private static final String ROLE = "ADMIN";
 
 	public Administrator() {
 		super();

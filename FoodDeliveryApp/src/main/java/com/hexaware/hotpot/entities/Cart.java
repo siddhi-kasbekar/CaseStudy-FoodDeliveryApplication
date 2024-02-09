@@ -3,6 +3,8 @@ package com.hexaware.hotpot.entities;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,81 +20,102 @@ public class Cart {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int cartId;
 
+	
+	
 	private double total;
+	
+	
+	 @OneToOne
+	    @JoinColumn(name = "custid")
+	    private Customers customer;
 
-	@OneToOne
-	@JoinColumn(name = "custId")
-	private Customers customer;
 
-	@OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
-	private Set<CartMenuItems> cartMenuItems = new HashSet<CartMenuItems>();
+	 @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
+	    private Set<CartMenuItems> cartMenuItems = new HashSet<CartMenuItems>();
 
-	@OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
-	private Set<Payment> paymentSet = new HashSet<Payment>();
+	    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
+	    @JsonIgnore // Prevent infinite recursion
+	    private Set<Payment> paymentSet = new HashSet<Payment>();
+	    
 
-	@OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
-	private Set<Orders> orderSet = new HashSet<Orders>();
+		public Cart() {
+			super();
+		}
 
-	public Cart() {
-		super();
-	}
+		public Cart(int cartId, double total, Customers customer) {
+			super();
+			this.cartId = cartId;
+			
+			this.total = total;
+			this.customer = customer;
+		}
 
-	public Cart(int cart_id, double total, Customers customer) {
-		super();
-		this.cartId = cart_id;
+		public int getCartId() {
+			return cartId;
+		}
 
-		this.total = total;
-		this.customer = customer;
-	}
+		public void setCartId(int cartId) {
+			this.cartId = cartId;
+		}
 
-	public int getCartId() {
-		return cartId;
-	}
+		
 
-	public void setCartId(int cart_id) {
-		this.cartId = cart_id;
-	}
+		public double getTotal() {
+			return total;
+		}
 
-	public double getTotal() {
-		return total;
-	}
+		public void setTotal(double total) {
+			this.total = total;
+		}
 
-	public void setTotal(double total) {
-		this.total = total;
-	}
+		public Customers getCustomer() {
+			return customer;
+		}
 
-	public Customers getCustomer() {
-		return customer;
-	}
+		public void setCustomer(Customers customer) {
+			this.customer = customer;
+		}
 
-	public void setCustomer(Customers customer) {
-		this.customer = customer;
-	}
+		
 
-	public Set<Payment> getPaymentSet() {
-		return paymentSet;
-	}
 
-	public void setPaymentSet(Set<Payment> paymentSet) {
-		this.paymentSet = paymentSet;
-	}
+		public Set<Payment> getPaymentSet() {
+			return paymentSet;
+		}
 
-	public Set<CartMenuItems> getCartMenuItems() {
-		return cartMenuItems;
-	}
+		public void setPaymentSet(Set<Payment> paymentSet) {
+			this.paymentSet = paymentSet;
+		}
 
-	public void setCartMenuItems(Set<CartMenuItems> cartMenuItems) {
-		this.cartMenuItems = cartMenuItems;
-	}
+	
 
-	public void addCartItem(CartMenuItems cartItem) {
-		cartMenuItems.add(cartItem);
-		cartItem.setCart(this);
-	}
+		public Set<CartMenuItems> getCartMenuItems() {
+			return cartMenuItems;
+		}
 
-	public void removeCartItem(CartMenuItems cartItem) {
-		cartMenuItems.remove(cartItem);
-		cartItem.setCart(null);
-	}
+		public void setCartMenuItems(Set<CartMenuItems> cartMenuItems) {
+			this.cartMenuItems = cartMenuItems;
+		}
+
+		
+
+		public void addCartItem(CartMenuItems cartItem) {
+	        cartMenuItems.add(cartItem);
+	        cartItem.setCart(this);
+	    }
+
+	    public void removeCartItem(CartMenuItems cartItem) {
+	        cartMenuItems.remove(cartItem);
+	        cartItem.setCart(null);
+	    }
+
+	    
+	    
+	    
+	    
+	 
+    
+    
+
 
 }

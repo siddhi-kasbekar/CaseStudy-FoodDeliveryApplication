@@ -10,7 +10,7 @@ import com.hexaware.hotpot.entities.Cart;
 @Repository
 public interface CartRepository extends JpaRepository<Cart, Integer> {
 	
-	List<Cart> findByCustomer_CustId(long custId);
+	List<Cart> findByCustomerCustomerId(long custId);
 	
 	
 

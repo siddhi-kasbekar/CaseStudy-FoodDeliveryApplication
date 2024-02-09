@@ -18,11 +18,12 @@ import jakarta.validation.constraints.Size;
 public final class Customers {
 
 	@Id
-	private long custId;
-
+	private long customerId;
+	
 	@NotBlank(message = "Customer name is required")
-	@Pattern(regexp = "^[a-zA-Z\\s]+$", message = "Customer name should contain only alphabets")
-	private String custName;
+    @Pattern(regexp = "^[a-zA-Z\\s]+$", message = "Customer name should contain only alphabets")
+	private String customerName;
+	
 
 	private String gender;
 
@@ -42,6 +43,36 @@ public final class Customers {
 	@Size(min = 6, message = "Password must be at least 6 characters long")
 	private String password;
 
+	 
+	private  String role;
+
+	
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	public Set<Orders> getOrderSet() {
+		return orderSet;
+	}
+
+	public void setOrderSet(Set<Orders> orderSet) {
+		this.orderSet = orderSet;
+	}
+
+	public Set<Payment> getPaymentSet() {
+		return paymentSet;
+	}
+
+	public void setPaymentSet(Set<Payment> paymentSet) {
+		this.paymentSet = paymentSet;
+	}
+
+
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "aid")
 	private DeliveryAddress address;
@@ -60,11 +91,11 @@ public final class Customers {
 		this.cart = new Cart();
 	}
 
-	public Customers(long custId, String custName, String gender, String email, String phone, String username,
+	public Customers(long customerId, String customerName, String gender, String email, String phone, String username,
 			String password, DeliveryAddress address) {
 		super();
-		this.custId = custId;
-		this.custName = custName;
+		this.customerId = customerId;
+		this.customerName = customerName;
 		this.gender = gender;
 		this.email = email;
 		this.phone = phone;
@@ -73,20 +104,21 @@ public final class Customers {
 		this.address = address;
 	}
 
+	
 	public long getCustId() {
-		return custId;
+		return customerId;
 	}
 
 	public void setCustId(long custId) {
-		this.custId = custId;
+		this.customerId = custId;
 	}
 
 	public String getCustName() {
-		return custName;
+		return customerName;
 	}
 
 	public void setCustName(String custName) {
-		this.custName = custName;
+		this.customerName = custName;
 	}
 
 	public String getGender() {
@@ -137,6 +169,7 @@ public final class Customers {
 		this.address = address;
 	}
 
+
 	public Cart getCart() {
 		return cart;
 	}
@@ -147,7 +180,7 @@ public final class Customers {
 
 	@Override
 	public String toString() {
-		return "Customers [custId=" + custId + ", custName=" + custName + ", gender=" + gender + ", email=" + email
+		return "Customers [custId=" + customerId + ", custName=" + customerName + ", gender=" + gender + ", email=" + email
 				+ ", phone=" + phone + ", username=" + username + ", password=" + password + ", address=" + address
 				+ "]";
 	}

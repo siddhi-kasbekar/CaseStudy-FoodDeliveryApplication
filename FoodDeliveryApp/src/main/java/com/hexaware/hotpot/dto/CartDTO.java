@@ -1,6 +1,7 @@
 package com.hexaware.hotpot.dto;
 
-
+import java.util.ArrayList;
+import java.util.List;
 
 public class CartDTO {
 	
@@ -16,9 +17,14 @@ public class CartDTO {
 	
 	private long customerId;
 	
+    private List<CartMenuItemsDTO> cartItems = new ArrayList<CartMenuItemsDTO>();
+
+	
 
 	public CartDTO() {
 		super();
+        
+
 	}
 
 
@@ -31,6 +37,15 @@ public class CartDTO {
 		this.total = total;
 	}
 
+	
+
+	    public List<CartMenuItemsDTO> getCartItems() {
+	        return cartItems;
+	    }
+
+	    public void setCartItems(List<CartMenuItemsDTO> cartItems) {
+	        this.cartItems = cartItems;
+	    }
 
 
 	public int getCartId() {

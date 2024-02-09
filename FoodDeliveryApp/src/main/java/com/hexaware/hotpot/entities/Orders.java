@@ -39,6 +39,7 @@ public class Orders {
     @Column(name = "Status")
     private String status;
 	
+
 	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "custID")
@@ -48,6 +49,9 @@ public class Orders {
 	@ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "resId")
     private Restaurants restaurant;
+	
+	
+	
 	
 	@ManyToMany(cascade = CascadeType.ALL)
     private Set<MenuItems> menuItems = new HashSet<>();

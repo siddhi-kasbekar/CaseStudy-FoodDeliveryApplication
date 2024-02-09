@@ -1,5 +1,9 @@
 package com.hexaware.hotpot.entities;
 
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,14 +19,18 @@ import jakarta.persistence.Table;
 
 	    @Id
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	    private long id;
+	    private long cartMenuItemId;
 
+	    
 	    @ManyToOne
 	    @JoinColumn(name = "cart_id")
+	    @JsonIgnore // Prevent infinite recursion
 	    private Cart cart;
 
+	    
 	    @ManyToOne
 	    @JoinColumn(name = "menuitem_id")
+	    @JsonIgnore // Prevent infinite recursion
 	    private MenuItems menuItem;
 
 	    private int quantity;
@@ -40,11 +48,13 @@ import jakarta.persistence.Table;
 		}
 
 		public Long getId() {
-			return id;
+
+			return cartMenuItemId;
 		}
 
-		public void setId(Long id) {
-			this.id = id;
+		public void setId(Long cartMenuItemId) {
+			this.cartMenuItemId = cartMenuItemId;
+
 		}
 
 		public Cart getCart() {
