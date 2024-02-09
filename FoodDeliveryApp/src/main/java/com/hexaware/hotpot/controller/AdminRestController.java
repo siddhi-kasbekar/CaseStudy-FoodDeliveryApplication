@@ -2,6 +2,8 @@ package com.hexaware.hotpot.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,24 +13,30 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.hexaware.hotpot.dto.CustomersDTO;
+import com.hexaware.hotpot.dto.DiscountDTO;
 import com.hexaware.hotpot.dto.MenuItemsDTO;
 import com.hexaware.hotpot.dto.RestaurantsDTO;
 import com.hexaware.hotpot.entities.Customers;
+import com.hexaware.hotpot.entities.Discount;
 import com.hexaware.hotpot.entities.MenuItems;
 import com.hexaware.hotpot.entities.Orders;
 import com.hexaware.hotpot.entities.Restaurants;
 import com.hexaware.hotpot.services.IAdminService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("api/admin")
 public class AdminRestController {
+	
+    private static final Logger log = LoggerFactory.getLogger(AdminRestController.class);
+
 
 	@Autowired
 	private IAdminService adminservice;
 
 	@PostMapping("/add-restaurant")
-	public String addRestaurant(@RequestBody RestaurantsDTO restaurantDTO) {
+	public String addRestaurant(@RequestBody @Valid RestaurantsDTO restaurantDTO) {
 		Restaurants restaurant = adminservice.addRestaurant(restaurantDTO);
 		if (restaurant != null) {
 			return "Restaurant added successfully";
@@ -66,7 +74,7 @@ public class AdminRestController {
 
 
 	@PostMapping("/addMenuItem/{restaurantId}")
-	public String addMenuItem(@RequestBody MenuItemsDTO menuItemDTO,@PathVariable int restaurantId) {
+	public String addMenuItem(@RequestBody @Valid MenuItemsDTO menuItemDTO,@PathVariable int restaurantId) {
 		
 		MenuItems menuItem = adminservice.addMenuItem(menuItemDTO,restaurantId);
 		if (menuItem != null) {
@@ -77,11 +85,26 @@ public class AdminRestController {
 
 	}
 	
-	
 
     @DeleteMapping("/removeMenuItems/{menuItemId}")
     public String removeMenuItems(@PathVariable Long menuItemId) {
         adminservice.removeMenuItems(menuItemId);
         return "Menu item removed successfully";
+    }
+    
+    @PostMapping("/add-discount")
+	public String addDiscount(@RequestBody @Valid DiscountDTO discountDTO) {
+		Discount discount = adminservice.addDiscount(discountDTO);
+		if (discount != null) {
+			return "Discount added successfully";
+		} else {
+			return "Discount to add restaurant";
+		}
+	}
+    
+    @DeleteMapping("/removeDiscount/{discountId}")
+    public String removeDiscount(@PathVariable int discountId) {
+        adminservice.removeDiscount(discountId);
+        return "Discount removed successfully";
     }
 }

@@ -3,12 +3,11 @@ package com.hexaware.hotpot.services;
 import java.util.List;
 
 import com.hexaware.hotpot.dto.AdminDTO;
-import com.hexaware.hotpot.dto.CustomersDTO;
+import com.hexaware.hotpot.dto.DiscountDTO;
 import com.hexaware.hotpot.dto.MenuItemsDTO;
 import com.hexaware.hotpot.dto.RestaurantsDTO;
-
 import com.hexaware.hotpot.entities.Customers;
-
+import com.hexaware.hotpot.entities.Discount;
 import com.hexaware.hotpot.entities.MenuItems;
 import com.hexaware.hotpot.entities.Orders;
 import com.hexaware.hotpot.entities.Restaurants;
@@ -19,7 +18,7 @@ public interface IAdminService {
 
 	public Restaurants addRestaurant(RestaurantsDTO restaurant);
 
-	public void removeRestaurant(Integer restaurantId);
+	public void removeRestaurant(Integer restaurantId) ;
 
 	public List<MenuItems> getAllMenus();
 
@@ -32,4 +31,8 @@ public interface IAdminService {
 	public MenuItems addMenuItem(MenuItemsDTO menuItemDTO,int restaurantId);
 	
 	public void removeMenuItems(Long menuItemId);
+	
+	public Discount addDiscount(DiscountDTO discountdto);
+	
+	public void removeDiscount(int discountId);
 }

@@ -3,23 +3,22 @@ package com.hexaware.hotpot.entities;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
-import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Cart {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int cart_id;
+	private int cartId;
 	
 	
 	private double total;
@@ -31,11 +30,14 @@ public class Cart {
 
 
 	 @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
-	    private Set<CartMenuItems> cartMenuItems = new HashSet<>();
+	    private Set<CartMenuItems> cartMenuItems = new HashSet<CartMenuItems>();
 
-	    
 	    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
+	    @JsonIgnore // Prevent infinite recursion
 	    private Set<Payment> paymentSet = new HashSet<Payment>();
+	    
+	 
+	 
 	    
 	    
 	    
@@ -44,20 +46,20 @@ public class Cart {
 			super();
 		}
 
-		public Cart(int cart_id, double total, Customers customer) {
+		public Cart(int cartId, double total, Customers customer) {
 			super();
-			this.cart_id = cart_id;
+			this.cartId = cartId;
 			
 			this.total = total;
 			this.customer = customer;
 		}
 
 		public int getCartId() {
-			return cart_id;
+			return cartId;
 		}
 
-		public void setCartId(int cart_id) {
-			this.cart_id = cart_id;
+		public void setCartId(int cartId) {
+			this.cartId = cartId;
 		}
 
 		
