@@ -40,7 +40,13 @@ public class Administrator {
     @Column(name = "Email", unique = true)
     private String email;
     
-    private static final String ROLE = "ADMIN";
+    private  final String ROLE = "admin";
+    
+    
+
+	public  String getRole() {
+		return ROLE;
+	}
 
 	public Administrator() {
 		super();

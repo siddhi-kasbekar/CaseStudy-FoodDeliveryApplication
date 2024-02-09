@@ -14,7 +14,6 @@ import com.hexaware.hotpot.entities.Customers;
 import com.hexaware.hotpot.entities.MenuItems;
 import com.hexaware.hotpot.entities.OrderDetails;
 import com.hexaware.hotpot.entities.Orders;
-import com.hexaware.hotpot.repository.CartMenuItemsRepository;
 import com.hexaware.hotpot.repository.CartRepository;
 import com.hexaware.hotpot.repository.CustomersRepository;
 import com.hexaware.hotpot.repository.MenuItemsRepository;
@@ -36,8 +35,6 @@ public class OrderServiceImp implements IOrderService {
 	@Autowired
 	CartRepository cartRepo;
 	
-	@Autowired
-	CartMenuItemsRepository cartMenuItemRepo;
 	
 	@Autowired
 	CustomersRepository customerRepo;
@@ -154,7 +151,7 @@ public class OrderServiceImp implements IOrderService {
 	public List<Orders> viewOrderHistory(int customerId) {
 
 		
-		return repo.findByCustomerCustomerId(customerId);
+		return ordersRepo.findByCustomerCustomerId(customerId);
 
 	}
 

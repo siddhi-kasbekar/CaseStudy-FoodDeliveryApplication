@@ -25,7 +25,7 @@ public class Restaurants {
 
 	 @Id
     @Column(name="RestaurantID")
-    private int restaurant_id;
+    private int restaurantId;
 
     
     @NotNull(message = "Name is required")
@@ -62,7 +62,7 @@ public class Restaurants {
 
 	public Restaurants(int restaurantId, String name, String location, String contactNumber, double rating) {
 		super();
-		this.restaurant_id = restaurantId;
+		this.restaurantId = restaurantId;
 		this.name = name;
 		this.location = location;
 		this.contactNumber = contactNumber;
@@ -70,11 +70,11 @@ public class Restaurants {
 	}
 
 	public int getRestaurantId() {
-		return restaurant_id;
+		return restaurantId;
 	}
 
 	public void setRestaurantId(int restaurantId) {
-		this.restaurant_id = restaurantId;
+		this.restaurantId = restaurantId;
 	}
 
 	public String getName() {
@@ -135,7 +135,7 @@ public class Restaurants {
 
 	@Override
 	public String toString() {
-		return "Restaurants [restaurant_id=" + restaurant_id + ", name=" + name + ", location=" + location
+		return "Restaurants [restaurant_id=" + restaurantId + ", name=" + name + ", location=" + location
 				+ ", contactNumber=" + contactNumber + ", rating=" + rating + "]";
 	}
 
