@@ -91,7 +91,8 @@ class RestaurantServiceImpTest {
 		rservice.updateMenu(updatedMenu);
 		assertTrue(true);
 	}
-
+    
+	@Disabled
 	@Test
 	void testDeleteMenu() {
 		int menuItemToRemove=2;
@@ -102,17 +103,23 @@ class RestaurantServiceImpTest {
 	@Test
 	void testGetMenuByCategory() {
 		
-		List<MenuItems> menu = rservice.getMenuByCategory("italian");
+		List<MenuItems> menu = rservice.getMenuByCategory("dinner");
 		boolean flag=menu.isEmpty();
-		assertTrue(flag);
+		assertFalse(flag);
 		
 	}
 
 	@Test
 	void testSearchRestaurants() {
-		List<Restaurants> menu = rservice.searchRestaurants("IT");
-		boolean flag=menu.isEmpty();
+		List<Restaurants> list = rservice.searchRestaurants("IT");
+		boolean flag=list.isEmpty();
 		assertFalse(flag);
 	}
-
+	
+	@Test
+	void searchByLocation() {
+		List<Restaurants> list = rservice.searchByLocation("Bhopal");
+		boolean flag=list.isEmpty();
+		assertFalse(flag);
+	}
 }

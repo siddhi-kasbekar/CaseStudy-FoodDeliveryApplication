@@ -23,4 +23,5 @@ public interface IRestaurantService {
 
 	public List<MenuItems> getOrdersByRestaurantId(Restaurants restaurant);
 	public List<Restaurants> searchRestaurants(String keyword);
+	public List<Restaurants> searchByLocation(String location);
 }

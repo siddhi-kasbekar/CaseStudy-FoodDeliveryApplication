@@ -122,4 +122,10 @@ public class RestaurantServiceImp implements IRestaurantService {
 		return repo.findByNameContainingIgnoreCase(keyword);
 	}
 
+	@Override
+	public List<Restaurants> searchByLocation(String location) {
+		
+		return repo.findByLocation(location);
+	}
+
 }
