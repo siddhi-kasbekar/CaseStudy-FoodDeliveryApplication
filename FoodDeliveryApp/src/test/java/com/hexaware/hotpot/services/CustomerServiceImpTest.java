@@ -14,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.hexaware.hotpot.dto.CustomersDTO;
 import com.hexaware.hotpot.dto.DeliveryAddressDTO;
 import com.hexaware.hotpot.entities.Restaurants;
+import com.hexaware.hotpot.exception.LocationNotFoundException;
 
 @SpringBootTest
 class CustomerServiceImpTest {
@@ -60,7 +61,7 @@ class CustomerServiceImpTest {
 //	}
 
 	@Test
-	void testGetRestaurantByLocation() {
+	void testGetRestaurantByLocation() throws LocationNotFoundException {
 
 
 		String location = "Kolhapur";

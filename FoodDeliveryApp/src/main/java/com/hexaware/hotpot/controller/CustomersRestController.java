@@ -16,7 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hexaware.hotpot.dto.CustomersDTO;
 import com.hexaware.hotpot.entities.Restaurants;
+import com.hexaware.hotpot.exception.CustomerNotFoundException;
+import com.hexaware.hotpot.exception.LocationNotFoundException;
 import com.hexaware.hotpot.services.ICustomerService;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("api/customers")
@@ -29,7 +33,7 @@ public class CustomersRestController {
 	ICustomerService customerService;
 	
 	@PostMapping("/register")
-	public String registerCustomers(@RequestBody CustomersDTO customerDTO) {
+	public String registerCustomers(@RequestBody @Valid CustomersDTO customerDTO) {
 		long customerId = customerService.registerCustomer(customerDTO);
 		
 		if(customerId != 0) {
@@ -41,7 +45,7 @@ public class CustomersRestController {
 	}
 	
 	@PutMapping("/update-info/{customerId}")
-	public long updateCustomer(@PathVariable long customerId,  @RequestBody CustomersDTO updatedCustomerDTO) {
+	public long updateCustomer(@PathVariable long customerId,  @RequestBody CustomersDTO updatedCustomerDTO) throws CustomerNotFoundException {
 		
 		return customerService.updateCustomer(customerId, updatedCustomerDTO);
 		
@@ -49,7 +53,7 @@ public class CustomersRestController {
 	
 	
 	@GetMapping("/getrestaurantByLocation/{location}")
-	public List<Restaurants> getRestaurantByLocation(@PathVariable String location){
+	public List<Restaurants> getRestaurantByLocation(@PathVariable String location) throws LocationNotFoundException {
 		
 		//return customerService.getRestaurantByLocation(location);
 		List<Restaurants> restaurants = customerService.getRestaurantByLocation(location);
