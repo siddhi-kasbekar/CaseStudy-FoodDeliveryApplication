@@ -40,7 +40,6 @@ public class Orders {
     private String status;
 	
 
-	
 	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "custID")
@@ -56,23 +55,31 @@ public class Orders {
 	
 	@ManyToMany(cascade = CascadeType.ALL)
     private Set<MenuItems> menuItems = new HashSet<>();
+	
+	@JsonIgnore
+	@ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cartId")
+	private Cart cart;
 
 	public Orders() {
 		super();
 	}
 
-	public Orders(int orderId, LocalDateTime orderDate, double totalCost, String status,  Customers customer,
-			Restaurants restaurant, Set<MenuItems> menuItems) {
+	
+	public Orders(int orderId, LocalDateTime orderDate,  double totalCost,
+			 String status, Customers customer, Restaurants restaurant,
+			Set<MenuItems> menuItems, Cart cart) {
 		super();
 		this.orderId = orderId;
 		this.orderDate = orderDate;
 		this.totalCost = totalCost;
 		this.status = status;
-		//this.cart = cart;
 		this.customer = customer;
 		this.restaurant = restaurant;
 		this.menuItems = menuItems;
+		this.cart = cart;
 	}
+
 
 	public int getOrderId() {
 		return orderId;
@@ -106,13 +113,13 @@ public class Orders {
 		this.status = status;
 	}
 
-//	public Cart getCart() {
-//		return cart;
-//	}
-//
-//	public void setCart(Cart cart) {
-//		this.cart = cart;
-//	}
+	public Cart getCart() {
+		return cart;
+	}
+
+	public void setCart(Cart cart) {
+		this.cart = cart;
+	}
 
 	public Customers getCustomer() {
 		return customer;

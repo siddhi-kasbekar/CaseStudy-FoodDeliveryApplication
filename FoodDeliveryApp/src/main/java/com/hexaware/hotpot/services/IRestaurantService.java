@@ -6,6 +6,8 @@ import com.hexaware.hotpot.dto.MenuItemsDTO;
 import com.hexaware.hotpot.dto.RestaurantsDTO;
 import com.hexaware.hotpot.entities.MenuItems;
 import com.hexaware.hotpot.entities.Restaurants;
+import com.hexaware.hotpot.exception.MenuItemNotFoundException;
+import com.hexaware.hotpot.exception.RestaurantNotFoundException;
 
 public interface IRestaurantService {
 
@@ -13,15 +15,15 @@ public interface IRestaurantService {
 
 	public String loginRestaurant(RestaurantsDTO restaurantDTO);
 
-	public MenuItems addMenu(MenuItemsDTO menuDTO,int restaurantId);
+	public void addMenu(MenuItemsDTO menuDTO,int restaurantId);
 
 	public void updateMenu(MenuItemsDTO menuDTO);
 
 	public void deleteMenu(int menuId);
 
-	public List<MenuItems> getMenuByCategory(String category);
+	public List<MenuItems> getMenuByCategory(String category) throws MenuItemNotFoundException ;
 
-	public List<MenuItems> getOrdersByRestaurantId(Restaurants restaurant);
-	public List<Restaurants> searchRestaurants(String keyword);
+	public List<MenuItems> getOrdersByRestaurantId(Restaurants restaurant) throws RestaurantNotFoundException;
+	public List<Restaurants> searchRestaurants(String keyword)throws RestaurantNotFoundException;
 	public List<Restaurants> searchByLocation(String location);
 }

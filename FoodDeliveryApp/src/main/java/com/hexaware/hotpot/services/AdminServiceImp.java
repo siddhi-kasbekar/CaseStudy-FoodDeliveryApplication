@@ -29,6 +29,10 @@ import jakarta.transaction.Transactional;
 
 
 
+
+
+
+
 @Service
 @Transactional
 public class AdminServiceImp implements IAdminService {
@@ -137,6 +141,7 @@ public class AdminServiceImp implements IAdminService {
 		
 	}
 
+
 	@Override
 	public Discount addDiscount(DiscountDTO discountdto) {
 
@@ -153,6 +158,7 @@ public class AdminServiceImp implements IAdminService {
 
 		discountRepo.deleteById(discountId);
 	}
+
 
 	
 

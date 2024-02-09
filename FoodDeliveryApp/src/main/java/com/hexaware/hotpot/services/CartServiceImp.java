@@ -2,8 +2,10 @@ package com.hexaware.hotpot.services;
 
 
 import java.util.List;
+
 import java.util.Optional;
 import java.util.Set;
+
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,14 +16,18 @@ import com.hexaware.hotpot.entities.Cart;
 import com.hexaware.hotpot.entities.CartMenuItems;
 import com.hexaware.hotpot.entities.Customers;
 import com.hexaware.hotpot.entities.MenuItems;
+
 import com.hexaware.hotpot.exception.CustomerNotFoundException;
 import com.hexaware.hotpot.repository.CartMenuitemsRepository;
+
 import com.hexaware.hotpot.repository.CartRepository;
 import com.hexaware.hotpot.repository.CustomersRepository;
 import com.hexaware.hotpot.repository.MenuItemsRepository;
 
 import jakarta.persistence.EntityNotFoundException;
+
 import jakarta.transaction.Transactional;
+
 
 @Service
 @Transactional
@@ -47,7 +53,21 @@ public class CartServiceImp implements ICartService {
 
 
 	
+	@Autowired
+    private MenuItemsRepository menuItemsRepo;
+	
+	@Autowired
+    private CartMenuItemsRepository cartMenuItemsRepo
 
+	
+
+	
+
+
+
+	
+
+   
 	@Override
 	public List<Cart> getCartItems(Long customerId) {
 		
@@ -113,6 +133,7 @@ public class CartServiceImp implements ICartService {
 
 
 	    return cartRepository.save(cart);
+
 	}
 
 

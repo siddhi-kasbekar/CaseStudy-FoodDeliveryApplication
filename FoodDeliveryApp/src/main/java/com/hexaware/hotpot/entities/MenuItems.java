@@ -24,6 +24,7 @@ public class MenuItems {
 	private long menuItemId;
 
 
+
 	@NotBlank(message = "Item name is required")
 	private String itemName;
 
@@ -60,8 +61,6 @@ public class MenuItems {
 	@OneToMany(mappedBy = "menuItem")
     private Set<CartMenuItems> cartMenuItems = new HashSet<>();
 
-
-
 	@ManyToMany(mappedBy = "menuItems")
     @JsonIgnore // Prevent infinite recursion
 	private Set<Orders> orders = new HashSet<>();
@@ -74,7 +73,9 @@ public class MenuItems {
 			String availabilityTime, String specialDietaryInfo, String tasteInfo, String nutritionalInfo,
 			int cookingTime) {
 		super();
+
 		this.menuItemId = menuItemId;
+
 		this.itemName = itemName;
 		this.description = description;
 		this.category = category;
@@ -87,11 +88,13 @@ public class MenuItems {
 	}
 
 	public long getMenuitemId() {
+
 		return menuItemId;
 	}
 
 	public void setMenuitemId(long menuItemId) {
 		this.menuItemId = menuItemId;
+
 	}
 
 	public String getItemName() {
@@ -196,7 +199,9 @@ public class MenuItems {
 
 	@Override
 	public String toString() {
+
 		return "MenuItems [menuitemId=" + menuItemId + ", itemName=" + itemName + ", description=" + description
+
 				+ ", category=" + category + ", price=" + price + ", availabilityTime=" + availabilityTime
 				+ ", specialDietaryInfo=" + specialDietaryInfo + ", tasteInfo=" + tasteInfo + ", nutritionalInfo="
 				+ nutritionalInfo + ", cookingTime=" + cookingTime + ", restaurant=" + restaurant + ", orderDetailsSet="

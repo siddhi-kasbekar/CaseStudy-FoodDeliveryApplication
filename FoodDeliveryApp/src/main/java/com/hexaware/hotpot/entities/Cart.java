@@ -19,6 +19,7 @@ public class Cart {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int cartId;
+
 	
 	
 	private double total;
@@ -35,11 +36,6 @@ public class Cart {
 	    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
 	    @JsonIgnore // Prevent infinite recursion
 	    private Set<Payment> paymentSet = new HashSet<Payment>();
-	    
-	 
-	 
-	    
-	    
 	    
 
 		public Cart() {
@@ -120,5 +116,6 @@ public class Cart {
 	 
     
     
+
 
 }

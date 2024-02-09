@@ -12,12 +12,15 @@ import com.hexaware.hotpot.entities.Cart;
 import com.hexaware.hotpot.entities.Customers;
 import com.hexaware.hotpot.entities.DeliveryAddress;
 import com.hexaware.hotpot.entities.Restaurants;
+
 import com.hexaware.hotpot.exception.CustomerNotFoundException;
 import com.hexaware.hotpot.exception.LocationNotFoundException;
+
 import com.hexaware.hotpot.repository.CartRepository;
 import com.hexaware.hotpot.repository.CustomersRepository;
 import com.hexaware.hotpot.repository.RestaurantsRepository;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -29,6 +32,16 @@ public class CustomerServiceImp implements ICustomerService {
 
 	@Autowired
 	private RestaurantsRepository restaurantRepo;
+	
+	@Autowired
+    private CartRepository cartRepository;
+	
+	@Override
+	public String loginCustomer(CustomersDTO customer) {
+		
+		return null;
+	}
+
 
 	@Autowired
 	private CartRepository cartRepository;
@@ -50,6 +63,7 @@ public class CustomerServiceImp implements ICustomerService {
 		customer.setUsername(customerDTO.getUsername());
 		customer.setPassword(customerDTO.getPassword());
 		
+
 		 // Set the role to the predefined value
 	    customer.setRole("customer");
 
@@ -74,9 +88,11 @@ public class CustomerServiceImp implements ICustomerService {
 		customerRepo.save(customer);
 		cartRepository.save(cart);
 
+
 		return customer.getCustId();
 	}
-
+	
+	
 	@Override
 	public long updateCustomer(long customerId, CustomersDTO updatedCustomerDTO) throws CustomerNotFoundException {
 
@@ -89,12 +105,14 @@ public class CustomerServiceImp implements ICustomerService {
 
 		// JAVA 9 and above - Objects.requireNonNullElse
 
+
 		customers.setCustName(Objects.requireNonNullElse(updatedCustomerDTO.getCustName(), customers.getCustName()));
 		customers.setGender(Objects.requireNonNullElse(updatedCustomerDTO.getGender(), customers.getGender()));
 		customers.setEmail(Objects.requireNonNullElse(updatedCustomerDTO.getEmail(), customers.getEmail()));
 		customers.setPhone(Objects.requireNonNullElse(updatedCustomerDTO.getPhone(), customers.getPhone()));
 		customers.setUsername(Objects.requireNonNullElse(updatedCustomerDTO.getUsername(), customers.getUsername()));
 		customers.setPassword(Objects.requireNonNullElse(updatedCustomerDTO.getPassword(), customers.getPassword()));
+
 
 		DeliveryAddressDTO updatedAddressDTO = updatedCustomerDTO.getAddressDTO();
 		if (updatedAddressDTO != null) {
@@ -114,9 +132,9 @@ public class CustomerServiceImp implements ICustomerService {
 		customerRepo.save(customers);
 
 		return customerId;
-
 	}
 
+	
 	@Override
 	public List<Restaurants> getRestaurantByLocation(String location) throws LocationNotFoundException  {
 
@@ -128,5 +146,7 @@ public class CustomerServiceImp implements ICustomerService {
 
 		return restaurants;
 	}
+
+	
 
 }

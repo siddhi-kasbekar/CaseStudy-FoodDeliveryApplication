@@ -16,7 +16,7 @@ import jakarta.validation.constraints.Size;
 
 @Entity
 public final class Customers {
-	
+
 	@Id
 	private long customerId;
 	
@@ -24,23 +24,25 @@ public final class Customers {
     @Pattern(regexp = "^[a-zA-Z\\s]+$", message = "Customer name should contain only alphabets")
 	private String customerName;
 	
+
 	private String gender;
-	
+
 	@NotBlank(message = "Email is required")
-    @Email(message = "Invalid email format")
+	@Email(message = "Invalid email format")
 	private String email;
-	
+
 	@NotBlank(message = "Phone number is required")
-    @Pattern(regexp = "^[0-9]{10}$", message = "Phone number must be a 10-digit number")
+	@Pattern(regexp = "^[0-9]{10}$", message = "Phone number must be a 10-digit number")
 	private String phone;
-	
-	 @NotBlank(message = "Username is required")
-	 @Pattern(regexp = "^[a-zA-Z0-9_]+$", message = "Username should contain only alphanumeric characters and underscores")
+
+	@NotBlank(message = "Username is required")
+	@Pattern(regexp = "^[a-zA-Z0-9_]+$", message = "Username should contain only alphanumeric characters and underscores")
 	private String username;
-	 
-	 @NotBlank(message = "Password is required")
-	 @Size(min = 6, message = "Password must be at least 6 characters long")
+
+	@NotBlank(message = "Password is required")
+	@Size(min = 6, message = "Password must be at least 6 characters long")
 	private String password;
+
 	 
 	private  String role;
 
@@ -70,18 +72,19 @@ public final class Customers {
 		this.paymentSet = paymentSet;
 	}
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name= "aid")
-	private DeliveryAddress address;
-	
-	 @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
-	 private Set<Orders> orderSet= new HashSet<>();
-	 
-	 @OneToMany(mappedBy = "customer",cascade = CascadeType.ALL)
-	    private Set<Payment> paymentSet = new HashSet<>(); 
 
-	    @OneToOne(mappedBy = "customer",cascade = CascadeType.ALL)
-	    private Cart cart;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "aid")
+	private DeliveryAddress address;
+
+	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+	private Set<Orders> orderSet = new HashSet<>();
+
+	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+	private Set<Payment> paymentSet = new HashSet<>();
+
+	@OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
+	private Cart cart;
 
 	public Customers() {
 		super();
@@ -166,7 +169,7 @@ public final class Customers {
 		this.address = address;
 	}
 
-	
+
 	public Cart getCart() {
 		return cart;
 	}
@@ -181,11 +184,5 @@ public final class Customers {
 				+ ", phone=" + phone + ", username=" + username + ", password=" + password + ", address=" + address
 				+ "]";
 	}
-	
-	
-	
-	
-	
-	
 
 }

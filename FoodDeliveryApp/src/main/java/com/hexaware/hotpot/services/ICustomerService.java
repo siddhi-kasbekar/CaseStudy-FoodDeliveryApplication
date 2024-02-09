@@ -11,9 +11,11 @@ public interface ICustomerService {
 
 	public long registerCustomer(CustomersDTO customer);
 	
+
 	public long updateCustomer(long customerId, CustomersDTO updatedCustomerDTO) throws CustomerNotFoundException;
 
 	public String loginCustomer(CustomersDTO customer);
 	
 	public List<Restaurants> getRestaurantByLocation(String location) throws LocationNotFoundException;
+
 }

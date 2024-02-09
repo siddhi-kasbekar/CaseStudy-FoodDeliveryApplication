@@ -1,6 +1,8 @@
 package com.hexaware.hotpot.entities;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -46,11 +48,13 @@ import jakarta.persistence.Table;
 		}
 
 		public Long getId() {
+
 			return cartMenuItemId;
 		}
 
 		public void setId(Long cartMenuItemId) {
 			this.cartMenuItemId = cartMenuItemId;
+
 		}
 
 		public Cart getCart() {

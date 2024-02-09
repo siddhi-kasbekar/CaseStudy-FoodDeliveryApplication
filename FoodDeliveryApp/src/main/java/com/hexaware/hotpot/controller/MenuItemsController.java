@@ -12,18 +12,18 @@ import com.hexaware.hotpot.entities.MenuItems;
 import com.hexaware.hotpot.services.IMenuService;
 
 @RestController
-@RequestMapping("/menuitem")
+@RequestMapping("/api/menuitem")
 public class MenuItemsController {
 
 	@Autowired
 	IMenuService service;
 	
-	@GetMapping("/getbycategory/{category}")
+	@GetMapping("/getByCategory/{category}")
 	public List<MenuItems> getMenuByCategory(@PathVariable String category){
 		return service.getMenuByCategory(category);
 	}
 
-	@GetMapping("/getbykeyword/{keyword}")
+	@GetMapping("/getByKeyword/{keyword}")
 	public List<MenuItems> searchMenuItems(@PathVariable String keyword){
 		return service.searchMenuItemsByKeyword(keyword);
 	}

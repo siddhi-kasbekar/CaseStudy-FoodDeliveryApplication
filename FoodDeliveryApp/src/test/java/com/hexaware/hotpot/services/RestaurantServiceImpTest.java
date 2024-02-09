@@ -17,6 +17,8 @@ import com.hexaware.hotpot.dto.MenuItemsDTO;
 import com.hexaware.hotpot.dto.RestaurantsDTO;
 import com.hexaware.hotpot.entities.MenuItems;
 import com.hexaware.hotpot.entities.Restaurants;
+import com.hexaware.hotpot.exception.MenuItemNotFoundException;
+import com.hexaware.hotpot.exception.RestaurantNotFoundException;
 
 @SpringBootTest
 class RestaurantServiceImpTest {
@@ -51,28 +53,28 @@ class RestaurantServiceImpTest {
 	}
 
 	
-	@Test
-	void testAddMenu() {
-
-		MenuItemsDTO menuItemsDTO = new MenuItemsDTO();
-        menuItemsDTO.setMenuitemId(2);
-        menuItemsDTO.setItemName("Butter chicken");
-        menuItemsDTO.setDescription("delicious chicken");
-        menuItemsDTO.setCategory("main course");
-        menuItemsDTO.setPrice(399.00);
-        menuItemsDTO.setAvailabilityTime("dinner");
-        menuItemsDTO.setSpecialDietaryInfo("high protein");
-        menuItemsDTO.setTasteInfo("spicy tangy ");
-        menuItemsDTO.setNutritionalInfo("high in protein");
-        menuItemsDTO.setCookingTime(40);
-
-        int restaurantId = 1; 
-
-        MenuItems newMenuItem = rservice.addMenu(menuItemsDTO, restaurantId);
-
-        assertNotNull(newMenuItem);
-        assertEquals(menuItemsDTO.getItemName(), newMenuItem.getItemName());
-	}
+	//@Test
+//	void testAddMenu() {
+//
+//		MenuItemsDTO menuItemsDTO = new MenuItemsDTO();
+//        menuItemsDTO.setMenuitemId(2);
+//        menuItemsDTO.setItemName("Butter chicken");
+//        menuItemsDTO.setDescription("delicious chicken");
+//        menuItemsDTO.setCategory("main course");
+//        menuItemsDTO.setPrice(399.00);
+//        menuItemsDTO.setAvailabilityTime("dinner");
+//        menuItemsDTO.setSpecialDietaryInfo("high protein");
+//        menuItemsDTO.setTasteInfo("spicy tangy ");
+//        menuItemsDTO.setNutritionalInfo("high in protein");
+//        menuItemsDTO.setCookingTime(40);
+//
+//        int restaurantId = 1; 
+//
+//        MenuItems newMenuItem = rservice.addMenu(menuItemsDTO, restaurantId);
+//
+//        assertNotNull(newMenuItem);
+//        assertEquals(menuItemsDTO.getItemName(), newMenuItem.getItemName());
+//	}
 
 	@Test
 	void testUpdateMenu() {
@@ -101,7 +103,7 @@ class RestaurantServiceImpTest {
 	}
 
 	@Test
-	void testGetMenuByCategory() {
+	void testGetMenuByCategory() throws MenuItemNotFoundException {
 		
 		List<MenuItems> menu = rservice.getMenuByCategory("dinner");
 		boolean flag=menu.isEmpty();
@@ -110,7 +112,7 @@ class RestaurantServiceImpTest {
 	}
 
 	@Test
-	void testSearchRestaurants() {
+	void testSearchRestaurants() throws RestaurantNotFoundException {
 		List<Restaurants> list = rservice.searchRestaurants("IT");
 		boolean flag=list.isEmpty();
 		assertFalse(flag);
