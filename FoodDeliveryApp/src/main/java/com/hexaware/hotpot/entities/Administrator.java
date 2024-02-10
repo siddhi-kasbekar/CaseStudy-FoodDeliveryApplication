@@ -9,7 +9,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 
 /*
- * Authors: Nipurna Bandi and Siddhi Kasbekar
+ * Authors:  Siddhi Kasbekar
  * Project Name: Hotpot(Food Delivery app)
  * Project Start Date: 10/01/2024 ,Wednesday 
  * Project end Date:
