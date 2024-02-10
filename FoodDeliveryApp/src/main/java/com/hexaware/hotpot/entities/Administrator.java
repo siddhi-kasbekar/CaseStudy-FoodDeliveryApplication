@@ -13,8 +13,7 @@ import jakarta.validation.constraints.Pattern;
  * 
  * Entity description: contains properties related to administrator , getter and setters , 
  * constructors and relevant validations and mappings
- *
- */
+*/
 
 
 @Entity
