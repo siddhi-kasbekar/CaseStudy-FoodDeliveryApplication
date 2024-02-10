@@ -4,17 +4,20 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.hexaware.hotpot.dto.AdminDTO;
 import com.hexaware.hotpot.dto.DiscountDTO;
 import com.hexaware.hotpot.dto.MenuItemsDTO;
 import com.hexaware.hotpot.dto.RestaurantsDTO;
+import com.hexaware.hotpot.entities.Administrator;
 import com.hexaware.hotpot.entities.Customers;
 import com.hexaware.hotpot.entities.Discount;
 import com.hexaware.hotpot.entities.MenuItems;
 import com.hexaware.hotpot.entities.Orders;
 import com.hexaware.hotpot.entities.Restaurants;
+import com.hexaware.hotpot.repository.AdministratorRepository;
 import com.hexaware.hotpot.repository.CustomersRepository;
 import com.hexaware.hotpot.repository.DiscountRepository;
 import com.hexaware.hotpot.repository.MenuItemsRepository;
@@ -51,6 +54,12 @@ public class AdminServiceImp implements IAdminService {
     
     @Autowired
     private DiscountRepository discountRepo;
+    
+    @Autowired
+    private AdministratorRepository adminRepo;
+    
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
 	
 	@Override
@@ -157,6 +166,22 @@ public class AdminServiceImp implements IAdminService {
 	public void removeDiscount(int discountId) {
 
 		discountRepo.deleteById(discountId);
+	}
+
+	@Override
+	public long registerAdmin(AdminDTO adminDTO) {
+		
+		Administrator admin = new Administrator();
+		admin.setAdminId(adminDTO.getAdminId());
+		admin.setUserName(adminDTO.getUserName());
+		admin.setPassword(passwordEncoder.encode(adminDTO.getPassword()));
+		admin.setName(adminDTO.getName());
+		admin.setEmail(adminDTO.getEmail());
+		admin.setRole("admin");
+		
+		adminRepo.save(admin);
+
+		return admin.getAdminId();
 	}
 
 

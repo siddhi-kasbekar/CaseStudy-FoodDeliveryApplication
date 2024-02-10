@@ -40,13 +40,12 @@ public class Administrator {
     @Column(name = "Email", unique = true)
     private String email;
     
-    private  final String ROLE = "admin";
+    private   String role ;
     
     
 
-	public  String getRole() {
-		return ROLE;
-	}
+	
+
 
 	public Administrator() {
 		super();
@@ -99,6 +98,15 @@ public class Administrator {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 
 	@Override
