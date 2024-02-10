@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hexaware.hotpot.dto.AdminDTO;
 import com.hexaware.hotpot.dto.AuthRequest;
+import com.hexaware.hotpot.dto.CustomersDTO;
 import com.hexaware.hotpot.dto.DiscountDTO;
 import com.hexaware.hotpot.dto.MenuItemsDTO;
 import com.hexaware.hotpot.dto.RestaurantsDTO;
@@ -78,6 +80,23 @@ public class AdminRestController {
 				return token;
 		 
 	 }
+	
+	
+
+	@PostMapping("/register")
+    
+public String registerAdmin(@RequestBody AdminDTO adminDTO) {
+		long adminId = adminservice.registerAdmin(adminDTO);
+		
+		if(adminId != 0) {
+			return "admin added successfully ";
+		}
+		else {
+			return "failed to add admin ";
+		}
+	}
+	
+	
 
 	@PostMapping("/add-restaurant")
     @PreAuthorize("hasAuthority('admin')")
