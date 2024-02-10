@@ -1,6 +1,5 @@
 package com.hexaware.hotpot.entities;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -19,6 +18,13 @@ import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
+/*
+ * Author: Nipurna Bandi
+ * 
+ * Entity description: contains properties related to orders , getter and setters , 
+ * constructors and relevant validations and mappings
+ *
+ */
 
 @Entity
 public class Orders {

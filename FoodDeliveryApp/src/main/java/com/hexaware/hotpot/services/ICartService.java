@@ -2,7 +2,6 @@ package com.hexaware.hotpot.services;
 
 import java.util.List;
 
-import com.hexaware.hotpot.dto.CartDTO;
 import com.hexaware.hotpot.entities.Cart;
 import com.hexaware.hotpot.exception.CustomerNotFoundException;
 

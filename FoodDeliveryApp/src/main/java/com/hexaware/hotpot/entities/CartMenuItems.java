@@ -3,7 +3,6 @@ package com.hexaware.hotpot.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -11,6 +10,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+
+/*
+ * Author: Siddhi Kasbekar
+ * 
+ * Entity description: contains properties related to cartMenuItems , getter and setters , 
+ * constructors and relevant validations and mappings
+ *
+ */
 
 @Entity
 	@Table(name = "cart_menu_items")

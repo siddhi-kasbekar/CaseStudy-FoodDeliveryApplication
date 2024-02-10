@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hexaware.hotpot.entities.MenuItems;
+import com.hexaware.hotpot.exception.MenuItemNotFoundException;
 import com.hexaware.hotpot.services.IMenuService;
 
 @RestController
@@ -21,13 +22,13 @@ public class MenuItemsController {
 	
 	@GetMapping("/getByCategory/{category}")
     @PreAuthorize("hasAuthority('customer')")
-	public List<MenuItems> getMenuByCategory(@PathVariable String category){
+	public List<MenuItems> getMenuByCategory(@PathVariable String category) throws MenuItemNotFoundException{
 		return service.getMenuByCategory(category);
 	}
 
 	@GetMapping("/getByKeyword/{keyword}")
     @PreAuthorize("hasAuthority('customer')")
-	public List<MenuItems> searchMenuItems(@PathVariable String keyword){
+	public List<MenuItems> searchMenuItems(@PathVariable String keyword) throws MenuItemNotFoundException{
 		return service.searchMenuItemsByKeyword(keyword);
 	}
 }

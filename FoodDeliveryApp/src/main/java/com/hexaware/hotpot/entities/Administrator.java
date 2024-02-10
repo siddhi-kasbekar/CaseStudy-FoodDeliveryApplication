@@ -9,12 +9,11 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 
 /*
- * Authors:  Siddhi Kasbekar
- * Project Name: Hotpot(Food Delivery app)
- * Project Start Date: 10/01/2024 ,Wednesday 
- * Project end Date:
- *
- */
+ * Author: Siddhi Kasbekar
+ * 
+ * Entity description: contains properties related to administrator , getter and setters , 
+ * constructors and relevant validations and mappings
+*/
 
 
 @Entity

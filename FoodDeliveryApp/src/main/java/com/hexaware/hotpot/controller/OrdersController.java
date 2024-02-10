@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hexaware.hotpot.dto.OrdersDTO;
 import com.hexaware.hotpot.entities.Orders;
+import com.hexaware.hotpot.exception.OrderNotFoundException;
 import com.hexaware.hotpot.services.IOrderService;
 
 import jakarta.validation.Valid;
@@ -28,21 +29,21 @@ public class OrdersController {
 	
 	@PostMapping("/placeOrder")
     @PreAuthorize("hasAuthority('customer')")
-	public void placeOrder(@Valid @RequestBody OrdersDTO orderDTO,@RequestParam int cartId,@RequestParam long customerId, @RequestParam List<Long> menuItemIds) {
-		service.placeOrder(orderDTO, cartId, customerId, menuItemIds);
+	public void placeOrder(@Valid @RequestBody OrdersDTO orderDTO,@RequestBody long customerId) {
+		service.placeOrder(orderDTO,  customerId);
 		
 		
 	}
 
 	@GetMapping("/getById/{orderId}")
     @PreAuthorize("hasAuthority('customer')")
-	public Orders getOrderById(@PathVariable int orderId) {
+	public Orders getOrderById(@PathVariable int orderId) throws OrderNotFoundException {
 		return service.getOrderById(orderId);
 	}
 
 	@PutMapping("/update/{orderId}/{status}")
     @PreAuthorize("hasAuthority('customer')")
-	public void updateOrderStatus(@PathVariable int orderId,@PathVariable String status) {
+	public void updateOrderStatus(@PathVariable int orderId,@PathVariable String status) throws OrderNotFoundException {
 		service.updateOrderStatus(orderId, status);
 		
 	}

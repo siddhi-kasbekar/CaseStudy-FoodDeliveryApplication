@@ -10,6 +10,15 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
 
+/*
+ * Author: Nipurna Bandi
+ * 
+ * Entity description: contains properties related to orderDetails , getter and setters , 
+ * constructors and relevant validations and mappings
+ *
+ */
+
+
 @Entity
 public class OrderDetails {
 	@Id

@@ -14,6 +14,14 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
+/*
+ * Author: Siddhi Kasbekar
+ * 
+ * Entity description: contains properties related to customers , getter and setters , 
+ * constructors and relevant validations and mappings
+ *
+ */
+
 @Entity
 public final class Customers {
 

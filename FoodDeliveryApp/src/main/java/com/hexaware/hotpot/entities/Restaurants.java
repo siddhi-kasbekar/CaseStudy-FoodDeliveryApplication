@@ -6,55 +6,49 @@ import java.util.Set;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
+/*
+ * Author: Nipurna Bandi
+ * 
+ * Entity description: contains properties related to restaurants , getter and setters , 
+ * constructors and relevant validations and mappings
+ *
+ */
 
 @Entity
 public class Restaurants {
 
+	@Id
+	@Column(name = "RestaurantID")
+	private int restaurantId;
 
+	@NotNull(message = "Name is required")
+	private String name;
 
+	@NotNull(message = "Location is required")
+	private String location;
 
+	@Pattern(regexp = "[0-9]{10}", message = "Contact number must be a 10-digit number")
+	@NotNull(message = "contact number  is required")
+	private String contactNumber;
 
-	 @Id
-    @Column(name="RestaurantID")
-    private int restaurantId;
+	@NotNull(message = "Rating is required")
 
-    
-    @NotNull(message = "Name is required")
-    private String name;
+	private double rating = 0.0;
 
-    @NotNull(message = "Location is required")
-    private String location;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "restaurant")
+	private Set<MenuItems> menuItemSet = new HashSet<MenuItems>(); // collections should be initialized to avoid
+																	// nullPoitner Escep
 
-    @Pattern(regexp = "[0-9]{10}", message = "Contact number must be a 10-digit number")
-    @NotNull(message = "contact number  is required")
-    private String contactNumber;
+	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
+	private Set<Orders> orderSet = new HashSet<Orders>();
 
-    @NotNull(message = "Rating is required")
-
-    private double rating =0.0;
-
-   
-
-
-
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "restaurant")
-	private Set<MenuItems> menuItemSet = new HashSet<MenuItems>(); // collections should be initialized to avoid nullPoitner Escep
-
-    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
-    private Set<Orders> orderSet = new HashSet<Orders>();
-    
-    @OneToMany(mappedBy = "restaurant",cascade = CascadeType.ALL)
-    private Set<Discount> discountSet = new HashSet<Discount>() ;
+	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
+	private Set<Discount> discountSet = new HashSet<Discount>();
 
 	public Restaurants() {
 		super();
@@ -138,10 +132,5 @@ public class Restaurants {
 		return "Restaurants [restaurant_id=" + restaurantId + ", name=" + name + ", location=" + location
 				+ ", contactNumber=" + contactNumber + ", rating=" + rating + "]";
 	}
-
-	
-    
-
-
 
 }
