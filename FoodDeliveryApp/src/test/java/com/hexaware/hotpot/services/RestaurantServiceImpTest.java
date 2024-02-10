@@ -17,6 +17,7 @@ import com.hexaware.hotpot.dto.MenuItemsDTO;
 import com.hexaware.hotpot.dto.RestaurantsDTO;
 import com.hexaware.hotpot.entities.MenuItems;
 import com.hexaware.hotpot.entities.Restaurants;
+import com.hexaware.hotpot.exception.LocationNotFoundException;
 import com.hexaware.hotpot.exception.MenuItemNotFoundException;
 import com.hexaware.hotpot.exception.RestaurantNotFoundException;
 
@@ -119,7 +120,7 @@ class RestaurantServiceImpTest {
 	}
 	
 	@Test
-	void searchByLocation() {
+	void searchByLocation() throws LocationNotFoundException {
 		List<Restaurants> list = rservice.searchByLocation("Bhopal");
 		boolean flag=list.isEmpty();
 		assertFalse(flag);

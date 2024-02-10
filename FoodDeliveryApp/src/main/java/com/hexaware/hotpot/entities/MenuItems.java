@@ -16,14 +16,20 @@ import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
+/*
+ * Author: Nipurna Bandi
+ * 
+ * Entity description: contains properties related to menuItems , getter and setters , 
+ * constructors and relevant validations and mappings
+ *
+ */
+
 @Entity
 public class MenuItems {
 
 	
 	@Id
 	private long menuItemId;
-
-
 
 	@NotBlank(message = "Item name is required")
 	private String itemName;

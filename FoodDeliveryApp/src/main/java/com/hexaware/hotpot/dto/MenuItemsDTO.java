@@ -1,7 +1,5 @@
 package com.hexaware.hotpot.dto;
 
-import java.util.Set;
-
 public class MenuItemsDTO {
 
 	private long menuitemId;

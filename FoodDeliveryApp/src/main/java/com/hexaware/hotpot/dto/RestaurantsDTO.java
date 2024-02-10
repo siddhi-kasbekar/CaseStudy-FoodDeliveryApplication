@@ -2,10 +2,6 @@ package com.hexaware.hotpot.dto;
 
 import java.util.Set;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
-
 public class RestaurantsDTO {
 
 	private int restaurant_id;

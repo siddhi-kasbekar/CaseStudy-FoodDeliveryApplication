@@ -13,15 +13,12 @@ import com.hexaware.hotpot.entities.Cart;
 import com.hexaware.hotpot.entities.Customers;
 import com.hexaware.hotpot.entities.DeliveryAddress;
 import com.hexaware.hotpot.entities.Restaurants;
-
 import com.hexaware.hotpot.exception.CustomerNotFoundException;
 import com.hexaware.hotpot.exception.LocationNotFoundException;
-
 import com.hexaware.hotpot.repository.CartRepository;
 import com.hexaware.hotpot.repository.CustomersRepository;
 import com.hexaware.hotpot.repository.RestaurantsRepository;
 
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 
 @Service

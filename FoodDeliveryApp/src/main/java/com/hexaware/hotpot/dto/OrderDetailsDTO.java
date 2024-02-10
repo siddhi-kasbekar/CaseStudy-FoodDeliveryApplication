@@ -1,13 +1,5 @@
 package com.hexaware.hotpot.dto;
 
-import com.hexaware.hotpot.entities.MenuItems;
-import com.hexaware.hotpot.entities.Orders;
-
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.validation.constraints.NotNull;
-
 public class OrderDetailsDTO {
 
 	private int orderDetailId;

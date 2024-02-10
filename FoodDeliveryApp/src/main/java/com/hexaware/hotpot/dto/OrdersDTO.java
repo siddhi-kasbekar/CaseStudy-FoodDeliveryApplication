@@ -1,6 +1,5 @@
 package com.hexaware.hotpot.dto;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Set;
 
