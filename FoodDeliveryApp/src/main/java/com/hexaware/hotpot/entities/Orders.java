@@ -29,8 +29,8 @@ import jakarta.validation.constraints.NotNull;
 @Entity
 public class Orders {
 	
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "OrderID")
     private int orderId;
 	
@@ -59,8 +59,7 @@ public class Orders {
 	
 	
 	
-	@ManyToMany(cascade = CascadeType.ALL)
-    private Set<MenuItems> menuItems = new HashSet<>();
+	
 	
 
 
@@ -79,7 +78,7 @@ public class Orders {
 		this.status = status;
 		this.customer = customer;
 		this.restaurant = restaurant;
-		this.menuItems = menuItems;
+		
 		
 	}
 
@@ -134,19 +133,12 @@ public class Orders {
 		this.restaurant = restaurant;
 	}
 
-	public Set<MenuItems> getMenuItems() {
-		return menuItems;
-	}
 
-	public void setMenuItems(Set<MenuItems> menuItems) {
-		this.menuItems = menuItems;
-	}
 
 	@Override
 	public String toString() {
 		return "Orders [orderId=" + orderId + ", orderDate=" + orderDate + ", totalCost=" + totalCost + ", status="
-				+ status +  ", customer=" + customer + ", restaurant=" + restaurant + ", menuItems="
-				+ menuItems + "]";
+				+ status +  ", customer=" + customer + ", restaurant=" + restaurant + "]";
 	}
 	
 	

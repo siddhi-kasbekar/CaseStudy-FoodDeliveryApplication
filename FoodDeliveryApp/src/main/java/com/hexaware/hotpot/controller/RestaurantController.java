@@ -41,14 +41,14 @@ public class RestaurantController {
 //	}
 
 	@PostMapping("/addMenu/{restaurantId}")
-    @PreAuthorize("hasAuthority('admin')")
+    @PreAuthorize("hasAuthority('manager')")
 	public String addMenu(@Valid @RequestBody MenuItemsDTO menuDTO,@PathVariable int restaurantId) {
 		service.addMenu(menuDTO,restaurantId);
 		return "menu added successfully";
 	}
 
-	@PutMapping("/updateRestaurant")
-    @PreAuthorize("hasAuthority('admin')")
+	@PutMapping("/updateMenu")
+    @PreAuthorize("hasAuthority('manager')")
 	public String updateMenu(@RequestBody MenuItemsDTO menuDTO) {
 		service.updateMenu(menuDTO);
 		return "menu updated successfully";

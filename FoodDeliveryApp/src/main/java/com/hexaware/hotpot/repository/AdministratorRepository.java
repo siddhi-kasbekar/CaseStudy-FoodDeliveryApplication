@@ -9,7 +9,7 @@ import com.hexaware.hotpot.entities.Administrator;
 
 @Repository
 public interface AdministratorRepository extends JpaRepository<Administrator, Integer> {
-    Optional<Administrator> findByUserName(String username);
+    Optional<Administrator> findByUsername(String username);
 
 
 }

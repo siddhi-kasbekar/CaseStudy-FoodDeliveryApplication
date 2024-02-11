@@ -17,7 +17,7 @@ public class CartDTO {
 	
 	private long customerId;
 	
-    private List<CartMenuItemsDTO> cartItems = new ArrayList<>();
+    private List<CartDetailsDTO> cartItems = new ArrayList<>();
 
 	
 
@@ -39,11 +39,11 @@ public class CartDTO {
 
 	
 
-	    public List<CartMenuItemsDTO> getCartItems() {
+	    public List<CartDetailsDTO> getCartItems() {
 	        return cartItems;
 	    }
 
-	    public void setCartItems(List<CartMenuItemsDTO> cartItems) {
+	    public void setCartItems(List<CartDetailsDTO> cartItems) {
 	        this.cartItems = cartItems;
 	    }
 

@@ -55,7 +55,7 @@ public class CustomerServiceImp implements ICustomerService {
 	public long registerCustomer(CustomersDTO customerDTO) {
 		logger.info("customer registered successfully");
 		Customers customer = new Customers();
-		customer.setCustId(customerDTO.getCustId());
+//		customer.setCustId(customerDTO.getCustId());
 		customer.setCustName(customerDTO.getCustName());
 		customer.setGender(customerDTO.getGender());
 		customer.setEmail(customerDTO.getEmail());

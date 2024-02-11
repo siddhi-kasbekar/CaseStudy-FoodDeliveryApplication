@@ -43,7 +43,7 @@ public class RestaurantServiceImp implements IRestaurantService {
 
 
 		Restaurants res = new Restaurants();
-		res.setRestaurantId(restaurant.getRestaurantId());
+//		res.setRestaurantId(restaurant.getRestaurantId());
 		res.setName(restaurant.getName());
 		res.setLocation(restaurant.getLocation());
 		res.setContactNumber(restaurant.getContactNumber());
@@ -64,7 +64,7 @@ public class RestaurantServiceImp implements IRestaurantService {
 		Optional<Restaurants> restaurantOptional = restaurantRepo.findById(restaurantId);
 
 		MenuItems menuItem = new MenuItems();
-		menuItem.setMenuitemId(menuItemDTO.getMenuItemId());
+//		menuItem.setMenuitemId(menuItemDTO.getMenuItemId());
 		menuItem.setItemName(menuItemDTO.getItemName());
 		menuItem.setDescription(menuItemDTO.getDescription());
 		menuItem.setCategory(menuItemDTO.getCategory());

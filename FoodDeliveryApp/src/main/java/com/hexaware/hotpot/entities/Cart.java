@@ -11,6 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 
@@ -34,12 +35,12 @@ public class Cart {
 	@JoinColumn(name = "custid")
 	private Customers customer;
 
-	@OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
-	private Set<CartMenuItems> cartMenuItems = new HashSet<>();
-
+	
 	@OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
 	@JsonIgnore // Prevent infinite recursion
 	private Set<Payment> paymentSet = new HashSet<>();
+	
+
 
 	public Cart() {
 		super();
@@ -85,22 +86,6 @@ public class Cart {
 		this.paymentSet = paymentSet;
 	}
 
-	public Set<CartMenuItems> getCartMenuItems() {
-		return cartMenuItems;
-	}
 
-	public void setCartMenuItems(Set<CartMenuItems> cartMenuItems) {
-		this.cartMenuItems = cartMenuItems;
-	}
-
-	public void addCartItem(CartMenuItems cartItem) {
-		cartMenuItems.add(cartItem);
-		cartItem.setCart(this);
-	}
-
-	public void removeCartItem(CartMenuItems cartItem) {
-		cartMenuItems.remove(cartItem);
-		cartItem.setCart(null);
-	}
 
 }

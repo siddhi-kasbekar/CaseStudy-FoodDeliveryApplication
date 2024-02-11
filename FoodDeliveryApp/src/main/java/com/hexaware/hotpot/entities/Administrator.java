@@ -2,6 +2,8 @@ package com.hexaware.hotpot.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
@@ -18,17 +20,16 @@ import jakarta.validation.constraints.Pattern;
 
 
 @Entity
-@Table(name = "Administrator")
 public class Administrator {
 
     @Id
-    @Column(name = "AdminID")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private int adminId;
 
     @NotBlank(message = "Username is required")
     @Pattern(regexp = "^[a-zA-Z0-9_-]+$", message = "Username must contain only letters, numbers, underscores, and hyphens")
     @Column(name = "UserName", nullable = false, unique = true)
-    private String userName;
+    private String username;
 
 
     @Column(name = "Password", nullable = false)
@@ -53,10 +54,10 @@ public class Administrator {
 		super();
 	}
 
-	public Administrator(int adminId, String userName, String password, String name, String email) {
+	public Administrator(int adminId, String username, String password, String name, String email) {
 		super();
 		this.adminId = adminId;
-		this.userName = userName;
+		this.username = username;
 		this.password = password;
 		this.name = name;
 		this.email = email;
@@ -71,11 +72,11 @@ public class Administrator {
 	}
 
 	public String getUserName() {
-		return userName;
+		return username;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setUserName(String username) {
+		this.username = username;
 	}
 
 	public String getPassword() {
@@ -113,7 +114,7 @@ public class Administrator {
 
 	@Override
 	public String toString() {
-		return "Administrator [adminId=" + adminId + ", userName=" + userName + ", password=" + password + ", name="
+		return "Administrator [adminId=" + adminId + ", userName=" + username + ", password=" + password + ", name="
 				+ name + ", email=" + email + "]";
 	}
     
