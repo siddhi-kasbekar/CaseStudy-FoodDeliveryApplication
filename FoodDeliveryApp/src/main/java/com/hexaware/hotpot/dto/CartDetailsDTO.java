@@ -1,17 +1,23 @@
 package com.hexaware.hotpot.dto;
 
-public class CartMenuItemsDTO {
+
+public class CartDetailsDTO {
+
     private long cartMenuItemId;
     private long cartId;
     private long menuItemId;
     private int quantity;
 
-    public CartMenuItemsDTO() {
+
+    public CartDetailsDTO() {
+
         // Default constructor
     }
 
     // Constructor with parameters
-    public CartMenuItemsDTO(long cartMenuItemId, long cartId, long menuItemId, int quantity) {
+
+    public CartDetailsDTO(long cartMenuItemId, long cartId, long menuItemId, int quantity) {
+
         this.cartMenuItemId = cartMenuItemId;
         this.cartId = cartId;
         this.menuItemId = menuItemId;

@@ -14,7 +14,7 @@ import com.hexaware.hotpot.entities.Restaurants;
 
 public interface IAdminService {
 	
-	public long registerAdmin(AdminDTO adminDTO);
+	public long registerManager(AdminDTO adminDTO);
 
 	public String adminLogin(AdminDTO admindto);
 
