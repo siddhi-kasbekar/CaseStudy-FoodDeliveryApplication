@@ -35,11 +35,11 @@ public class Cart {
 	private Customers customer;
 
 	@OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
-	private Set<CartMenuItems> cartMenuItems = new HashSet<CartMenuItems>();
+	private Set<CartMenuItems> cartMenuItems = new HashSet<>();
 
 	@OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
 	@JsonIgnore // Prevent infinite recursion
-	private Set<Payment> paymentSet = new HashSet<Payment>();
+	private Set<Payment> paymentSet = new HashSet<>();
 
 	public Cart() {
 		super();

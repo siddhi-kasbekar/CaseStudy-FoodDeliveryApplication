@@ -39,7 +39,8 @@ public class RestaurantServiceImp implements IRestaurantService {
 	@Override
 	public Restaurants registerRestaurant(RestaurantsDTO restaurant) {
 
-		logger.info(restaurant + " is registered successfully!");
+		logger.info(String.format("%s is registered successfully!", restaurant));
+
 
 		Restaurants res = new Restaurants();
 		res.setRestaurantId(restaurant.getRestaurantId());
@@ -63,7 +64,7 @@ public class RestaurantServiceImp implements IRestaurantService {
 		Optional<Restaurants> restaurantOptional = restaurantRepo.findById(restaurantId);
 
 		MenuItems menuItem = new MenuItems();
-		menuItem.setMenuitemId(menuItemDTO.getMenuitemId());
+		menuItem.setMenuitemId(menuItemDTO.getMenuItemId());
 		menuItem.setItemName(menuItemDTO.getItemName());
 		menuItem.setDescription(menuItemDTO.getDescription());
 		menuItem.setCategory(menuItemDTO.getCategory());
@@ -80,19 +81,19 @@ public class RestaurantServiceImp implements IRestaurantService {
 			menuItemDTO.setRestaurantId(restaurantId);
 			menuItem.setRestaurant(restaurant);
 
-			menuItem = menuItemRepo.save(menuItem);
+			 menuItemRepo.save(menuItem);
 			logger.info("Menu Item added to the menu successfully!");
 
 		} else {
 
-			logger.info("restaurant with specified id not found ");
+			logger.info("restaurant with the searched id not found ");
 		}
 
 	}
 
 	@Override
 	public void updateMenu(MenuItemsDTO menuDTO) {
-		Optional<MenuItems> existingMenuItemOptional = menuItemRepo.findById(menuDTO.getMenuitemId());
+		Optional<MenuItems> existingMenuItemOptional = menuItemRepo.findById(menuDTO.getMenuItemId());
 
 		if (existingMenuItemOptional.isPresent()) {
 			MenuItems existingMenuItem = existingMenuItemOptional.get();

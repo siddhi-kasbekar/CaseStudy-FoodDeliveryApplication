@@ -41,14 +41,14 @@ public class Restaurants {
 	private double rating = 0.0;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "restaurant")
-	private Set<MenuItems> menuItemSet = new HashSet<MenuItems>(); // collections should be initialized to avoid
+	private Set<MenuItems> menuItemSet = new HashSet<>(); // collections should be initialized to avoid
 																	// nullPoitner Escep
 
 	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
-	private Set<Orders> orderSet = new HashSet<Orders>();
+	private Set<Orders> orderSet = new HashSet<>();
 
 	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
-	private Set<Discount> discountSet = new HashSet<Discount>();
+	private Set<Discount> discountSet = new HashSet<>();
 
 	public Restaurants() {
 		super();

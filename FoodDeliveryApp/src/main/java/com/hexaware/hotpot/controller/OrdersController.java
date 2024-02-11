@@ -1,6 +1,8 @@
 package com.hexaware.hotpot.controller;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -13,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.hexaware.hotpot.dto.OrdersDTO;
+import com.hexaware.hotpot.dto.MenuItemsDTO;
 import com.hexaware.hotpot.entities.Orders;
+import com.hexaware.hotpot.exception.CustomerNotFoundException;
 import com.hexaware.hotpot.exception.OrderNotFoundException;
+import com.hexaware.hotpot.exception.RestaurantNotFoundException;
 import com.hexaware.hotpot.services.IOrderService;
 
 import jakarta.validation.Valid;
@@ -29,10 +33,27 @@ public class OrdersController {
 	
 	@PostMapping("/placeOrder")
     @PreAuthorize("hasAuthority('customer')")
-	public void placeOrder(@Valid @RequestBody OrdersDTO orderDTO,@RequestBody long customerId) {
-		service.placeOrder(orderDTO,  customerId);
+//	public void placeOrder(@Valid @RequestParam long customerId, @RequestParam int restaurantId, @RequestBody Map<String, Object> menuItems) throws RestaurantNotFoundException, CustomerNotFoundException {
+//		service.placeOrder(customerId, restaurantId, menuItems);
+//		
 		
-		
+	
+	public void placeOrder(@Valid @RequestParam long customerId, @RequestParam int restaurantId, @RequestBody Map<String, Object> requestBody) throws RestaurantNotFoundException, CustomerNotFoundException {
+	    List<MenuItemsDTO> menuItems = parseMenuItems(requestBody);
+	    service.placeOrder(customerId, restaurantId, menuItems);
+	}
+
+	private List<MenuItemsDTO> parseMenuItems(Map<String, Object> requestBody) {
+	    List<Map<String, Object>> menuItemList = (List<Map<String, Object>>) requestBody.get("menuItems");
+	    List<MenuItemsDTO> menuItems = new ArrayList<>();
+	    for (Map<String, Object> menuItemData : menuItemList) {
+	        MenuItemsDTO menuItemDTO = new MenuItemsDTO();
+	        menuItemDTO.setMenuItemId(Long.parseLong(menuItemData.get("menuItemId").toString()));
+	        menuItemDTO.setQuantity(Integer.parseInt(menuItemData.get("quantity").toString()));
+	        // Set other properties if needed
+	        menuItems.add(menuItemDTO);
+	    }
+	    return menuItems;
 	}
 
 	@GetMapping("/getById/{orderId}")
