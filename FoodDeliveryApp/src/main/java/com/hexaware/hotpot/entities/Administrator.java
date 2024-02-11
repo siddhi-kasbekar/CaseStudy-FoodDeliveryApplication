@@ -6,6 +6,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
 /*
@@ -30,9 +31,11 @@ public class Administrator {
     @Column(name = "UserName", nullable = false, unique = true)
     private String userName;
 
+
     @Column(name = "Password", nullable = false)
     private String password;
 
+    @NotBlank
     @Column(name = "Name")
     private String name;
 
