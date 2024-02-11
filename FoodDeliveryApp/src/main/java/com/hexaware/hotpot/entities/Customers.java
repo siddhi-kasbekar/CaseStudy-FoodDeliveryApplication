@@ -3,6 +3,8 @@ package com.hexaware.hotpot.entities;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -94,12 +96,12 @@ public final class Customers {
 	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
 	private Set<Payment> paymentSet = new HashSet<>();
 
-	@OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
-	private Cart cart;
+//	@OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
+//    @JsonBackReference // Prevents infinite recursion during serialization
+//	private Cart cart;
 
 	public Customers() {
 		super();
-		this.cart = new Cart();
 	}
 
 	public Customers(long customerId, String customerName, String gender, String email, String phone, String username,
@@ -181,13 +183,13 @@ public final class Customers {
 	}
 
 
-	public Cart getCart() {
-		return cart;
-	}
-
-	public void setCart(Cart cart) {
-		this.cart = cart;
-	}
+//	public Cart getCart() {
+//		return cart;
+//	}
+//
+//	public void setCart(Cart cart) {
+//		this.cart = cart;
+//	}
 
 	@Override
 	public String toString() {

@@ -2,6 +2,8 @@ package com.hexaware.hotpot.services;
 
 import java.util.List;
 
+import com.hexaware.hotpot.dto.CartDetailsDTO;
+import com.hexaware.hotpot.dto.MenuItemsDTO;
 import com.hexaware.hotpot.entities.Cart;
 import com.hexaware.hotpot.exception.CustomerNotFoundException;
 
@@ -9,11 +11,11 @@ public interface ICartService {
 
 
 	
-	public Cart saveCartState(Cart cart,long customerId,int cartId) throws CustomerNotFoundException ;
+	public Cart saveCartState(long customerId,  List<MenuItemsDTO> menuItemsDTO,double total) throws CustomerNotFoundException ;
 
 
 	
 
 
-	public List<Cart> getCartItems(Long customerId);
+	public Cart getCartItems(Long customerId);
 }
