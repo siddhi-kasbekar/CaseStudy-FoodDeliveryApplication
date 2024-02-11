@@ -11,8 +11,9 @@ import org.springframework.stereotype.Service;
 import com.hexaware.hotpot.dto.MenuItemsDTO;
 import com.hexaware.hotpot.dto.RestaurantsDTO;
 import com.hexaware.hotpot.entities.MenuItems;
-import com.hexaware.hotpot.entities.OrderDetails;
 import com.hexaware.hotpot.entities.Restaurants;
+import com.hexaware.hotpot.exception.LocationNotFoundException;
+import com.hexaware.hotpot.exception.MenuItemNotFoundException;
 import com.hexaware.hotpot.exception.RestaurantNotFoundException;
 import com.hexaware.hotpot.repository.MenuItemsRepository;
 import com.hexaware.hotpot.repository.OrderDetailsRepository;
@@ -29,7 +30,7 @@ public class RestaurantServiceImp implements IRestaurantService {
 
 	@Autowired
 	MenuItemsRepository menuItemRepo;
-	
+
 	@Autowired
 	OrderDetailsRepository orderDetailsrepo;
 
@@ -38,7 +39,8 @@ public class RestaurantServiceImp implements IRestaurantService {
 	@Override
 	public Restaurants registerRestaurant(RestaurantsDTO restaurant) {
 
-		logger.info(restaurant + " is registered successfully!");
+		logger.info(String.format("%s is registered successfully!", restaurant));
+
 
 		Restaurants res = new Restaurants();
 		res.setRestaurantId(restaurant.getRestaurantId());
@@ -62,7 +64,7 @@ public class RestaurantServiceImp implements IRestaurantService {
 		Optional<Restaurants> restaurantOptional = restaurantRepo.findById(restaurantId);
 
 		MenuItems menuItem = new MenuItems();
-		menuItem.setMenuitemId(menuItemDTO.getMenuitemId());
+		menuItem.setMenuitemId(menuItemDTO.getMenuItemId());
 		menuItem.setItemName(menuItemDTO.getItemName());
 		menuItem.setDescription(menuItemDTO.getDescription());
 		menuItem.setCategory(menuItemDTO.getCategory());
@@ -79,22 +81,19 @@ public class RestaurantServiceImp implements IRestaurantService {
 			menuItemDTO.setRestaurantId(restaurantId);
 			menuItem.setRestaurant(restaurant);
 
-			menuItem = menuItemRepo.save(menuItem);
+			 menuItemRepo.save(menuItem);
 			logger.info("Menu Item added to the menu successfully!");
-			
-			 
+
 		} else {
 
-			logger.info("restaurant with specified id not found ");
+			logger.info("restaurant with the searched id not found ");
 		}
-		
-		
-		
+
 	}
 
 	@Override
 	public void updateMenu(MenuItemsDTO menuDTO) {
-		Optional<MenuItems> existingMenuItemOptional = menuItemRepo.findById(menuDTO.getMenuitemId());
+		Optional<MenuItems> existingMenuItemOptional = menuItemRepo.findById(menuDTO.getMenuItemId());
 
 		if (existingMenuItemOptional.isPresent()) {
 			MenuItems existingMenuItem = existingMenuItemOptional.get();
@@ -109,43 +108,52 @@ public class RestaurantServiceImp implements IRestaurantService {
 			existingMenuItem.setCookingTime(menuDTO.getCookingTime());
 
 			menuItemRepo.save(existingMenuItem);
-		
+
 			logger.info("Menu item updated in the menu successfully!");
-		
+
 		}
 
 	}
 
 	@Override
 	public void deleteMenu(int menuId) {
-        
+
 		logger.info("Menu Item deleted successfully!");
-		
+
 		restaurantRepo.deleteById(menuId);
 	}
 
 	@Override
-	public List<MenuItems> getMenuByCategory(String category) {
+	public List<MenuItems> getMenuByCategory(String category) throws MenuItemNotFoundException {
 
-		return menuItemRepo.findByCategory(category);
+		List<MenuItems> menuItem = menuItemRepo.findByCategory(category);
+		if (menuItem.isEmpty()) {
+			throw new MenuItemNotFoundException("Error retrieving menu items for category: " + category);
+		}
+		
+		return menuItem;
 	}
 
-	@Override
-	public List<MenuItems> getOrdersByRestaurantId(Restaurants restaurant) {
-
-		return null;// mrepo.findByRestaurantId(restaurant);
-	}
+	
 
 	@Override
 	public List<Restaurants> searchRestaurants(String keyword) throws RestaurantNotFoundException {
-
-		return restaurantRepo.findByNameContainingIgnoreCase(keyword);
+		List<Restaurants> restaurants = restaurantRepo.findByNameContainingIgnoreCase(keyword);
+		if (restaurants.isEmpty()) {
+			throw new RestaurantNotFoundException("Error retrieving restaurants for keyword: " + keyword);
+		}
+		return restaurants;
 	}
 
 	@Override
-	public List<Restaurants> searchByLocation(String location) {
+	public List<Restaurants> searchByLocation(String location) throws LocationNotFoundException {
+		List<Restaurants> restaurants = restaurantRepo.findByLocation(location);
 
-		return restaurantRepo.findByLocation(location);
+		if (restaurants.isEmpty()) {
+			throw new LocationNotFoundException("No restaurants found in location: " + location);
+		}
+
+		return restaurants;
 	}
 
 }

@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -13,8 +12,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.hexaware.hotpot.dto.CustomersDTO;
-import com.hexaware.hotpot.dto.DeliveryAddressDTO;
 import com.hexaware.hotpot.dto.MenuItemsDTO;
 import com.hexaware.hotpot.dto.RestaurantsDTO;
 import com.hexaware.hotpot.entities.Customers;
@@ -100,7 +97,7 @@ class AdminServiceImpTest {
 
 
 		MenuItemsDTO menuItemsDTO = new MenuItemsDTO();
-        menuItemsDTO.setMenuitemId(4);
+        menuItemsDTO.setMenuItemId(4);
         menuItemsDTO.setItemName("chicken vindaloo");
         menuItemsDTO.setDescription("delicious chicken");
         menuItemsDTO.setCategory("main course");

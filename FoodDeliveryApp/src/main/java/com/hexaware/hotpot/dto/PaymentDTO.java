@@ -3,16 +3,6 @@ package com.hexaware.hotpot.dto;
 import java.math.BigDecimal;
 import java.security.Timestamp;
 
-import com.hexaware.hotpot.entities.Cart;
-import com.hexaware.hotpot.entities.Customers;
-
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-
 public class PaymentDTO {
 
 	private int paymentId;

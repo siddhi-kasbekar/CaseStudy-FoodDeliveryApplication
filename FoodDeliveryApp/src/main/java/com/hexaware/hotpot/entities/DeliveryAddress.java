@@ -11,6 +11,15 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
+/*
+ * Author: Siddhi Kasbekar
+ * 
+ * Entity description: contains properties related to deliverAddress , getter and setters , 
+ * constructors and relevant validations and mappings
+ *
+ */
+
+
 @Entity
 public class DeliveryAddress {
 	

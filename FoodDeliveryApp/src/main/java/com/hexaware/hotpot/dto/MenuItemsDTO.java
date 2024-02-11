@@ -1,10 +1,8 @@
 package com.hexaware.hotpot.dto;
 
-import java.util.Set;
-
 public class MenuItemsDTO {
 
-	private long menuitemId;
+	private long menuItemId;
     private String itemName;
     private String description;
     private String category;
@@ -24,17 +22,19 @@ public class MenuItemsDTO {
 	private int cookingTime;
 	
 	private int restaurantId;
+	
+	private int quantity;
 
 	public MenuItemsDTO() {
 		super();
 	}
 
 
-	public MenuItemsDTO(long menuitemId, String itemName, String description, String category, double price,
+	public MenuItemsDTO(long menuItemId, String itemName, String description, String category, double price,
 			String availabilityTime, String specialDietaryInfo, String tasteInfo, String nutritionalInfo,
-			int cookingTime) {
+			int cookingTime,int quantity) {
 		super();
-		this.menuitemId = menuitemId;
+		this.menuItemId = menuItemId;
 		this.itemName = itemName;
 		this.description = description;
 		this.category = category;
@@ -44,14 +44,15 @@ public class MenuItemsDTO {
 		this.tasteInfo = tasteInfo;
 		this.nutritionalInfo = nutritionalInfo;
 		this.cookingTime = cookingTime;
+		this.quantity=quantity;
 	}
 
-	public long getMenuitemId() {
-		return menuitemId;
+	public long getMenuItemId() {
+		return menuItemId;
 	}
 
-	public void setMenuitemId(long menuitemId) {
-		this.menuitemId = menuitemId;
+	public void setMenuItemId(long menuitemId) {
+		this.menuItemId = menuitemId;
 	}
 
 	public String getItemName() {
@@ -134,6 +135,16 @@ public class MenuItemsDTO {
 
 	public void setRestaurantId(int restaurantId) {
 		this.restaurantId = restaurantId;
+	}
+
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
 
 	

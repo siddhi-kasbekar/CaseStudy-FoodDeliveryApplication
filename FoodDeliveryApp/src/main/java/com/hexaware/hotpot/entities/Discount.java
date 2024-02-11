@@ -13,6 +13,15 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
 
+/*
+ * Author: Siddhi Kasbekar
+ * 
+ * Entity description: contains properties related to Discount , getter and setters , 
+ * constructors and relevant validations and mappings
+ *
+ */
+
+
 @Entity
 public class Discount {
 	

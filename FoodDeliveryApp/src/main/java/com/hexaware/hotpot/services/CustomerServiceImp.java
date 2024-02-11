@@ -3,6 +3,8 @@ package com.hexaware.hotpot.services;
 import java.util.List;
 import java.util.Objects;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -13,15 +15,12 @@ import com.hexaware.hotpot.entities.Cart;
 import com.hexaware.hotpot.entities.Customers;
 import com.hexaware.hotpot.entities.DeliveryAddress;
 import com.hexaware.hotpot.entities.Restaurants;
-
 import com.hexaware.hotpot.exception.CustomerNotFoundException;
 import com.hexaware.hotpot.exception.LocationNotFoundException;
-
 import com.hexaware.hotpot.repository.CartRepository;
 import com.hexaware.hotpot.repository.CustomersRepository;
 import com.hexaware.hotpot.repository.RestaurantsRepository;
 
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -42,6 +41,9 @@ public class CustomerServiceImp implements ICustomerService {
 
 	@Autowired
 	private CartRepository cartRepository;
+	
+	private static final Logger logger = LoggerFactory.getLogger(CustomerServiceImp.class);
+
 
 	@Override
 	public String loginCustomer(CustomersDTO customer) {
@@ -51,6 +53,7 @@ public class CustomerServiceImp implements ICustomerService {
 
 	@Override
 	public long registerCustomer(CustomersDTO customerDTO) {
+		logger.info("customer registered successfully");
 		Customers customer = new Customers();
 		customer.setCustId(customerDTO.getCustId());
 		customer.setCustName(customerDTO.getCustName());

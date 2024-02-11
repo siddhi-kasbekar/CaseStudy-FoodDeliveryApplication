@@ -2,12 +2,12 @@ package com.hexaware.hotpot.services;
 
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hexaware.hotpot.entities.MenuItems;
+import com.hexaware.hotpot.exception.MenuItemNotFoundException;
 import com.hexaware.hotpot.repository.MenuItemsRepository;
 
 import jakarta.transaction.Transactional;
@@ -18,19 +18,28 @@ public class MenuServiceImp implements IMenuService {
 
 	@Autowired
 	MenuItemsRepository repo;
+
 	
-	private static final Logger  logger =	LoggerFactory.getLogger(MenuServiceImp.class);
-	
+
 	@Override
-	public List<MenuItems> getMenuByCategory(String category) {
+	public List<MenuItems> getMenuByCategory(String category) throws MenuItemNotFoundException {
+
+		List<MenuItems> menuItem = repo.findByCategory(category);
+		if (menuItem.isEmpty()) {
+			throw new MenuItemNotFoundException("Error retrieving menu items for category: " + category);
+		}
 		
-		return  repo.findByCategory(category);
+		return menuItem;
 	}
 
 	@Override
-	public List<MenuItems> searchMenuItemsByKeyword(String keyword) {
+	public List<MenuItems> searchMenuItemsByKeyword(String keyword) throws MenuItemNotFoundException {
+		List<MenuItems> menuItem = repo.findByItemNameContainingIgnoreCase(keyword);
+		if (menuItem.isEmpty()) {
+			throw new MenuItemNotFoundException("Error retrieving menu items for keyword: " + keyword);
+		}
 		
-		return repo.findByItemNameContainingIgnoreCase(keyword);
+		return menuItem;
 	}
 
 }

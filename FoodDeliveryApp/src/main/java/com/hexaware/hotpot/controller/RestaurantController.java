@@ -15,9 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hexaware.hotpot.dto.MenuItemsDTO;
 import com.hexaware.hotpot.dto.RestaurantsDTO;
-import com.hexaware.hotpot.entities.MenuItems;
 import com.hexaware.hotpot.entities.Restaurants;
-import com.hexaware.hotpot.exception.MenuItemNotFoundException;
+import com.hexaware.hotpot.exception.LocationNotFoundException;
 import com.hexaware.hotpot.exception.RestaurantNotFoundException;
 import com.hexaware.hotpot.services.IRestaurantService;
 
@@ -41,7 +40,7 @@ public class RestaurantController {
 //		return service.loginRestaurant(restaurantDTO);
 //	}
 
-	@PostMapping("/addRestaurant/{restaurantId}")
+	@PostMapping("/addMenu/{restaurantId}")
     @PreAuthorize("hasAuthority('admin')")
 	public String addMenu(@Valid @RequestBody MenuItemsDTO menuDTO,@PathVariable int restaurantId) {
 		service.addMenu(menuDTO,restaurantId);
@@ -81,7 +80,7 @@ public class RestaurantController {
 	
 	@GetMapping("/searchByLocation/{location}")
     @PreAuthorize("hasAuthority('customer')")
-	public List<Restaurants> searchByLocation(String location){
+	public List<Restaurants> searchByLocation(@PathVariable String location) throws LocationNotFoundException{
 		
 		return service.searchByLocation(location);
 		

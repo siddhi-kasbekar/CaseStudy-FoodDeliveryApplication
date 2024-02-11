@@ -1,7 +1,6 @@
 package com.hexaware.hotpot.services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
@@ -11,8 +10,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.hexaware.hotpot.dto.OrdersDTO;
 import com.hexaware.hotpot.entities.Orders;
+import com.hexaware.hotpot.exception.OrderNotFoundException;
 
 @SpringBootTest
 class OrderServiceImpTest {
@@ -39,7 +38,7 @@ class OrderServiceImpTest {
 //	}
 
 	@Test
-	void testGetOrderById() {
+	void testGetOrderById() throws OrderNotFoundException {
 		Orders order=service.getOrderById(1);
 		assertEquals(600,order.getTotalCost());
 	}

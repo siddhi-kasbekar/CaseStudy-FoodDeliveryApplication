@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.hexaware.hotpot.entities.MenuItems;
+import com.hexaware.hotpot.exception.MenuItemNotFoundException;
 
 @SpringBootTest
 class MenuServiceImpTest {
@@ -23,14 +24,14 @@ class MenuServiceImpTest {
 	}
 
 	@Test
-	void testGetMenuByCategory() {
+	void testGetMenuByCategory() throws MenuItemNotFoundException {
 		List<MenuItems> menu=service.getMenuByCategory("dinner");
 		boolean flag =menu.isEmpty();
 		assertFalse(flag);
 	}
 
 	@Test
-	void testSearchMenuItemsByKeyword() {
+	void testSearchMenuItemsByKeyword() throws MenuItemNotFoundException {
 		List<MenuItems> menu=service.searchMenuItemsByKeyword("pas");
 		boolean flag =menu.isEmpty();
 		assertFalse(flag);

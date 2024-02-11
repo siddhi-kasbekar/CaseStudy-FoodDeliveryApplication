@@ -17,6 +17,7 @@ import com.hexaware.hotpot.dto.MenuItemsDTO;
 import com.hexaware.hotpot.dto.RestaurantsDTO;
 import com.hexaware.hotpot.entities.MenuItems;
 import com.hexaware.hotpot.entities.Restaurants;
+import com.hexaware.hotpot.exception.LocationNotFoundException;
 import com.hexaware.hotpot.exception.MenuItemNotFoundException;
 import com.hexaware.hotpot.exception.RestaurantNotFoundException;
 
@@ -47,10 +48,10 @@ class RestaurantServiceImpTest {
 		assertEquals(restaurantDTO.getRestaurantId(), restaurant.getRestaurantId());
 	}
 
-	@Test
-	void testLoginRestaurant() {
-		
-	}
+//	@Test
+//	void testLoginRestaurant() {
+//		
+//	}
 
 	
 	//@Test
@@ -80,7 +81,7 @@ class RestaurantServiceImpTest {
 	void testUpdateMenu() {
 		
 		MenuItemsDTO updatedMenu=new MenuItemsDTO();
-		updatedMenu.setMenuitemId(2);
+		updatedMenu.setMenuItemId(2);
 		updatedMenu.setItemName("dosa");
 		updatedMenu.setDescription("delicious chicken");
 		updatedMenu.setCategory("dinner");
@@ -94,7 +95,7 @@ class RestaurantServiceImpTest {
 		assertTrue(true);
 	}
     
-	@Disabled
+	
 	@Test
 	void testDeleteMenu() {
 		int menuItemToRemove=2;
@@ -119,7 +120,7 @@ class RestaurantServiceImpTest {
 	}
 	
 	@Test
-	void searchByLocation() {
+	void searchByLocation() throws LocationNotFoundException {
 		List<Restaurants> list = rservice.searchByLocation("Bhopal");
 		boolean flag=list.isEmpty();
 		assertFalse(flag);

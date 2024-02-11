@@ -1,7 +1,6 @@
 package com.hexaware.hotpot.repository;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -13,6 +12,6 @@ public interface OrdersRepository extends JpaRepository<Orders, Integer> {
 
 	Orders findById(int orderId);
 
-    List<Orders> findByCustomerCustomerId(int customerId);
+    List<Orders> findByCustomerCustomerId(long customerId);
 
 }
