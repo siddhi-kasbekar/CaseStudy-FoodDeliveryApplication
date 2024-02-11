@@ -68,9 +68,9 @@ public class CustomerServiceImp implements ICustomerService {
 	    customer.setRole("customer");
 
 		// Create a new Cart and associate it with the Customer
-		Cart cart = new Cart();
-		cart.setCustomer(customer); // Set the Customers reference in Cart
-		customer.setCart(cart);
+//		Cart cart = new Cart();
+//		cart.setCustomer(customer); // Set the Customers reference in Cart
+//		customer.setCart(cart);
 
 		DeliveryAddressDTO addressDTO = customerDTO.getAddressDTO();
 		if (addressDTO != null) {
@@ -86,7 +86,7 @@ public class CustomerServiceImp implements ICustomerService {
 		}
 
 		customerRepo.save(customer);
-		cartRepository.save(cart);
+//		cartRepository.save(cart);
 
 
 		return customer.getCustId();
