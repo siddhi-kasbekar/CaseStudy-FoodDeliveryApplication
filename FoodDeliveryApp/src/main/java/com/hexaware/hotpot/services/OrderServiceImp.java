@@ -1,20 +1,27 @@
 package com.hexaware.hotpot.services;
 
+import java.time.LocalDateTime;
 import java.util.List;
-
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.hexaware.hotpot.dto.OrdersDTO;
+import com.hexaware.hotpot.dto.MenuItemsDTO;
+import com.hexaware.hotpot.entities.Customers;
 import com.hexaware.hotpot.entities.MenuItems;
 import com.hexaware.hotpot.entities.OrderDetails;
 import com.hexaware.hotpot.entities.Orders;
+import com.hexaware.hotpot.entities.Restaurants;
+import com.hexaware.hotpot.exception.CustomerNotFoundException;
 import com.hexaware.hotpot.exception.OrderNotFoundException;
+import com.hexaware.hotpot.exception.RestaurantNotFoundException;
+import com.hexaware.hotpot.repository.CustomersRepository;
+import com.hexaware.hotpot.repository.MenuItemsRepository;
 import com.hexaware.hotpot.repository.OrderDetailsRepository;
 import com.hexaware.hotpot.repository.OrdersRepository;
+import com.hexaware.hotpot.repository.RestaurantsRepository;
 
 import jakarta.transaction.Transactional;
 
@@ -27,34 +34,52 @@ public class OrderServiceImp implements IOrderService {
 
 	@Autowired
 	OrderDetailsRepository orderDetailsrepo;
+	
+	@Autowired
+	CustomersRepository customerRepo;
+	
+	@Autowired
+	RestaurantsRepository restaurantRepo;
+	
+	@Autowired
+	MenuItemsRepository menuItemRepo;
 
 	
 	private static final Logger logger = LoggerFactory.getLogger(OrderServiceImp.class);
 
-	 @Override
-	public void placeOrder(OrdersDTO orderDTO,long customerId) {
+	@Override
+	public void placeOrder(long customerId, int restaurantId, List<MenuItemsDTO> menuItems) throws RestaurantNotFoundException, CustomerNotFoundException {
+	    logger.info("Your order has been placed");
 
-		logger.info("Your order has been placed");
+	    // Retrieve customer and restaurant entities from their IDs
+	    Customers customer = customerRepo.findById(customerId).orElseThrow(() -> new CustomerNotFoundException("Customer not found"));
+	    Restaurants restaurant = restaurantRepo.findById(restaurantId).orElseThrow(() -> new RestaurantNotFoundException("Restaurant not found"));
 
-		Orders order = new Orders();
-		order.setOrderDate(orderDTO.getOrderDate());
-		order.setTotalCost(orderDTO.getTotalCost()); // should come from cart
-		order.setStatus(orderDTO.getStatus());
-		order.setCustomer(orderDTO.getCustomerId());
-		order.setRestaurant(orderDTO.getRestaurantId());    //should come from restaurant
+	    Orders order = new Orders();
+	    order.setOrderDate(LocalDateTime.now()); // Assuming you set the order date to current date and time
+	    // Calculate total cost based on menu items
+	    double totalCost = menuItems.stream().mapToDouble(MenuItemsDTO::getPrice).sum();
+	    order.setTotalCost(totalCost);
+	    order.setStatus("Placed"); // Assuming initial status is "Placed"
+	    order.setCustomer(customer);
+	    order.setRestaurant(restaurant);
+	    
 
-		OrderDetails orderDetails = new OrderDetails();
-		orderDetails.setOrder(order); // Associate order with order details using generated order ID
-		orderDetailsrepo.save(orderDetails);
-		
-		MenuItems menuItem= new MenuItems();
-		orderDetails.setMenuItem(menuItem);
-		orderDetailsrepo.save(orderDetails);
-		
-	
-		
-		
-		ordersRepo.save(order);
+	    ordersRepo.save(order);
+
+	    // Save menu items in order details table
+	    for (MenuItemsDTO menuItemDTO : menuItems) {
+	        MenuItems menuItem = menuItemRepo.findById(menuItemDTO.getMenuItemId())
+	                                         .orElseThrow(() -> new RuntimeException("Menu item not found"));
+
+	        OrderDetails orderDetails = new OrderDetails();
+	        orderDetails.setOrder(order);
+	        orderDetails.setMenuItem(menuItem);
+	        orderDetails.setQuantity(menuItemDTO.getQuantity()); // Assuming you have quantity in MenuItemDTO
+	        
+	        
+	        orderDetailsrepo.save(orderDetails);
+	    }
 	}
 
 

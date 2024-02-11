@@ -3,7 +3,7 @@ package com.hexaware.hotpot.dto;
 import java.time.LocalDateTime;
 import java.util.Set;
 
-import com.hexaware.hotpot.entities.Cart;
+
 import com.hexaware.hotpot.entities.Customers;
 import com.hexaware.hotpot.entities.Restaurants;
 
@@ -13,7 +13,6 @@ public class OrdersDTO {
 	private LocalDateTime orderDate;
 	private double totalCost;
 	private String status;
-	private Cart cartId;
 	private Customers customerId;
 	private Restaurants restaurantId;
 	private Set<Integer> menuItemIds;
@@ -22,7 +21,7 @@ public class OrdersDTO {
 		super();
 	}
 
-	public OrdersDTO(int orderId, LocalDateTime orderDate, double totalCost, String status, Cart cartId, Customers customerId,
+	public OrdersDTO(int orderId, LocalDateTime orderDate, double totalCost, String status, Customers customerId,
 			Restaurants restaurantId, Set<Integer> menuItemIds) {
 		
 		super();
@@ -30,7 +29,7 @@ public class OrdersDTO {
 		this.orderDate = orderDate;
 		this.totalCost = totalCost;
 		this.status = status;
-		this.cartId = cartId;
+		
 		this.customerId = customerId;
 		this.restaurantId = restaurantId;
 		this.menuItemIds = menuItemIds;
@@ -69,13 +68,7 @@ public class OrdersDTO {
 		this.status = status;
 	}
 
-	public Cart getCartId() {
-		return cartId;
-	}
-
-	public void setCartId(Cart cartId) {
-		this.cartId = cartId;
-	}
+	
 
 	public Customers getCustomerId() {
 		return customerId;

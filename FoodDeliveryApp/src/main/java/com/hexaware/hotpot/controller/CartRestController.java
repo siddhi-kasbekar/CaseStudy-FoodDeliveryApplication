@@ -1,8 +1,6 @@
 package com.hexaware.hotpot.controller;
 
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,7 +17,7 @@ import com.hexaware.hotpot.services.ICartService;
 @RequestMapping("api/cart")
 public class CartRestController {
 	
-    private static final Logger log = LoggerFactory.getLogger(CartRestController.class);
+    
 
 
 	@Autowired

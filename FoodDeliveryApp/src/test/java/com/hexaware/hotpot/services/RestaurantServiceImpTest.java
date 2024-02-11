@@ -48,10 +48,10 @@ class RestaurantServiceImpTest {
 		assertEquals(restaurantDTO.getRestaurantId(), restaurant.getRestaurantId());
 	}
 
-	@Test
-	void testLoginRestaurant() {
-		
-	}
+//	@Test
+//	void testLoginRestaurant() {
+//		
+//	}
 
 	
 	//@Test
@@ -81,7 +81,7 @@ class RestaurantServiceImpTest {
 	void testUpdateMenu() {
 		
 		MenuItemsDTO updatedMenu=new MenuItemsDTO();
-		updatedMenu.setMenuitemId(2);
+		updatedMenu.setMenuItemId(2);
 		updatedMenu.setItemName("dosa");
 		updatedMenu.setDescription("delicious chicken");
 		updatedMenu.setCategory("dinner");
@@ -95,7 +95,7 @@ class RestaurantServiceImpTest {
 		assertTrue(true);
 	}
     
-	@Disabled
+	
 	@Test
 	void testDeleteMenu() {
 		int menuItemToRemove=2;

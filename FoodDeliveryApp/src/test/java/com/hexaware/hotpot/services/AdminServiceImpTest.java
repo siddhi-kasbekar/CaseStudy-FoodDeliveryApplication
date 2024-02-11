@@ -97,7 +97,7 @@ class AdminServiceImpTest {
 
 
 		MenuItemsDTO menuItemsDTO = new MenuItemsDTO();
-        menuItemsDTO.setMenuitemId(4);
+        menuItemsDTO.setMenuItemId(4);
         menuItemsDTO.setItemName("chicken vindaloo");
         menuItemsDTO.setDescription("delicious chicken");
         menuItemsDTO.setCategory("main course");

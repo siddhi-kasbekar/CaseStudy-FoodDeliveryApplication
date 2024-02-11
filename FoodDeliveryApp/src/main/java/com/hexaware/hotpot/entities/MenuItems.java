@@ -52,6 +52,8 @@ public class MenuItems {
 	private String nutritionalInfo;
 
 	private int cookingTime;
+	
+	private int quantity;
 
 
 	@ManyToOne(cascade = CascadeType.ALL)
@@ -61,7 +63,7 @@ public class MenuItems {
 
 	@OneToMany(mappedBy = "menuItem", cascade = CascadeType.ALL)
     @JsonIgnore // Prevent infinite recursion
-	private Set<OrderDetails> orderDetailsSet = new HashSet<OrderDetails>();
+	private Set<OrderDetails> orderDetailsSet = new HashSet<>();
 
 	
 	@OneToMany(mappedBy = "menuItem")
@@ -77,7 +79,7 @@ public class MenuItems {
 
 	public MenuItems(long menuItemId, String itemName, String description, String category, double price,
 			String availabilityTime, String specialDietaryInfo, String tasteInfo, String nutritionalInfo,
-			int cookingTime) {
+			int cookingTime, int quantity) {
 		super();
 
 		this.menuItemId = menuItemId;
@@ -91,6 +93,7 @@ public class MenuItems {
 		this.tasteInfo = tasteInfo;
 		this.nutritionalInfo = nutritionalInfo;
 		this.cookingTime = cookingTime;
+		this.quantity=quantity;
 	}
 
 	public long getMenuitemId() {
@@ -202,6 +205,14 @@ public class MenuItems {
 	}
 	
 	
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
 
 	@Override
 	public String toString() {

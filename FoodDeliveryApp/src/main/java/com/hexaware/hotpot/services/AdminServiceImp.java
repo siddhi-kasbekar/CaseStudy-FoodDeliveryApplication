@@ -3,6 +3,8 @@ package com.hexaware.hotpot.services;
 import java.util.List;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -25,15 +27,6 @@ import com.hexaware.hotpot.repository.OrdersRepository;
 import com.hexaware.hotpot.repository.RestaurantsRepository;
 
 import jakarta.transaction.Transactional;
-
-
-
-
-
-
-
-
-
 
 
 @Service
@@ -60,6 +53,8 @@ public class AdminServiceImp implements IAdminService {
     
     @Autowired
     private PasswordEncoder passwordEncoder;
+    
+    private static final Logger logger = LoggerFactory.getLogger(AdminServiceImp.class);
 
 	
 	@Override
@@ -116,7 +111,7 @@ public class AdminServiceImp implements IAdminService {
 	    Optional<Restaurants> restaurantOptional = restaurantRepository.findById(restaurantId);
 	    
 	    MenuItems menuItem = new MenuItems();
-        menuItem.setMenuitemId(menuItemDTO.getMenuitemId());
+        menuItem.setMenuitemId(menuItemDTO.getMenuItemId());
         menuItem.setItemName(menuItemDTO.getItemName());
         menuItem.setDescription(menuItemDTO.getDescription());
         menuItem.setCategory(menuItemDTO.getCategory());
@@ -136,7 +131,7 @@ public class AdminServiceImp implements IAdminService {
 	        
 	    } else {
 	        
-	    	System.out.println("restaurant with specified id not found ");
+	    	logger.info("restaurant with specified id not found ");
 	    }
 	    return menuItemsRepository.save(menuItem);
 	}

@@ -4,7 +4,7 @@ import java.util.Set;
 
 public class RestaurantsDTO {
 
-	private int restaurant_id;
+	private int restaurantId;
     private String name;
     private String location;
     private String contactNumber;
@@ -21,7 +21,7 @@ public class RestaurantsDTO {
             Set<Integer> menuItemIds, Set<Integer> orderIds, Set<Integer> discountIds) {
         
     	super();
-    	this.restaurant_id = restaurantId;
+    	this.restaurantId = restaurantId;
         this.name = name;
         this.location = location;
         this.contactNumber = contactNumber;
@@ -34,11 +34,11 @@ public class RestaurantsDTO {
     
 
     public int getRestaurantId() {
-        return restaurant_id;
+        return restaurantId;
     }
 
     public void setRestaurantId(int restaurantId) {
-        this.restaurant_id = restaurantId;
+        this.restaurantId = restaurantId;
     }
 
     public String getName() {

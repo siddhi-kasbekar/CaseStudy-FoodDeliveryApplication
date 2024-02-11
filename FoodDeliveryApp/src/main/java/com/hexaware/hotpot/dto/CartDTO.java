@@ -17,7 +17,7 @@ public class CartDTO {
 	
 	private long customerId;
 	
-    private List<CartMenuItemsDTO> cartItems = new ArrayList<CartMenuItemsDTO>();
+    private List<CartMenuItemsDTO> cartItems = new ArrayList<>();
 
 	
 
