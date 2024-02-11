@@ -11,6 +11,8 @@ import com.hexaware.hotpot.entities.Orders;
 public interface OrdersRepository extends JpaRepository<Orders, Integer> {
 
 	Orders findById(int orderId);
+	
+	
 
     List<Orders> findByCustomerCustomerId(long customerId);
 

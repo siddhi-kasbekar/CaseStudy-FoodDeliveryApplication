@@ -83,9 +83,10 @@ public class AdminRestController {
 	
 
 	@PostMapping("/register")
+    @PreAuthorize("hasAuthority('admin')")
     
 public String registerAdmin(@RequestBody AdminDTO adminDTO) {
-		long adminId = adminservice.registerAdmin(adminDTO);
+		long adminId = adminservice.registerManager(adminDTO);
 		
 		if(adminId != 0) {
 			return "admin added successfully ";

@@ -62,8 +62,8 @@ public class OrdersController {
 		return service.getOrderById(orderId);
 	}
 
-	@PutMapping("/update/{orderId}/{status}")
-    @PreAuthorize("hasAuthority('customer')")
+	@PutMapping("/update-status/{orderId}/{status}")
+    @PreAuthorize("hasAuthority('manager')")
 	public void updateOrderStatus(@PathVariable int orderId,@PathVariable String status) throws OrderNotFoundException {
 		service.updateOrderStatus(orderId, status);
 		

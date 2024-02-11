@@ -5,6 +5,8 @@ import java.util.Set;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
@@ -26,6 +28,7 @@ import jakarta.validation.constraints.Size;
 public final class Customers {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long customerId;
 	
 	@NotBlank(message = "Customer name is required")

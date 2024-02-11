@@ -2,6 +2,8 @@ package com.hexaware.hotpot.entities;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
@@ -24,6 +26,7 @@ import jakarta.validation.constraints.Pattern;
 public class DeliveryAddress {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int  addressId;
 	
 	@NotBlank(message = "House number is required")

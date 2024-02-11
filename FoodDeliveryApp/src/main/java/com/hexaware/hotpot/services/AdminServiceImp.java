@@ -66,7 +66,7 @@ public class AdminServiceImp implements IAdminService {
 	@Override
 	public Restaurants addRestaurant(RestaurantsDTO restaurant) {
 		Restaurants res = new Restaurants();
-		res.setRestaurantId(restaurant.getRestaurantId());
+//		res.setRestaurantId(restaurant.getRestaurantId());
 		res.setName(restaurant.getName());
 		res.setLocation(restaurant.getLocation());
 		res.setContactNumber(restaurant.getContactNumber());
@@ -111,7 +111,7 @@ public class AdminServiceImp implements IAdminService {
 	    Optional<Restaurants> restaurantOptional = restaurantRepository.findById(restaurantId);
 	    
 	    MenuItems menuItem = new MenuItems();
-        menuItem.setMenuitemId(menuItemDTO.getMenuItemId());
+//        menuItem.setMenuitemId(menuItemDTO.getMenuItemId());
         menuItem.setItemName(menuItemDTO.getItemName());
         menuItem.setDescription(menuItemDTO.getDescription());
         menuItem.setCategory(menuItemDTO.getCategory());
@@ -164,21 +164,36 @@ public class AdminServiceImp implements IAdminService {
 	}
 
 	@Override
-	public long registerAdmin(AdminDTO adminDTO) {
+	public long registerManager(AdminDTO adminDTO) {
 		
 		Administrator admin = new Administrator();
-		admin.setAdminId(adminDTO.getAdminId());
+//		admin.setAdminId(adminDTO.getAdminId());
 		admin.setUserName(adminDTO.getUserName());
 		admin.setPassword(passwordEncoder.encode(adminDTO.getPassword()));
 		admin.setName(adminDTO.getName());
 		admin.setEmail(adminDTO.getEmail());
-		admin.setRole("admin");
+		admin.setRole("manager");
 		
 		adminRepo.save(admin);
 
 		return admin.getAdminId();
 	}
 
+//	@Override
+//	public long registerAdmin(AdminDTO adminDTO) {
+//		
+//		Administrator admin = new Administrator();
+////		admin.setAdminId(adminDTO.getAdminId());
+//		admin.setUserName(adminDTO.getUserName());
+//		admin.setPassword(passwordEncoder.encode(adminDTO.getPassword()));
+//		admin.setName(adminDTO.getName());
+//		admin.setEmail(adminDTO.getEmail());
+//		admin.setRole("admin");
+//		
+//		adminRepo.save(admin);
+//
+//		return admin.getAdminId();
+//	}
 
 	
 

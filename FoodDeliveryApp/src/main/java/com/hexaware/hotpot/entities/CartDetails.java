@@ -20,9 +20,8 @@ import jakarta.persistence.Table;
  */
 
 @Entity
-	@Table(name = "cart_menu_items")
 
-	public class CartMenuItems{
+	public class CartDetails{
 
 	    @Id
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,11 +41,11 @@ import jakarta.persistence.Table;
 
 	    private int quantity;
 
-		public CartMenuItems() {
+		public CartDetails() {
 			super();
 		}
 
-		public CartMenuItems(Cart cart, MenuItems menuItems, int quantity) {
+		public CartDetails(Cart cart, MenuItems menuItems, int quantity) {
 			super();
 		
 			this.cart = cart;

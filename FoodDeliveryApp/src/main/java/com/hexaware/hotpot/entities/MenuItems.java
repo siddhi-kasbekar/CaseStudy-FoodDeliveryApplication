@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
@@ -29,6 +31,7 @@ public class MenuItems {
 
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long menuItemId;
 
 	@NotBlank(message = "Item name is required")
@@ -67,11 +70,12 @@ public class MenuItems {
 
 	
 	@OneToMany(mappedBy = "menuItem")
-    private Set<CartMenuItems> cartMenuItems = new HashSet<>();
-
-	@ManyToMany(mappedBy = "menuItems")
     @JsonIgnore // Prevent infinite recursion
-	private Set<Orders> orders = new HashSet<>();
+    private Set<CartDetails> cartMenuItems = new HashSet<>();
+
+	
+	
+
 
 	public MenuItems() {
 		super();
@@ -196,13 +200,7 @@ public class MenuItems {
 
 	
 
-	public Set<Orders> getOrders() {
-		return orders;
-	}
 
-	public void setOrders(Set<Orders> orders) {
-		this.orders = orders;
-	}
 	
 	
 
@@ -222,7 +220,7 @@ public class MenuItems {
 				+ ", category=" + category + ", price=" + price + ", availabilityTime=" + availabilityTime
 				+ ", specialDietaryInfo=" + specialDietaryInfo + ", tasteInfo=" + tasteInfo + ", nutritionalInfo="
 				+ nutritionalInfo + ", cookingTime=" + cookingTime + ", restaurant=" + restaurant + ", orderDetailsSet="
-				+ orderDetailsSet +  ", orders=" + orders + "]";
+				+ orderDetailsSet +   "]";
 	}
 
 }
