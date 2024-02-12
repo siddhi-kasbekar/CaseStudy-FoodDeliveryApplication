@@ -49,7 +49,7 @@ class CustomerServiceImpTest {
 
         long newCustomerId = customerService.registerCustomer(customersDTO);
 
-        assertNotNull(newCustomerId);
+        //assertNotNull(newCustomerId);
         assertTrue(newCustomerId > 0);
 
 	}

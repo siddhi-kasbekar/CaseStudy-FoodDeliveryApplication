@@ -15,15 +15,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hexaware.hotpot.dto.MenuItemsDTO;
 import com.hexaware.hotpot.dto.RestaurantsDTO;
+import com.hexaware.hotpot.entities.MenuItems;
 import com.hexaware.hotpot.entities.Restaurants;
 import com.hexaware.hotpot.exception.LocationNotFoundException;
+import com.hexaware.hotpot.exception.MenuItemNotFoundException;
 import com.hexaware.hotpot.exception.RestaurantNotFoundException;
 import com.hexaware.hotpot.services.IRestaurantService;
 
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/api/restaurant")
+@RequestMapping("/api/v1/restaurant")
 public class RestaurantController {
 
 	@Autowired
@@ -36,9 +38,6 @@ public class RestaurantController {
 		 return "restaurant registerd successfully";
 	}
 
-//	public String loginRestaurant(RestaurantsDTO restaurantDTO) {
-//		return service.loginRestaurant(restaurantDTO);
-//	}
 
 	@PostMapping("/addMenu/{restaurantId}")
     @PreAuthorize("hasAuthority('manager')")
@@ -61,16 +60,13 @@ public class RestaurantController {
 		return "menu deleted successfully";
 	}
 
-//	@GetMapping("/getMenu/{category}")
-//	
-//	public List<MenuItems> getMenuByCategory(@PathVariable String category) throws MenuItemNotFoundException{
-//		return service.getMenuByCategory(category);
-//	}
+	@GetMapping("/getMenu/{category}")
+	@PreAuthorize("hasAuthority('manager')")
+	public List<MenuItems> getMenuByCategory(@PathVariable String category) throws MenuItemNotFoundException{
+		return service.getMenuByCategory(category);
+	}
 
-//	@GetMapping("/getOrder/{restaurantId}")
-//	public List<MenuItems> getOrdersByRestaurantId( @PathVariable Restaurants restaurant) throws RestaurantNotFoundException{
-//		return service.getOrdersByRestaurantId(restaurant);
-//	}
+
 	
 	@GetMapping("/getRestaurant/{keyword}")
     @PreAuthorize("hasAuthority('customer')")

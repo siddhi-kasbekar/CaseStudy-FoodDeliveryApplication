@@ -14,9 +14,7 @@ public interface IRestaurantService {
 
 	public Restaurants registerRestaurant(RestaurantsDTO restaurantDTO);
 
-	public String loginRestaurant(RestaurantsDTO restaurantDTO);
-
-	public void addMenu(MenuItemsDTO menuDTO,int restaurantId);
+	public MenuItems addMenu(MenuItemsDTO menuDTO,int restaurantId);
 
 	public void updateMenu(MenuItemsDTO menuDTO);
 
@@ -24,7 +22,6 @@ public interface IRestaurantService {
 
 	public List<MenuItems> getMenuByCategory(String category) throws MenuItemNotFoundException ;
 
-	//public List<MenuItems> getOrdersByRestaurantId(Restaurants restaurant) throws RestaurantNotFoundException;
 	public List<Restaurants> searchRestaurants(String keyword)throws RestaurantNotFoundException;
 	public List<Restaurants> searchByLocation(String location) throws LocationNotFoundException;
 }

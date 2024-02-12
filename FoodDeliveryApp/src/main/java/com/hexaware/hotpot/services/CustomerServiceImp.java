@@ -23,6 +23,15 @@ import com.hexaware.hotpot.repository.RestaurantsRepository;
 
 import jakarta.transaction.Transactional;
 
+/*
+ * Author name:Siddhi kasbekar
+ * 
+ * Class Description:contains business logic and functionalities related to Customer and also handles crud operations.
+ * 
+ */
+
+
+
 @Service
 @Transactional
 public class CustomerServiceImp implements ICustomerService {

@@ -30,7 +30,7 @@ import com.hexaware.hotpot.services.JwtService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("api/customers")
+@RequestMapping("api/v1/customers")
 public class CustomersRestController {
 	
     private static final Logger log = LoggerFactory.getLogger(CustomersRestController.class);

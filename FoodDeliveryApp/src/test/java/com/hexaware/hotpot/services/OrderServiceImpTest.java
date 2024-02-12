@@ -43,12 +43,12 @@ class OrderServiceImpTest {
 		assertEquals(600,order.getTotalCost());
 	}
 
-//	@Test
-//	void testUpdateOrderStatus() {
-//		String status="paid";
-//		String order=service.updateOrderStatus(1, status);
-//		assertEquals("order updated",order);
-//	}
+	@Test
+	void testUpdateOrderStatus() throws OrderNotFoundException {
+		String status="paid";
+		String order=service.updateOrderStatus(1, status);
+		assertEquals("order updated",order);
+	}
 	
 	@Test
 	void testViewOrderHistory() {

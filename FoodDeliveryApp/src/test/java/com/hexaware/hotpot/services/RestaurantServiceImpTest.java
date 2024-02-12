@@ -48,34 +48,29 @@ class RestaurantServiceImpTest {
 		assertEquals(restaurantDTO.getRestaurantId(), restaurant.getRestaurantId());
 	}
 
-//	@Test
-//	void testLoginRestaurant() {
-//		
-//	}
 
 	
-	//@Test
-//	void testAddMenu() {
-//
-//		MenuItemsDTO menuItemsDTO = new MenuItemsDTO();
-//        menuItemsDTO.setMenuitemId(2);
-//        menuItemsDTO.setItemName("Butter chicken");
-//        menuItemsDTO.setDescription("delicious chicken");
-//        menuItemsDTO.setCategory("main course");
-//        menuItemsDTO.setPrice(399.00);
-//        menuItemsDTO.setAvailabilityTime("dinner");
-//        menuItemsDTO.setSpecialDietaryInfo("high protein");
-//        menuItemsDTO.setTasteInfo("spicy tangy ");
-//        menuItemsDTO.setNutritionalInfo("high in protein");
-//        menuItemsDTO.setCookingTime(40);
-//
-//        int restaurantId = 1; 
-//
-//        MenuItems newMenuItem = rservice.addMenu(menuItemsDTO, restaurantId);
-//
-//        assertNotNull(newMenuItem);
-//        assertEquals(menuItemsDTO.getItemName(), newMenuItem.getItemName());
-//	}
+	@Test
+	void testAddMenu() {
+
+		MenuItemsDTO menuItemsDTO = new MenuItemsDTO();
+        menuItemsDTO.setItemName("Butter chicken");
+        menuItemsDTO.setDescription("delicious chicken");
+        menuItemsDTO.setCategory("main course");
+        menuItemsDTO.setPrice(399.00);
+        menuItemsDTO.setAvailabilityTime("dinner");
+        menuItemsDTO.setSpecialDietaryInfo("high protein");
+        menuItemsDTO.setTasteInfo("spicy tangy ");
+        menuItemsDTO.setNutritionalInfo("high in protein");
+        menuItemsDTO.setCookingTime(40);
+
+        int restaurantId = 1; 
+
+        MenuItems newMenuItem = rservice.addMenu(menuItemsDTO, restaurantId);
+
+        assertNotNull(newMenuItem);
+        assertEquals(menuItemsDTO.getItemName(), newMenuItem.getItemName());
+	}
 
 	@Test
 	void testUpdateMenu() {

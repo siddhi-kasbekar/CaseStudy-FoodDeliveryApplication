@@ -34,7 +34,7 @@ import com.hexaware.hotpot.services.JwtService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("api/admin")
+@RequestMapping("api/v1/admin")
 public class AdminRestController {
 	
     private static final Logger log = LoggerFactory.getLogger(AdminRestController.class);
@@ -89,10 +89,10 @@ public String registerAdmin(@RequestBody AdminDTO adminDTO) {
 		long adminId = adminservice.registerManager(adminDTO);
 		
 		if(adminId != 0) {
-			return "admin added successfully ";
+			return "manager added successfully ";
 		}
 		else {
-			return "failed to add admin ";
+			return "failed to add manager ";
 		}
 	}
 	

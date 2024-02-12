@@ -23,6 +23,14 @@ import com.hexaware.hotpot.repository.MenuItemsRepository;
 import jakarta.transaction.Transactional;
 
 
+/*
+ * Author name:Siddhi kasbekar
+ * 
+ * Class Description:contains business logic and functionalities related to cart and also handles crud operations.
+ * 
+ */
+
+
 @Service
 @Transactional
 public class CartServiceImp implements ICartService {
@@ -47,6 +55,7 @@ public class CartServiceImp implements ICartService {
 		
 
    
+
 	@Override
 	public Cart getCartItems(Long customerId) {
 		
