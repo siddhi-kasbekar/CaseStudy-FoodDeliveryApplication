@@ -36,70 +36,62 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping("api/v1/admin")
 public class AdminRestController {
-	
-    private static final Logger log = LoggerFactory.getLogger(AdminRestController.class);
 
+	private static final Logger log = LoggerFactory.getLogger(AdminRestController.class);
 
 	@Autowired
 	private IAdminService adminservice;
-	
+
 	@Autowired
 	JwtService jwtService;
-	
+
 	@Autowired
 	AuthenticationManager authenticationManager;
-	
+
 	@PostMapping("/login/authenticate")
-	
-	 public String  authenticateAndGetTokent(@RequestBody  AuthRequest authRequest) {
-		 
-		 
-		 
-		Authentication authentication = 	authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
-		 
+
+	public String authenticateAndGetTokent(@RequestBody AuthRequest authRequest) {
+
+		Authentication authentication = authenticationManager.authenticate(
+				new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
+
 		String token = null;
-		
-				if(authentication.isAuthenticated()) {
-					
-				  // call generate token method from jwtService class
-					
-			token =		jwtService.generateToken(authRequest.getUsername());
-					
-			log.info("Tokent : "+token);
-					
-				}
-				else {
-					
-					log.info("invalid");
-					
-					 throw new UsernameNotFoundException("UserName or Password in Invalid / Invalid Request");
-					
-				}
-		
-				return token;
-		 
-	 }
-	
-	
+
+		if (authentication.isAuthenticated()) {
+
+			// call generate token method from jwtService class
+
+			token = jwtService.generateToken(authRequest.getUsername());
+
+			log.info("Tokent : " + token);
+
+		} else {
+
+			log.info("invalid");
+
+			throw new UsernameNotFoundException("UserName or Password in Invalid / Invalid Request");
+
+		}
+
+		return token;
+
+	}
 
 	@PostMapping("/register")
-@PreAuthorize("hasAuthority('admin')")
-    
-public String registerAdmin(@RequestBody AdminDTO adminDTO) {
+	@PreAuthorize("hasAuthority('admin')")
+
+	public String registerAdmin(@RequestBody AdminDTO adminDTO) {
 		long adminId = adminservice.registerManager(adminDTO);
-		
-		if(adminId != 0) {
+
+		if (adminId != 0) {
 			return "manager added successfully ";
-		}
-		else {
+		} else {
 			return "failed to add manager ";
 		}
 	}
-	
-	
 
 	@PostMapping("/add-restaurant")
-    @PreAuthorize("hasAuthority('admin')")
+	@PreAuthorize("hasAuthority('admin')")
 	public String addRestaurant(@RequestBody @Valid RestaurantsDTO restaurantDTO) {
 		Restaurants restaurant = adminservice.addRestaurant(restaurantDTO);
 		if (restaurant != null) {
@@ -110,7 +102,7 @@ public String registerAdmin(@RequestBody AdminDTO adminDTO) {
 	}
 
 	@DeleteMapping("/removeRestaurant/{restaurantId}")
-    @PreAuthorize("hasAuthority('admin')")
+	@PreAuthorize("hasAuthority('admin')")
 
 	public String removeRestaurant(@PathVariable Integer restaurantId) {
 		adminservice.removeRestaurant(restaurantId);
@@ -118,37 +110,32 @@ public String registerAdmin(@RequestBody AdminDTO adminDTO) {
 	}
 
 	@GetMapping("/getAllMenus")
-    @PreAuthorize("hasAuthority('admin')")
+	@PreAuthorize("hasAuthority('admin')")
 
 	public List<MenuItems> getAllMenus() {
 		return adminservice.getAllMenus();
 	}
 
 	@GetMapping("/getAllRestaurants")
-    @PreAuthorize("hasAuthority('admin')")
+	@PreAuthorize("hasAuthority('admin')")
 	public List<Restaurants> getAllRestaurants() {
 		return adminservice.getAllRestaurants();
 	}
 
 	@GetMapping("/getAllOrders")
-    @PreAuthorize("hasAuthority('manager')")
+	@PreAuthorize("hasAuthority('manager')")
 	public List<Orders> getAllOrders() {
 		return adminservice.getAllOrders();
 	}
-	
+
 	@GetMapping("/getAllCustomers")
 	@PreAuthorize("hasAuthority('admin') or hasAuthority('manager')")
 	public List<Customers> getAllCustomers() {
 		return adminservice.getAllCustomers();
 	}
 
-
-
-	
-
-    
-    @PostMapping("/add-discount")
-    @PreAuthorize("hasAuthority('admin') or hasAuthority('manager')")
+	@PostMapping("/add-discount")
+	@PreAuthorize("hasAuthority('admin') or hasAuthority('manager')")
 	public String addDiscount(@RequestBody @Valid DiscountDTO discountDTO) {
 		Discount discount = adminservice.addDiscount(discountDTO);
 		if (discount != null) {
@@ -157,11 +144,11 @@ public String registerAdmin(@RequestBody AdminDTO adminDTO) {
 			return "Discount to add restaurant";
 		}
 	}
-    
-    @DeleteMapping("/removeDiscount/{discountId}")
-    @PreAuthorize("hasAuthority('admin') or hasAuthority('manager')")
-    public String removeDiscount(@PathVariable int discountId) {
-        adminservice.removeDiscount(discountId);
-        return "Discount removed successfully";
-    }
+
+	@DeleteMapping("/removeDiscount/{discountId}")
+	@PreAuthorize("hasAuthority('admin') or hasAuthority('manager')")
+	public String removeDiscount(@PathVariable int discountId) {
+		adminservice.removeDiscount(discountId);
+		return "Discount removed successfully";
+	}
 }

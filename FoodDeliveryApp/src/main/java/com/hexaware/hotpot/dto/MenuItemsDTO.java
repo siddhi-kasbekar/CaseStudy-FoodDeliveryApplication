@@ -44,8 +44,8 @@ public class MenuItemsDTO {
 		this.tasteInfo = tasteInfo;
 		this.nutritionalInfo = nutritionalInfo;
 		this.cookingTime = cookingTime;
-		this.quantity=quantity;
-	}
+		this.quantity=quantity;}
+		
 
 	public long getMenuItemId() {
 		return menuItemId;
@@ -146,6 +146,9 @@ public class MenuItemsDTO {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
+
+
+	
 
 	
 	

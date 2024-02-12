@@ -68,7 +68,7 @@ public class RestaurantServiceImp implements IRestaurantService {
 		Optional<Restaurants> restaurantOptional = restaurantRepo.findById(restaurantId);
 
 		MenuItems menuItem = new MenuItems();
-//		menuItem.setMenuitemId(menuItemDTO.getMenuItemId());
+
 		menuItem.setItemName(menuItemDTO.getItemName());
 		menuItem.setDescription(menuItemDTO.getDescription());
 		menuItem.setCategory(menuItemDTO.getCategory());
@@ -97,22 +97,27 @@ public class RestaurantServiceImp implements IRestaurantService {
 	}
 
 	@Override
-	public void updateMenu(MenuItemsDTO menuDTO) throws MenuItemNotFoundException {
+	public void updateMenu(long menuItemId,MenuItemsDTO menuDTO) throws MenuItemNotFoundException {
 	    // Retrieve the existing menu item entity from the database
-	    MenuItems existingMenuItem = menuItemRepo.findById(menuDTO.getMenuItemId())
+	    MenuItems existingMenuItem = menuItemRepo.findById(menuItemId)
 	            .orElseThrow(() -> new MenuItemNotFoundException("Menu item not found with ID: " + menuDTO.getMenuItemId()));
 
 	    // Update the menu item entity with the new values provided in the DTO
 	    existingMenuItem.setItemName(Objects.requireNonNullElse(menuDTO.getItemName(), existingMenuItem.getItemName()));
 	    existingMenuItem.setDescription(Objects.requireNonNullElse(menuDTO.getDescription(), existingMenuItem.getDescription()));
 	    existingMenuItem.setCategory(Objects.requireNonNullElse(menuDTO.getCategory(), existingMenuItem.getCategory()));
-	    existingMenuItem.setPrice(Objects.requireNonNullElse(menuDTO.getPrice(), existingMenuItem.getPrice()));
+	   // existingMenuItem.setPrice(Objects.requireNonNullElse(menuDTO.getPrice(), existingMenuItem.getPrice()));
 	    existingMenuItem.setAvailabilityTime(Objects.requireNonNullElse(menuDTO.getAvailabilityTime(), existingMenuItem.getAvailabilityTime()));
 	    existingMenuItem.setSpecialDietaryInfo(Objects.requireNonNullElse(menuDTO.getSpecialDietaryInfo(), existingMenuItem.getSpecialDietaryInfo()));
 	    existingMenuItem.setTasteInfo(Objects.requireNonNullElse(menuDTO.getTasteInfo(), existingMenuItem.getTasteInfo()));
 	    existingMenuItem.setNutritionalInfo(Objects.requireNonNullElse(menuDTO.getNutritionalInfo(), existingMenuItem.getNutritionalInfo()));
-	    existingMenuItem.setCookingTime(Objects.requireNonNullElse(menuDTO.getCookingTime(), existingMenuItem.getCookingTime()));
-
+	   // existingMenuItem.setCookingTime(Objects.requireNonNullElse(menuDTO.getCookingTime(), existingMenuItem.getCookingTime()));
+	    if (menuDTO.getPrice() != 0) {
+	    	 existingMenuItem.setPrice(menuDTO.getPrice());
+		}
+		if (menuDTO.getCookingTime() != 0) {
+			existingMenuItem.setCookingTime(menuDTO.getCookingTime());
+		}
 	    // Save the updated menu item entity
 	    menuItemRepo.save(existingMenuItem);
 
