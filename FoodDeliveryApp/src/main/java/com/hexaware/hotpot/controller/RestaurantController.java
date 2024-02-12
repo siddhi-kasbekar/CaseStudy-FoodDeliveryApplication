@@ -46,10 +46,10 @@ public class RestaurantController {
 		return "menu added successfully";
 	}
 
-	@PutMapping("/updateMenu")
+	@PutMapping("/updateMenu/{menuItemId}")
     @PreAuthorize("hasAuthority('manager')")
-	public String updateMenu(@RequestBody MenuItemsDTO menuDTO) throws MenuItemNotFoundException {
-		service.updateMenu(menuDTO);
+	public String updateMenu(@PathVariable long menuItemId,@RequestBody MenuItemsDTO menuDTO) throws MenuItemNotFoundException {
+		service.updateMenu(menuItemId,menuDTO);
 		return "menu updated successfully";
 	}
 

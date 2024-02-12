@@ -56,7 +56,7 @@ public class MenuItems {
 
 	private int cookingTime;
 	
-//	private int quantity;
+	private int quantity;
 
 
 	@ManyToOne(cascade = CascadeType.ALL)
@@ -97,7 +97,7 @@ public class MenuItems {
 		this.tasteInfo = tasteInfo;
 		this.nutritionalInfo = nutritionalInfo;
 		this.cookingTime = cookingTime;
-//		this.quantity=quantity;
+		this.quantity=quantity;
 	}
 
 	public long getMenuitemId() {
@@ -211,6 +211,14 @@ public class MenuItems {
 //	public void setQuantity(int quantity) {
 //		this.quantity = quantity;
 //	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
 
 	@Override
 	public String toString() {

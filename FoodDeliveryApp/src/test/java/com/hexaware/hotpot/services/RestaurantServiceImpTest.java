@@ -85,7 +85,7 @@ class RestaurantServiceImpTest {
 		updatedMenu.setTasteInfo("spicy tangy ");
 		updatedMenu.setNutritionalInfo("high in protein");
 		updatedMenu.setCookingTime(40);
-		rservice.updateMenu(updatedMenu);
+		rservice.updateMenu(1, updatedMenu);
 		assertTrue(true);
 	}
     
