@@ -1,18 +1,14 @@
 package com.hexaware.hotpot.services;
 
-
 import java.util.List;
-import java.util.Optional;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hexaware.hotpot.dto.MenuItemsDTO;
 import com.hexaware.hotpot.entities.Cart;
 import com.hexaware.hotpot.entities.CartDetails;
-import com.hexaware.hotpot.entities.Customers;
+
 import com.hexaware.hotpot.entities.MenuItems;
 import com.hexaware.hotpot.exception.CustomerNotFoundException;
 import com.hexaware.hotpot.repository.CartDetailsRepository;
@@ -22,7 +18,6 @@ import com.hexaware.hotpot.repository.MenuItemsRepository;
 
 import jakarta.transaction.Transactional;
 
-
 /*
  * Author name:Siddhi kasbekar
  * 
@@ -30,86 +25,70 @@ import jakarta.transaction.Transactional;
  * 
  */
 
-
 @Service
 @Transactional
 public class CartServiceImp implements ICartService {
-	
-	private static final Logger logger = LoggerFactory.getLogger(CartServiceImp.class);
 
-	
 	@Autowired
-    private CartRepository cartRepository;
-	
-	@Autowired
-	private CustomersRepository customerRepo;	
-	
-	
-	@Autowired
-    private CartDetailsRepository cartDetailsRepo;
-	
-	@Autowired
-    private MenuItemsRepository menuItemsRepo;	
-	
+	private CartRepository cartRepository;
 
-		
+	@Autowired
+	private CustomersRepository customerRepo;
 
-   
+	@Autowired
+	private CartDetailsRepository cartDetailsRepo;
+
+	@Autowired
+	private MenuItemsRepository menuItemsRepo;
 
 	@Override
 	public Cart getCartItems(Long customerId) {
-		
+
 		return cartRepository.findByCustomerId(customerId);
 	}
 
-
 	@Override
-	public Cart saveCartState(long customerId, List<MenuItemsDTO> menuItemsDTO, double total) throws CustomerNotFoundException {
-	    // Retrieve customer by ID
-	    Customers customer = customerRepo.findById(customerId)
-	            .orElseThrow(() -> new CustomerNotFoundException("Customer not found with id: " + customerId));
+	public Cart saveCartState(long customerId, List<MenuItemsDTO> menuItemsDTO, double total)
+			throws CustomerNotFoundException {
+		// Retrieve customer by ID
+//	     customerRepo.findById(customerId)
+//	            .orElseThrow(() -> new CustomerNotFoundException("Customer not found with id: " + customerId));
 
-	    // Check if a cart already exists for the customer
-	    Cart existingCart = cartRepository.findByCustomerId(customerId);
-	    Cart cart ;
-	    if (existingCart != null) {
-	        // If a cart already exists, update the total
-	        existingCart.setTotal(total);
-	        // Update other properties if needed
-	        return cartRepository.save(existingCart);
-	    } else {
-	        // Create a new cart
-	       cart = new Cart();
-	        cart.setTotal(total); // Set the total
-	        cart.setCustomerId(customerId);
+		// Check if a cart already exists for the customer
+		Cart existingCart = cartRepository.findByCustomerId(customerId);
+		Cart cart;
+		if (existingCart != null) {
+			// If a cart already exists, update the total
+			existingCart.setTotal(total);
+			// Update other properties if needed
+			return cartRepository.save(existingCart);
+		} else {
+			// Create a new cart
+			cart = new Cart();
+			cart.setTotal(total); // Set the total
+			cart.setCustomerId(customerId);
 
-	        // Save the new cart
-	        cartRepository.save(cart);
-	    }
+			// Save the new cart
+			cartRepository.save(cart);
+		}
 
-	    // Save cart details
-	    for (MenuItemsDTO menuItemDTO : menuItemsDTO) {
-	        // Retrieve or create menu item entity
-	        MenuItems menuItem = menuItemsRepo.findById(menuItemDTO.getMenuItemId())
-	                                         .orElseThrow(() -> new RuntimeException("Menu item not found"));
+		// Save cart details
+		for (MenuItemsDTO menuItemDTO : menuItemsDTO) {
+			// Retrieve or create menu item entity
+			MenuItems menuItem = menuItemsRepo.findById(menuItemDTO.getMenuItemId())
+					.orElseThrow(() -> new RuntimeException("Menu item not found"));
 
-	        CartDetails cartDetails = new CartDetails();
-	        cartDetails.setCart(cart);
-	        cartDetails.setMenuItems(menuItem);
-	        cartDetails.setQuantity(menuItemDTO.getQuantity());
+			CartDetails cartDetails = new CartDetails();
+			cartDetails.setCart(cart);
+			cartDetails.setMenuItems(menuItem);
+			cartDetails.setQuantity(menuItemDTO.getQuantity());
 
-	        // Save the cart detail
-	        cartDetailsRepo.save(cartDetails);
-	    }
+			// Save the cart detail
+			cartDetailsRepo.save(cartDetails);
+		}
 
-	    return cart;
+		return cart;
 	}
-
-
-
-
-
-
 
 //	@Override
 //	public void addToCart(long customerId, long menuItemId, int quantity) {
@@ -237,6 +216,5 @@ public class CartServiceImp implements ICartService {
 //	    
 //	    return total;
 //	}
-
 
 }
