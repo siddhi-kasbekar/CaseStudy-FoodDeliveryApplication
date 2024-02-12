@@ -48,7 +48,7 @@ public class RestaurantController {
 
 	@PutMapping("/updateMenu")
     @PreAuthorize("hasAuthority('manager')")
-	public String updateMenu(@RequestBody MenuItemsDTO menuDTO) {
+	public String updateMenu(@RequestBody MenuItemsDTO menuDTO) throws MenuItemNotFoundException {
 		service.updateMenu(menuDTO);
 		return "menu updated successfully";
 	}

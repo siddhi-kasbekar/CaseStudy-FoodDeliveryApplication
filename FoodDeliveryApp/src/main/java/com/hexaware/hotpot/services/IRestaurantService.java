@@ -16,7 +16,7 @@ public interface IRestaurantService {
 
 	public MenuItems addMenu(MenuItemsDTO menuDTO,int restaurantId);
 
-	public void updateMenu(MenuItemsDTO menuDTO);
+	public void updateMenu(MenuItemsDTO menuDTO) throws MenuItemNotFoundException;
 
 	public void deleteMenu(int menuId);
 
