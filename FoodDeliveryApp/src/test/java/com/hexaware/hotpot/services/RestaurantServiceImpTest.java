@@ -73,10 +73,9 @@ class RestaurantServiceImpTest {
 	}
 
 	@Test
-	void testUpdateMenu() {
+	void testUpdateMenu() throws MenuItemNotFoundException {
 		
 		MenuItemsDTO updatedMenu=new MenuItemsDTO();
-		updatedMenu.setMenuItemId(2);
 		updatedMenu.setItemName("dosa");
 		updatedMenu.setDescription("delicious chicken");
 		updatedMenu.setCategory("dinner");

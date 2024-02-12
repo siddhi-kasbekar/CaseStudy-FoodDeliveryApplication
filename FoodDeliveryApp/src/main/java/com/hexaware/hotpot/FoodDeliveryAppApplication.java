@@ -7,7 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 /*
  * Authors: Nipurna Bandi and Siddhi Kasbekar
  * 
- * Project Start Date:   
+ * Project Name: Food DeliveryApplication(Hotpot)
+ * 
+ * Project Start Date: 10 january 2024  
  * 
  * Project end Date:
  *
