@@ -14,7 +14,7 @@ import com.hexaware.hotpot.exception.CustomerNotFoundException;
 import com.hexaware.hotpot.services.ICartService;
 
 @RestController
-@RequestMapping("api/cart")
+@RequestMapping("api/v1/cart")
 public class CartRestController {
 	
     

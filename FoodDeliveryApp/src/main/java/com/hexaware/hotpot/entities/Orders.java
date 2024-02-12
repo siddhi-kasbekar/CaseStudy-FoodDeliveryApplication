@@ -1,8 +1,8 @@
 package com.hexaware.hotpot.entities;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
+
+
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -13,7 +13,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToMany;
+
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -28,49 +28,39 @@ import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Orders {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "OrderID")
-    private int orderId;
-	
+	@Column(name = "OrderID")
+	private int orderId;
+
 	@Column(name = "OrderDate")
-    private LocalDateTime orderDate;  //format for json, "2024-02-04T10:30:00"
+	private LocalDateTime orderDate; // format for json, "2024-02-04T10:30:00"
 
 	@NotNull(message = "Total cost is required")
-    @Column(name = "TotalCost", nullable = false)
-    private double totalCost;
+	@Column(name = "TotalCost", nullable = false)
+	private double totalCost;
 
 	@NotBlank(message = "Status is required")
-    @Column(name = "Status")
-    private String status;
-	
+	@Column(name = "Status")
+	private String status;
 
 	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "custID")
-    private Customers customer;
-	
+	@JoinColumn(name = "custID")
+	private Customers customer;
+
 	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "resId")
-    private Restaurants restaurant;
-	
-	
-	
-	
-	
-	
-
+	@JoinColumn(name = "resId")
+	private Restaurants restaurant;
 
 	public Orders() {
 		super();
 	}
 
-	
-	public Orders(int orderId, LocalDateTime orderDate,  double totalCost,
-			 String status, Customers customer, Restaurants restaurant,
-			Set<MenuItems> menuItems) {
+	public Orders(int orderId, LocalDateTime orderDate, double totalCost, String status, Customers customer,
+			Restaurants restaurant) {
 		super();
 		this.orderId = orderId;
 		this.orderDate = orderDate;
@@ -78,10 +68,8 @@ public class Orders {
 		this.status = status;
 		this.customer = customer;
 		this.restaurant = restaurant;
-		
-		
-	}
 
+	}
 
 	public int getOrderId() {
 		return orderId;
@@ -115,8 +103,6 @@ public class Orders {
 		this.status = status;
 	}
 
-	
-
 	public Customers getCustomer() {
 		return customer;
 	}
@@ -133,15 +119,10 @@ public class Orders {
 		this.restaurant = restaurant;
 	}
 
-
-
 	@Override
 	public String toString() {
 		return "Orders [orderId=" + orderId + ", orderDate=" + orderDate + ", totalCost=" + totalCost + ", status="
-				+ status +  ", customer=" + customer + ", restaurant=" + restaurant + "]";
+				+ status + ", customer=" + customer + ", restaurant=" + restaurant + "]";
 	}
-	
-	
-	
 
 }

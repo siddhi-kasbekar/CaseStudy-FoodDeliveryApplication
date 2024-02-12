@@ -41,9 +41,9 @@ public class SecurityConfig {
     public  SecurityFilterChain   getSecurityFilterChain(HttpSecurity http) throws Exception {
     	
     		return http.csrf().disable()
-    			.authorizeHttpRequests().requestMatchers("api/customers/register","/api/admin/login/authenticate","/api/customers/login/authenticate").permitAll()
+    			.authorizeHttpRequests().requestMatchers("api/v1/customers/register","api/v1/admin/register","/api/v1/admin/login/authenticate","/api/v1/customers/login/authenticate").permitAll()
     			.and()
-    			.authorizeHttpRequests().requestMatchers("api/admin/**","api/customers/**","api/menuitem/**","api/cart/**","/api/order/**","/api/restaurant/**")
+    			.authorizeHttpRequests().requestMatchers("api/v1/admin/**","api/v1/customers/**","api/v1/menuItem/**","api/v1/cart/**","/api/v1/order/**","/api/v1/restaurant/**")
     			.authenticated().and()   //.formLogin().and().build();
     			.sessionManagement()
     			.sessionCreationPolicy(SessionCreationPolicy.STATELESS)

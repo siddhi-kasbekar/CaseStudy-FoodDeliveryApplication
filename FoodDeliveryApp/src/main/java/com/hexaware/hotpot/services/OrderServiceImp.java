@@ -25,6 +25,13 @@ import com.hexaware.hotpot.repository.RestaurantsRepository;
 
 import jakarta.transaction.Transactional;
 
+/*
+ * Author name:NipurnaBandi
+ * 
+ * Class Description:contains business logic and functionalities related to Orders and also handles crud operations.
+ * 
+ */
+
 @Service
 @Transactional
 public class OrderServiceImp implements IOrderService {
@@ -48,7 +55,7 @@ public class OrderServiceImp implements IOrderService {
 	private static final Logger logger = LoggerFactory.getLogger(OrderServiceImp.class);
 
 	@Override
-	public void placeOrder(long customerId, int restaurantId, List<MenuItemsDTO> menuItems) throws RestaurantNotFoundException, CustomerNotFoundException {
+	public void placeOrder(long customerId, int restaurantId, List<MenuItemsDTO> menuItems, double totalCost) throws RestaurantNotFoundException, CustomerNotFoundException {
 	    logger.info("Your order has been placed");
 
 	    // Retrieve customer and restaurant entities from their IDs
@@ -58,8 +65,9 @@ public class OrderServiceImp implements IOrderService {
 	    Orders order = new Orders();
 	    order.setOrderDate(LocalDateTime.now()); // Assuming you set the order date to current date and time
 	    // Calculate total cost based on menu items
-	    double totalCost = menuItems.stream().mapToDouble(MenuItemsDTO::getPrice).sum();
-	    order.setTotalCost(totalCost);
+	   // double totalCost = menuItems.stream().mapToDouble(MenuItemsDTO::getPrice).sum();
+	   // order.setTotalCost(totalCost);
+	    order.setTotalCost(totalCost); //will be fetched from cart
 	    order.setStatus("Placed"); // Assuming initial status is "Placed"
 	    order.setCustomer(customer);
 	    order.setRestaurant(restaurant);
@@ -97,7 +105,7 @@ public class OrderServiceImp implements IOrderService {
 	
 
 	@Override
-	public void updateOrderStatus(int orderId, String status) throws OrderNotFoundException{
+	public String updateOrderStatus(int orderId, String status) throws OrderNotFoundException{
 
 		Orders order = ordersRepo.findById(orderId);
 		if (order != null) {
@@ -109,6 +117,7 @@ public class OrderServiceImp implements IOrderService {
 		else {
 			throw new OrderNotFoundException("Order not found with ID: " + orderId);
 		}
+		return status;
 		
 	}
 

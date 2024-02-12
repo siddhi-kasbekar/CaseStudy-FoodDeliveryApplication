@@ -14,7 +14,7 @@ import com.hexaware.hotpot.exception.MenuItemNotFoundException;
 import com.hexaware.hotpot.services.IMenuService;
 
 @RestController
-@RequestMapping("/api/menuitem")
+@RequestMapping("/api/v1/menuItem")
 public class MenuItemsController {
 
 	@Autowired

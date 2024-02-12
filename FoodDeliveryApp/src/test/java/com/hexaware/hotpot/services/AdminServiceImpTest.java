@@ -29,10 +29,7 @@ class AdminServiceImpTest {
 	static void setUpBeforeClass() throws Exception {
 	}
 
-//	@Test
-//	void testAdminLogin() {
-//		fail("Not yet implemented");
-//	}
+
 
 	@Test
 	void testAddRestaurant() {
@@ -97,7 +94,6 @@ class AdminServiceImpTest {
 
 
 		MenuItemsDTO menuItemsDTO = new MenuItemsDTO();
-        menuItemsDTO.setMenuItemId(4);
         menuItemsDTO.setItemName("chicken vindaloo");
         menuItemsDTO.setDescription("delicious chicken");
         menuItemsDTO.setCategory("main course");

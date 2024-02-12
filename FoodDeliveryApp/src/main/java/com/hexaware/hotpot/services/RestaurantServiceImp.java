@@ -21,6 +21,13 @@ import com.hexaware.hotpot.repository.RestaurantsRepository;
 
 import jakarta.transaction.Transactional;
 
+/*
+ * Author name:NipurnaBandi
+ * 
+ * Class Description:contains business logic and functionalities related to Restaurants and also handles crud operations.
+ * 
+ */
+
 @Service
 @Transactional
 public class RestaurantServiceImp implements IRestaurantService {
@@ -39,7 +46,7 @@ public class RestaurantServiceImp implements IRestaurantService {
 	@Override
 	public Restaurants registerRestaurant(RestaurantsDTO restaurant) {
 
-		logger.info(String.format("%s is registered successfully!", restaurant));
+		logger.info("restaurant is registered successfully!");
 
 
 		Restaurants res = new Restaurants();
@@ -53,14 +60,10 @@ public class RestaurantServiceImp implements IRestaurantService {
 		return restaurantRepo.save(res);
 	}
 
-	@Override
-	public String loginRestaurant(RestaurantsDTO restaurantDTO) {
-		// login logic
-		return "login successful";
-	}
+	
 
 	@Override
-	public void addMenu(MenuItemsDTO menuItemDTO, int restaurantId) {
+	public MenuItems addMenu(MenuItemsDTO menuItemDTO, int restaurantId) {
 		Optional<Restaurants> restaurantOptional = restaurantRepo.findById(restaurantId);
 
 		MenuItems menuItem = new MenuItems();
@@ -88,6 +91,7 @@ public class RestaurantServiceImp implements IRestaurantService {
 
 			logger.info("restaurant with the searched id not found ");
 		}
+		return menuItem;
 
 	}
 

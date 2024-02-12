@@ -2,7 +2,6 @@ package com.hexaware.hotpot.services;
 
 import java.util.List;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,14 +11,20 @@ import com.hexaware.hotpot.repository.MenuItemsRepository;
 
 import jakarta.transaction.Transactional;
 
+/*
+ * Author name:NipurnaBandi
+ * 
+ * Class Description:contains business logic and functionalities related to MenuItems and also handles crud operations.
+ * 
+ */
+
+
 @Service
 @Transactional
 public class MenuServiceImp implements IMenuService {
 
 	@Autowired
 	MenuItemsRepository repo;
-
-	
 
 	@Override
 	public List<MenuItems> getMenuByCategory(String category) throws MenuItemNotFoundException {
@@ -28,7 +33,7 @@ public class MenuServiceImp implements IMenuService {
 		if (menuItem.isEmpty()) {
 			throw new MenuItemNotFoundException("Error retrieving menu items for category: " + category);
 		}
-		
+
 		return menuItem;
 	}
 
@@ -38,7 +43,7 @@ public class MenuServiceImp implements IMenuService {
 		if (menuItem.isEmpty()) {
 			throw new MenuItemNotFoundException("Error retrieving menu items for keyword: " + keyword);
 		}
-		
+
 		return menuItem;
 	}
 

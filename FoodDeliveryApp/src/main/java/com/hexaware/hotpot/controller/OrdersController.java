@@ -25,22 +25,19 @@ import com.hexaware.hotpot.services.IOrderService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/api/order")
+@RequestMapping("/api/v1/order")
 public class OrdersController {
 
 	@Autowired
 	IOrderService service;
 	
 	@PostMapping("/placeOrder")
-    @PreAuthorize("hasAuthority('customer')")
-//	public void placeOrder(@Valid @RequestParam long customerId, @RequestParam int restaurantId, @RequestBody Map<String, Object> menuItems) throws RestaurantNotFoundException, CustomerNotFoundException {
-//		service.placeOrder(customerId, restaurantId, menuItems);
-//		
-		
-	
-	public void placeOrder(@Valid @RequestParam long customerId, @RequestParam int restaurantId, @RequestBody Map<String, Object> requestBody) throws RestaurantNotFoundException, CustomerNotFoundException {
+    @PreAuthorize("hasAuthority('customer')")		
+	public String placeOrder(@Valid @RequestParam long customerId, @RequestParam int restaurantId, @RequestBody Map<String, Object> requestBody) throws RestaurantNotFoundException, CustomerNotFoundException {
 	    List<MenuItemsDTO> menuItems = parseMenuItems(requestBody);
-	    service.placeOrder(customerId, restaurantId, menuItems);
+	    double totalCost = (double) requestBody.get("totalCost");
+	    service.placeOrder(customerId, restaurantId, menuItems,totalCost);
+	    return "Your order has been placed";
 	}
 
 	private List<MenuItemsDTO> parseMenuItems(Map<String, Object> requestBody) {
