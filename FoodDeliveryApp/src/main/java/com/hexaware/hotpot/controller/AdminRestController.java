@@ -83,7 +83,7 @@ public class AdminRestController {
 	
 
 	@PostMapping("/register")
-//    @PreAuthorize("hasAuthority('admin')")
+@PreAuthorize("hasAuthority('admin')")
     
 public String registerAdmin(@RequestBody AdminDTO adminDTO) {
 		long adminId = adminservice.registerManager(adminDTO);
@@ -131,42 +131,24 @@ public String registerAdmin(@RequestBody AdminDTO adminDTO) {
 	}
 
 	@GetMapping("/getAllOrders")
-    @PreAuthorize("hasAuthority('admin')")
+    @PreAuthorize("hasAuthority('manager')")
 	public List<Orders> getAllOrders() {
 		return adminservice.getAllOrders();
 	}
 	
 	@GetMapping("/getAllCustomers")
-    @PreAuthorize("hasAuthority('admin')")
+	@PreAuthorize("hasAuthority('admin') or hasAuthority('manager')")
 	public List<Customers> getAllCustomers() {
 		return adminservice.getAllCustomers();
 	}
 
 
 
-	@PostMapping("/addMenuItem/{restaurantId}")
-    @PreAuthorize("hasAuthority('admin')")
-	public String addMenuItem(@RequestBody @Valid MenuItemsDTO menuItemDTO,@PathVariable int restaurantId) {
-		
-		MenuItems menuItem = adminservice.addMenuItem(menuItemDTO,restaurantId);
-		if (menuItem != null) {
-			return "Menu item added successfully";
-		} else {
-			return "Failed to add menu item";
-		}
-
-	}
 	
 
-    @DeleteMapping("/removeMenuItems/{menuItemId}")
-    @PreAuthorize("hasAuthority('admin')")
-    public String removeMenuItems(@PathVariable Long menuItemId) {
-        adminservice.removeMenuItems(menuItemId);
-        return "Menu item removed successfully";
-    }
     
     @PostMapping("/add-discount")
-    @PreAuthorize("hasAuthority('admin')")
+    @PreAuthorize("hasAuthority('admin') or hasAuthority('manager')")
 	public String addDiscount(@RequestBody @Valid DiscountDTO discountDTO) {
 		Discount discount = adminservice.addDiscount(discountDTO);
 		if (discount != null) {
@@ -177,7 +159,7 @@ public String registerAdmin(@RequestBody AdminDTO adminDTO) {
 	}
     
     @DeleteMapping("/removeDiscount/{discountId}")
-    @PreAuthorize("hasAuthority('admin')")
+    @PreAuthorize("hasAuthority('admin') or hasAuthority('manager')")
     public String removeDiscount(@PathVariable int discountId) {
         adminservice.removeDiscount(discountId);
         return "Discount removed successfully";

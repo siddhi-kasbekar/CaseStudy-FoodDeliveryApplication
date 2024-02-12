@@ -15,7 +15,7 @@ public interface ICartService {
 
 
 	
-
+	public void clearCart(long customerId) throws CustomerNotFoundException;
 
 	public Cart getCartItems(Long customerId);
 }

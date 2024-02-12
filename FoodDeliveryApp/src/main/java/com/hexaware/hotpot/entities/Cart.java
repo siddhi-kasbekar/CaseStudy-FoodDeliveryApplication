@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -47,7 +48,7 @@ public class Cart {
 	}
 
 	@OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
-	@JsonIgnore // Prevent infinite recursion
+	@JsonIgnoreProperties("cart")
 	private Set<Payment> paymentSet = new HashSet<>();
 	
 

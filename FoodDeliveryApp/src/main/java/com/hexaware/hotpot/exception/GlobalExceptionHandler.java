@@ -15,7 +15,7 @@ public class GlobalExceptionHandler {
 	}
 	
 	@ExceptionHandler({LocationNotFoundException.class})
-	public ResponseEntity<String> handleLocationNotFound(){
+	public ResponseEntity<String> handleLocationNotFound(LocationNotFoundException ex){
 		return new ResponseEntity<String>("No restaurant found in this location", HttpStatus.NOT_FOUND);
 		
 	}

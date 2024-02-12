@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,8 +33,10 @@ public class CartRestController {
 	
 	@PostMapping("/save-cart/{customerId}")
 	@PreAuthorize("hasAuthority('customer')")
-	public Cart saveCartState(@PathVariable long customerId, @RequestParam double total, @RequestBody Map<String, Object> requestBody) throws CustomerNotFoundException {
+	public Cart saveCartState(@PathVariable long customerId,  @RequestBody Map<String, Object> requestBody) throws CustomerNotFoundException {
 	    List<MenuItemsDTO> menuItems = parseMenuItems(requestBody);
+
+	    double total = (double) requestBody.get("total");
 
 		return cartService.saveCartState(customerId, menuItems, total);
 	}
@@ -49,6 +52,13 @@ public class CartRestController {
 	    return menuItems;
 	}
 	
+@DeleteMapping("/clearAll/{customerId}")
+@PreAuthorize("hasAuthority('customer')")
+public String clearCart( @PathVariable  long customerId) throws CustomerNotFoundException{
+	cartService.clearCart(customerId);
+	return "cart cleared";
+	
+}
 	
 
 //	@PostMapping("/add/{customerId}")

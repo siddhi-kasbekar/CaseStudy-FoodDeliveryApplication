@@ -114,44 +114,11 @@ public class AdminServiceImp implements IAdminService {
 
 	
 
-	@Override
-	public MenuItems addMenuItem(MenuItemsDTO menuItemDTO, int restaurantId) {
-	    Optional<Restaurants> restaurantOptional = restaurantRepository.findById(restaurantId);
-	    
-	    MenuItems menuItem = new MenuItems();
-//        menuItem.setMenuitemId(menuItemDTO.getMenuItemId());
-        menuItem.setItemName(menuItemDTO.getItemName());
-        menuItem.setDescription(menuItemDTO.getDescription());
-        menuItem.setCategory(menuItemDTO.getCategory());
-        menuItem.setPrice(menuItemDTO.getPrice());
-        menuItem.setAvailabilityTime(menuItemDTO.getAvailabilityTime());
-        menuItem.setSpecialDietaryInfo(menuItemDTO.getSpecialDietaryInfo());
-        menuItem.setTasteInfo(menuItemDTO.getTasteInfo());
-        menuItem.setNutritionalInfo(menuItemDTO.getNutritionalInfo());
-        menuItem.setCookingTime(menuItemDTO.getCookingTime());
-
-	    if (restaurantOptional.isPresent()) {
-	        Restaurants restaurant = restaurantOptional.get();       
-
-	        menuItemDTO.setRestaurantId(restaurantId);
-	        menuItem.setRestaurant(restaurant);
-
-	        
-	    } else {
-	        
-	    	logger.info("restaurant with specified id not found ");
-	    }
-	    return menuItemsRepository.save(menuItem);
-	}
+	
 
 
 	
 
-	@Override
-	public void removeMenuItems(Long menuItemId) {
-		menuItemsRepository.deleteById(menuItemId);
-		
-	}
 
 
 	@Override
@@ -175,7 +142,6 @@ public class AdminServiceImp implements IAdminService {
 	public long registerManager(AdminDTO adminDTO) {
 		
 		Administrator admin = new Administrator();
-//		admin.setAdminId(adminDTO.getAdminId());
 		admin.setUserName(adminDTO.getUserName());
 		admin.setPassword(passwordEncoder.encode(adminDTO.getPassword()));
 		admin.setName(adminDTO.getName());

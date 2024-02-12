@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hexaware.hotpot.dto.MenuItemsDTO;
+import com.hexaware.hotpot.entities.Cart;
+import com.hexaware.hotpot.entities.CartDetails;
 import com.hexaware.hotpot.entities.Customers;
 import com.hexaware.hotpot.entities.MenuItems;
 import com.hexaware.hotpot.entities.OrderDetails;
@@ -17,6 +19,8 @@ import com.hexaware.hotpot.entities.Restaurants;
 import com.hexaware.hotpot.exception.CustomerNotFoundException;
 import com.hexaware.hotpot.exception.OrderNotFoundException;
 import com.hexaware.hotpot.exception.RestaurantNotFoundException;
+import com.hexaware.hotpot.repository.CartDetailsRepository;
+import com.hexaware.hotpot.repository.CartRepository;
 import com.hexaware.hotpot.repository.CustomersRepository;
 import com.hexaware.hotpot.repository.MenuItemsRepository;
 import com.hexaware.hotpot.repository.OrderDetailsRepository;
@@ -50,6 +54,12 @@ public class OrderServiceImp implements IOrderService {
 	
 	@Autowired
 	MenuItemsRepository menuItemRepo;
+	
+	@Autowired
+	CartRepository cartRepo;
+	
+	@Autowired
+	CartDetailsRepository cartDetailsRepo;
 
 	
 	private static final Logger logger = LoggerFactory.getLogger(OrderServiceImp.class);
@@ -64,9 +74,6 @@ public class OrderServiceImp implements IOrderService {
 
 	    Orders order = new Orders();
 	    order.setOrderDate(LocalDateTime.now()); // Assuming you set the order date to current date and time
-	    // Calculate total cost based on menu items
-	   // double totalCost = menuItems.stream().mapToDouble(MenuItemsDTO::getPrice).sum();
-	   // order.setTotalCost(totalCost);
 	    order.setTotalCost(totalCost); //will be fetched from cart
 	    order.setStatus("Placed"); // Assuming initial status is "Placed"
 	    order.setCustomer(customer);
@@ -88,6 +95,17 @@ public class OrderServiceImp implements IOrderService {
 	        
 	        orderDetailsrepo.save(orderDetails);
 	    }
+	    
+	 // Reset the total cost of the customer's cart to 0
+	    Cart cart = cartRepo.findByCustomerId(customerId);
+	    if (cart != null) {
+	        cart.setTotal(0); // Set the total cost to 0
+	        cartRepo.save(cart); // Save the updated cart
+	    }
+
+	    // Delete the cart details associated with the customer's cart
+	    List<CartDetails> cartDetailsList = cartDetailsRepo.findByCart_CartId(cart.getCartId());
+	    cartDetailsRepo.deleteAll(cartDetailsList);
 	}
 
 

@@ -89,42 +89,10 @@ class AdminServiceImpTest {
 	
 	
 
-	@Test
-	void testAddMenuItem() {
-
-
-		MenuItemsDTO menuItemsDTO = new MenuItemsDTO();
-        menuItemsDTO.setItemName("chicken vindaloo");
-        menuItemsDTO.setDescription("delicious chicken");
-        menuItemsDTO.setCategory("main course");
-        menuItemsDTO.setPrice(399.00);
-        menuItemsDTO.setAvailabilityTime("dinner");
-        menuItemsDTO.setSpecialDietaryInfo("high protein");
-        menuItemsDTO.setTasteInfo("spicy tangy ");
-        menuItemsDTO.setNutritionalInfo("high in protein");
-        menuItemsDTO.setCookingTime(40);
-
-        int restaurantId = 3; 
-
-        MenuItems newMenuItem = adminService.addMenuItem(menuItemsDTO, restaurantId);
-
-        assertNotNull(newMenuItem);
-        assertEquals(menuItemsDTO.getItemName(), newMenuItem.getItemName());
-	}
+	
 
 	
 
-	@Test
-	void testRemoveMenuItems() {
-		
-		 long menuItemIdToDelete = 3; 
-
-	        adminService.removeMenuItems(menuItemIdToDelete);
-
-	        assertFalse(adminService.getAllMenus().stream()
-	        	    .anyMatch(m -> menuItemIdToDelete == m.getMenuitemId()));
-
-
-	}
+	
 
 }

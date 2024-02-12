@@ -2,13 +2,14 @@ package com.hexaware.hotpot.dto;
 
 import java.math.BigDecimal;
 import java.security.Timestamp;
+import java.time.LocalDateTime;
 
 public class PaymentDTO {
 
 	private int paymentId;
-    private int customerId; 
+    private long customerId; 
     private int cartId; 
-    private Timestamp paymentDate;
+    private LocalDateTime paymentDate;
     private BigDecimal amount;
     private String paymentMethod;
     private String transactionID;
@@ -17,7 +18,7 @@ public class PaymentDTO {
     	super();
     }
 
-    public PaymentDTO(int paymentId, int customerId, int cartId, Timestamp paymentDate, BigDecimal amount,
+    public PaymentDTO(int paymentId, long customerId, int cartId, LocalDateTime paymentDate, BigDecimal amount,
             String paymentMethod, String transactionID) {
        
     	super();
@@ -40,11 +41,11 @@ public class PaymentDTO {
         this.paymentId = paymentId;
     }
 
-    public int getCustomerId() {
+    public long getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(int customerId) {
+    public void setCustomerId(long customerId) {
         this.customerId = customerId;
     }
 
@@ -56,11 +57,11 @@ public class PaymentDTO {
         this.cartId = cartId;
     }
 
-    public Timestamp getPaymentDate() {
+    public LocalDateTime getPaymentDate() {
         return paymentDate;
     }
 
-    public void setPaymentDate(Timestamp paymentDate) {
+    public void setPaymentDate(LocalDateTime paymentDate) {
         this.paymentDate = paymentDate;
     }
 

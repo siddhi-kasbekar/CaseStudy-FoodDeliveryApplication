@@ -61,7 +61,7 @@ public class RestaurantController {
 	}
 
 	@GetMapping("/getMenu/{category}")
-	@PreAuthorize("hasAuthority('manager')")
+	@PreAuthorize("hasAuthority('customer')")
 	public List<MenuItems> getMenuByCategory(@PathVariable String category) throws MenuItemNotFoundException{
 		return service.getMenuByCategory(category);
 	}

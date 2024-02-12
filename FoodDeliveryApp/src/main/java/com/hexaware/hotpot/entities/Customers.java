@@ -3,7 +3,7 @@ package com.hexaware.hotpot.entities;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -94,6 +94,7 @@ public final class Customers {
 	private Set<Orders> orderSet = new HashSet<>();
 
 	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+	 @JsonIgnoreProperties("customer")
 	private Set<Payment> paymentSet = new HashSet<>();
 
 //	@OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)

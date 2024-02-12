@@ -1,5 +1,6 @@
 package com.hexaware.hotpot.services;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
@@ -11,14 +12,16 @@ import org.springframework.stereotype.Service;
 
 import com.hexaware.hotpot.dto.CustomersDTO;
 import com.hexaware.hotpot.dto.DeliveryAddressDTO;
-import com.hexaware.hotpot.entities.Cart;
 import com.hexaware.hotpot.entities.Customers;
 import com.hexaware.hotpot.entities.DeliveryAddress;
+import com.hexaware.hotpot.entities.Discount;
 import com.hexaware.hotpot.entities.Restaurants;
 import com.hexaware.hotpot.exception.CustomerNotFoundException;
+import com.hexaware.hotpot.exception.DiscountNotFoundException;
 import com.hexaware.hotpot.exception.LocationNotFoundException;
 import com.hexaware.hotpot.repository.CartRepository;
 import com.hexaware.hotpot.repository.CustomersRepository;
+import com.hexaware.hotpot.repository.DiscountRepository;
 import com.hexaware.hotpot.repository.RestaurantsRepository;
 
 import jakarta.transaction.Transactional;
@@ -50,6 +53,9 @@ public class CustomerServiceImp implements ICustomerService {
 
 	@Autowired
 	private CartRepository cartRepository;
+	
+	@Autowired
+	DiscountRepository discountRepo;
 	
 	private static final Logger logger = LoggerFactory.getLogger(CustomerServiceImp.class);
 
@@ -126,8 +132,8 @@ public class CustomerServiceImp implements ICustomerService {
 		DeliveryAddressDTO updatedAddressDTO = updatedCustomerDTO.getAddressDTO();
 		if (updatedAddressDTO != null) {
 			DeliveryAddress existingAddress = customers.getAddress();
-			existingAddress.setAddressId(
-					Objects.requireNonNullElse(updatedAddressDTO.getAddressId(), existingAddress.getAddressId()));
+//			existingAddress.setAddressId(
+//					Objects.requireNonNullElse(updatedAddressDTO.getAddressId(), existingAddress.getAddressId()));
 			existingAddress.setHouseNo(
 					Objects.requireNonNullElse(updatedAddressDTO.getHouseNo(), existingAddress.getHouseNo()));
 			existingAddress.setArea(Objects.requireNonNullElse(updatedAddressDTO.getArea(), existingAddress.getArea()));
@@ -156,6 +162,11 @@ public class CustomerServiceImp implements ICustomerService {
 		return restaurants;
 	}
 
+	@Override
+	public Discount findActiveDiscount(LocalDate currentDate) throws DiscountNotFoundException {
+	    return discountRepo.findByStartDateBeforeAndEndDateAfter(currentDate, currentDate)
+	            .orElseThrow(() -> new DiscountNotFoundException("No active discount found for the current date"));
+	}
 	
 
 }

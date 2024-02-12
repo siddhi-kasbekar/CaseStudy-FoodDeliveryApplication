@@ -31,7 +31,7 @@ public class MenuServiceImp implements IMenuService {
 
 		List<MenuItems> menuItem = repo.findByCategory(category);
 		if (menuItem.isEmpty()) {
-			throw new MenuItemNotFoundException("Error retrieving menu items for category: " + category);
+			throw new MenuItemNotFoundException(" menu items for category: " + category+" not found");
 		}
 
 		return menuItem;
@@ -41,7 +41,7 @@ public class MenuServiceImp implements IMenuService {
 	public List<MenuItems> searchMenuItemsByKeyword(String keyword) throws MenuItemNotFoundException {
 		List<MenuItems> menuItem = repo.findByItemNameContainingIgnoreCase(keyword);
 		if (menuItem.isEmpty()) {
-			throw new MenuItemNotFoundException("Error retrieving menu items for keyword: " + keyword);
+			throw new MenuItemNotFoundException(" menu items for keyword: " + keyword+" not found");
 		}
 
 		return menuItem;
