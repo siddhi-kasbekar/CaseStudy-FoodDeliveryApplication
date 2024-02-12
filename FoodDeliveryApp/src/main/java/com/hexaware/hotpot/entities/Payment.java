@@ -1,7 +1,9 @@
 package com.hexaware.hotpot.entities;
 
 import java.math.BigDecimal;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -13,6 +15,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 
 /*
  * Author: Nipurna Bandi
@@ -34,32 +37,32 @@ public class Payment {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "UserID")
+    @JsonIgnore
     private Customers customer;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "CartID")
+    @JsonIgnore
     private Cart cart;
 
-    @Column(name = "PaymentDate", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    private Timestamp paymentDate;
+    private LocalDateTime paymentDate;
 
     @NotNull(message = "Amount is required")
-    @Column(name = "Amount")
     private BigDecimal amount;
 
     @NotBlank(message = "Payment method is required")
-    @Column(name = "PaymentMethod")
+    @Pattern(regexp = "^(upi|net banking|cod|credit card|debit card)$", message = "Invalid payment method")
     private String paymentMethod;
 
     @NotBlank(message = "Transaction ID is required")
-    @Column(name = "TransactionID")
+    @Pattern(regexp = "\\d{10}", message = "Transaction ID must be 10 digits")
     private String transactionID;
 
 	public Payment() {
 		super();
 	}
 
-	public Payment(int paymentId, Customers customer, Cart cart, Timestamp paymentDate, BigDecimal amount,
+	public Payment(int paymentId, Customers customer, Cart cart, LocalDateTime paymentDate, BigDecimal amount,
 			String paymentMethod, String transactionID) {
 		super();
 		this.paymentId = paymentId;
@@ -95,11 +98,11 @@ public class Payment {
 		this.cart = cart;
 	}
 
-	public Timestamp getPaymentDate() {
+	public LocalDateTime getPaymentDate() {
 		return paymentDate;
 	}
 
-	public void setPaymentDate(Timestamp paymentDate) {
+	public void setPaymentDate(LocalDateTime paymentDate) {
 		this.paymentDate = paymentDate;
 	}
 

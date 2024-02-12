@@ -89,6 +89,27 @@ public class CartServiceImp implements ICartService {
 
 		return cart;
 	}
+	
+	
+	@Override
+	@Transactional
+	public void clearCart(long customerId) throws CustomerNotFoundException {
+	    // Retrieve the cart by customer ID
+	    Cart cart = cartRepository.findByCustomerId(customerId);
+	    if (cart != null) {
+	        // Set total to 0
+	        cart.setTotal(0.0);
+	        // Save the updated cart
+	        cartRepository.save(cart);
+	        
+	     // Delete the cart details associated with the customer's cart
+	        List<CartDetails> cartDetailsList = cartDetailsRepo.findByCart_CartId(cart.getCartId());
+	        cartDetailsRepo.deleteAll(cartDetailsList);
+	    } else {
+	        throw new CustomerNotFoundException("Customer not found with ID: " + customerId);
+	    }
+	}
+
 
 //	@Override
 //	public void addToCart(long customerId, long menuItemId, int quantity) {

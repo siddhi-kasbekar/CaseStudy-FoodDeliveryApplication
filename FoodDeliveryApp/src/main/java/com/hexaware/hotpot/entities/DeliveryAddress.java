@@ -39,7 +39,7 @@ public class DeliveryAddress {
 	private String landmark;
 	 
 	 @NotBlank(message = "City is required")
-	 @Pattern(regexp = "^[a-zA-Z]+$", message = "City should contain only alphabets")
+	 @Pattern(regexp = "^[a-zA-Z\\s]+$", message = "City should contain only alphabets")
 	private String city;
 	
 	@NotNull(message = "Pincode is required")

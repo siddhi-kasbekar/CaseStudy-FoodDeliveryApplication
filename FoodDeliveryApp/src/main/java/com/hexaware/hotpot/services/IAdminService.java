@@ -31,9 +31,7 @@ public interface IAdminService {
 	
 	public List<Customers> getAllCustomers();
 
-	public MenuItems addMenuItem(MenuItemsDTO menuItemDTO,int restaurantId);
 	
-	public void removeMenuItems(Long menuItemId);
 	
 	public Discount addDiscount(DiscountDTO discountdto);
 	

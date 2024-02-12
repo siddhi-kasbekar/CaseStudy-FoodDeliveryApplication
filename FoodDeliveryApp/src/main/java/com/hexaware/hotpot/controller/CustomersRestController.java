@@ -1,11 +1,14 @@
 package com.hexaware.hotpot.controller;
 
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,12 +20,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hexaware.hotpot.dto.AuthRequest;
 import com.hexaware.hotpot.dto.CustomersDTO;
+import com.hexaware.hotpot.entities.Discount;
 import com.hexaware.hotpot.entities.Restaurants;
 import com.hexaware.hotpot.exception.CustomerNotFoundException;
+import com.hexaware.hotpot.exception.DiscountNotFoundException;
 import com.hexaware.hotpot.exception.LocationNotFoundException;
 import com.hexaware.hotpot.services.ICustomerService;
 import com.hexaware.hotpot.services.JwtService;
@@ -111,5 +117,14 @@ public class CustomersRestController {
 	    return restaurants;
 		
 	}
+	
+	@GetMapping("/apply-discount")
+    @PreAuthorize("hasAuthority('customer')")
+	public Discount getActiveDiscount(@RequestParam("currentDate") LocalDate currentDate) throws DiscountNotFoundException {
+		Discount activeDiscount = customerService.findActiveDiscount(currentDate);
+	    return activeDiscount;
+	}
+
+	
 
 }
