@@ -83,7 +83,7 @@ public class AdminRestController {
 	
 
 	@PostMapping("/register")
-    @PreAuthorize("hasAuthority('admin')")
+//    @PreAuthorize("hasAuthority('admin')")
     
 public String registerAdmin(@RequestBody AdminDTO adminDTO) {
 		long adminId = adminservice.registerManager(adminDTO);

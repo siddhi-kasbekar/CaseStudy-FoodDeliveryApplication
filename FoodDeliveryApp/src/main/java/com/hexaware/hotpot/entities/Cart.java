@@ -6,14 +6,12 @@ import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 
 /*
  * Author: Siddhi Kasbekar
@@ -30,12 +28,24 @@ public class Cart {
 	private int cartId;
 
 	private double total;
+	
+	@Column(name = "custid")
+	private Long customerId;
 
-	@OneToOne
-	@JoinColumn(name = "custid")
-	private Customers customer;
+//	@OneToOne
+//	@JoinColumn(name = "custid")
+//    @JsonManagedReference // Manages serialization of the relationship
+//	private Customers customer;
 
 	
+	public Long getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(Long customerId) {
+		this.customerId = customerId;
+	}
+
 	@OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
 	@JsonIgnore // Prevent infinite recursion
 	private Set<Payment> paymentSet = new HashSet<>();
@@ -51,7 +61,7 @@ public class Cart {
 		this.cartId = cartId;
 
 		this.total = total;
-		this.customer = customer;
+//		this.customer = customer;
 	}
 
 	public int getCartId() {
@@ -70,13 +80,13 @@ public class Cart {
 		this.total = total;
 	}
 
-	public Customers getCustomer() {
-		return customer;
-	}
-
-	public void setCustomer(Customers customer) {
-		this.customer = customer;
-	}
+//	public Customers getCustomer() {
+//		return customer;
+//	}
+//
+//	public void setCustomer(Customers customer) {
+//		this.customer = customer;
+//	}
 
 	public Set<Payment> getPaymentSet() {
 		return paymentSet;

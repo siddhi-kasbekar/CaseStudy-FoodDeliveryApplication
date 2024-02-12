@@ -9,8 +9,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.hexaware.hotpot.dto.MenuItemsDTO;
 import com.hexaware.hotpot.entities.Cart;
+import com.hexaware.hotpot.entities.CartDetails;
 import com.hexaware.hotpot.entities.Customers;
+import com.hexaware.hotpot.entities.MenuItems;
 import com.hexaware.hotpot.exception.CustomerNotFoundException;
 import com.hexaware.hotpot.repository.CartDetailsRepository;
 import com.hexaware.hotpot.repository.CartRepository;
@@ -43,79 +46,66 @@ public class CartServiceImp implements ICartService {
 	
 	
 	@Autowired
-    private CartDetailsRepository cartMenuItemsRepo;
+    private CartDetailsRepository cartDetailsRepo;
 	
 	@Autowired
-    private MenuItemsRepository menuItemsRepo;
+    private MenuItemsRepository menuItemsRepo;	
 	
-	
-	@Override
-	public List<Cart> getCartItems(Long customerId) {
+
 		
-		return cartRepository.findByCustomerCustomerId(customerId);
+
+   
+
+	@Override
+	public Cart getCartItems(Long customerId) {
+		
+		return cartRepository.findByCustomerId(customerId);
 	}
 
 
 	@Override
-	public Cart saveCartState(Cart cart,long customerId,int cartId) throws CustomerNotFoundException {
-	    
+	public Cart saveCartState(long customerId, List<MenuItemsDTO> menuItemsDTO, double total) throws CustomerNotFoundException {
+	    // Retrieve customer by ID
 	    Customers customer = customerRepo.findById(customerId)
 	            .orElseThrow(() -> new CustomerNotFoundException("Customer not found with id: " + customerId));
 
-	    // Set the customer for the cart
-	    cart.setCustomer(customer);
-
-//	    // Clear existing cart items before adding new ones
-//	    cart.getCartMenuItems().clear();
-
-	    // Check if the cart already exists in the database
-	    Optional<Cart> existingCartOptional = cartRepository.findById(cartId);
-	    if (existingCartOptional.isPresent()) {
-	        // If the cart exists, update its attributes
-	        Cart existingCart = existingCartOptional.get();
-	        existingCart.setTotal(cart.getTotal());
-	        // Set any other attributes if needed
-
-	        // Save the updated cart
-	        cartRepository.save(existingCart);
-	        cart = existingCart; // Update the reference to the existing cart
+	    // Check if a cart already exists for the customer
+	    Cart existingCart = cartRepository.findByCustomerId(customerId);
+	    Cart cart ;
+	    if (existingCart != null) {
+	        // If a cart already exists, update the total
+	        existingCart.setTotal(total);
+	        // Update other properties if needed
+	        return cartRepository.save(existingCart);
 	    } else {
-	    	if (cart.getTotal() == 0) {
-	            // Set a default total if it's not already set
-	            cart.setTotal(0.0);
-	        }
-	        cart = cartRepository.save(cart);
+	        // Create a new cart
+	       cart = new Cart();
+	        cart.setTotal(total); // Set the total
+	        cart.setCustomerId(customerId);
+
+	        // Save the new cart
+	        cartRepository.save(cart);
 	    }
 
-	    // Log cart state
-	    logger.info("Cart state saved successfully for customer with ID: {}", customerId);
-	    logger.info("Total: {}", cart.getTotal());
-
-	    // Save cart items from the cart
-//	    Set<CartMenuItems> cartItems = cart.getCartMenuItems();
-//	    for (CartMenuItems cartItem : cartItems) {
-//	        // Set the cart for each cart item
-//	        cartItem.setCart(cart);
-
+	    // Save cart details
+	    for (MenuItemsDTO menuItemDTO : menuItemsDTO) {
 	        // Retrieve or create menu item entity
-//	        MenuItems menuItem = cartItem.getMenuItems();
-//	        long menuItemId = menuItem.getMenuitemId();
-//	        // You may want to retrieve the menuItem from the repository here if needed
-//
-//	        // Set the menu item for the cart item
-//	        menuItem = menuItemsRepo.findById(menuItemId)
-//	                .orElseThrow(() -> new EntityNotFoundException("Menu item not found with id: " + menuItemId));
-//	        cartItem.setMenuItems(menuItem);
+	        MenuItems menuItem = menuItemsRepo.findById(menuItemDTO.getMenuItemId())
+	                                         .orElseThrow(() -> new RuntimeException("Menu item not found"));
 
-	        
-//	    }
+	        CartDetails cartDetails = new CartDetails();
+	        cartDetails.setCart(cart);
+	        cartDetails.setMenuItems(menuItem);
+	        cartDetails.setQuantity(menuItemDTO.getQuantity());
 
-	   // cartMenuItemsRepo.saveAll(cartItems);
+	        // Save the cart detail
+	        cartDetailsRepo.save(cartDetails);
+	    }
 
-
-	    return cartRepository.save(cart);
-
+	    return cart;
 	}
+
+
 
 
 

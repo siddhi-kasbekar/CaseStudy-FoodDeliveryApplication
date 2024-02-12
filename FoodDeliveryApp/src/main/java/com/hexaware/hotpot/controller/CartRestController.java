@@ -1,14 +1,20 @@
 package com.hexaware.hotpot.controller;
 
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hexaware.hotpot.dto.MenuItemsDTO;
 import com.hexaware.hotpot.entities.Cart;
 import com.hexaware.hotpot.exception.CustomerNotFoundException;
 import com.hexaware.hotpot.services.ICartService;
@@ -24,12 +30,23 @@ public class CartRestController {
 	ICartService cartService;
 	
 	
-	@PostMapping("/save-cart/{customerId}/{cartId}")
-    @PreAuthorize("hasAuthority('customer')")
-	public Cart saveCartState(@RequestBody Cart cart,@PathVariable long customerId,@PathVariable int cartId) throws CustomerNotFoundException {
-		
-		return cartService.saveCartState(cart,customerId,cartId);
-		
+	@PostMapping("/save-cart/{customerId}")
+	@PreAuthorize("hasAuthority('customer')")
+	public Cart saveCartState(@PathVariable long customerId, @RequestParam double total, @RequestBody Map<String, Object> requestBody) throws CustomerNotFoundException {
+	    List<MenuItemsDTO> menuItems = parseMenuItems(requestBody);
+
+		return cartService.saveCartState(customerId, menuItems, total);
+	}
+	private List<MenuItemsDTO> parseMenuItems(Map<String, Object> requestBody) {
+	    List<Map<String, Object>> menuItemList = (List<Map<String, Object>>) requestBody.get("menuItems");
+	    List<MenuItemsDTO> menuItems = new ArrayList<>();
+	    for (Map<String, Object> menuItemData : menuItemList) {
+	        MenuItemsDTO menuItemDTO = new MenuItemsDTO();
+	        menuItemDTO.setMenuItemId(Long.parseLong(menuItemData.get("menuItemId").toString()));
+	        menuItemDTO.setQuantity(Integer.parseInt(menuItemData.get("quantity").toString()));
+	        menuItems.add(menuItemDTO);
+	    }
+	    return menuItems;
 	}
 	
 	
