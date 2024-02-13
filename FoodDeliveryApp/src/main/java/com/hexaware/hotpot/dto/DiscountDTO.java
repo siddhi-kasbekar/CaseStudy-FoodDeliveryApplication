@@ -1,7 +1,7 @@
 package com.hexaware.hotpot.dto;
 
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.time.LocalDate;
 
 
 
@@ -12,15 +12,15 @@ public class DiscountDTO {
 
     private BigDecimal discountPercentage;
 
-    private Date startDate;
+    private LocalDate startDate;
 
-    private Date endDate;
+    private LocalDate endDate;
 
 	public DiscountDTO() {
 		super();
 	}
 
-	public DiscountDTO(int discountId, BigDecimal discountPercentage, Date startDate, Date endDate) {
+	public DiscountDTO(int discountId, BigDecimal discountPercentage, LocalDate startDate, LocalDate endDate) {
 		super();
 		this.discountId = discountId;
 		this.discountPercentage = discountPercentage;
@@ -44,19 +44,19 @@ public class DiscountDTO {
 		this.discountPercentage = discountPercentage;
 	}
 
-	public Date getStartDate() {
+	public LocalDate getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(Date startDate) {
+	public void setStartDate(LocalDate startDate) {
 		this.startDate = startDate;
 	}
 
-	public Date getEndDate() {
+	public LocalDate getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(Date endDate) {
+	public void setEndDate(LocalDate endDate) {
 		this.endDate = endDate;
 	}
     

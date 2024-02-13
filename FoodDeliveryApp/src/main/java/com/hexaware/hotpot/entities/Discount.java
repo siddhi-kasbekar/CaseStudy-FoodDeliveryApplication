@@ -1,7 +1,7 @@
 package com.hexaware.hotpot.entities;
 
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.time.LocalDate;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -39,18 +39,18 @@ public class Discount {
 
     @NotNull(message = "Start date is required")
     @Column(name = "StartDate")
-    private Date startDate;
+    private LocalDate startDate;
 
     @NotNull(message = "End date is required")
     @Column(name = "EndDate")
-    private Date endDate;
+    private LocalDate endDate;
 
 	public Discount() {
 		super();
 	}
 
-	public Discount(int discountId, Restaurants restaurant, BigDecimal discountPercentage, Date startDate,
-			Date endDate) {
+	public Discount(int discountId, Restaurants restaurant, BigDecimal discountPercentage, LocalDate startDate,
+			LocalDate endDate) {
 		super();
 		this.discountId = discountId;
 		this.restaurant = restaurant;
@@ -83,19 +83,19 @@ public class Discount {
 		this.discountPercentage = discountPercentage;
 	}
 
-	public Date getStartDate() {
+	public LocalDate getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(Date startDate) {
+	public void setStartDate(LocalDate startDate) {
 		this.startDate = startDate;
 	}
 
-	public Date getEndDate() {
+	public LocalDate getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(Date endDate) {
+	public void setEndDate(LocalDate endDate) {
 		this.endDate = endDate;
 	}
 

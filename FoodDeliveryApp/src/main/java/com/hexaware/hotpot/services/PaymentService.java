@@ -38,7 +38,6 @@ public class PaymentService implements IPaymentService {
 	    Cart cart = cartRepo.findById(cartId)
 	            .orElseThrow(() -> new RuntimeException("Cart not found with id: " + cartId));
 
-	    // Create a payment entity
 	    Payment payment = new Payment();
 	    payment.setCustomer(customer);
 	    payment.setCart(cart);
@@ -47,7 +46,7 @@ public class PaymentService implements IPaymentService {
 	    payment.setPaymentMethod(paymentDTO.getPaymentMethod());
 	    payment.setTransactionID(paymentDTO.getTransactionID());
 
-	    return paymentRepo.save(payment); // Save the payment details
+	    return paymentRepo.save(payment); 
 	    
 	}
 }
