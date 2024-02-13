@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hexaware.hotpot.dto.MenuItemsDTO;
@@ -40,17 +39,7 @@ public class CartRestController {
 
 		return cartService.saveCartState(customerId, menuItems, total);
 	}
-	private List<MenuItemsDTO> parseMenuItems(Map<String, Object> requestBody) {
-	    List<Map<String, Object>> menuItemList = (List<Map<String, Object>>) requestBody.get("menuItems");
-	    List<MenuItemsDTO> menuItems = new ArrayList<>();
-	    for (Map<String, Object> menuItemData : menuItemList) {
-	        MenuItemsDTO menuItemDTO = new MenuItemsDTO();
-	        menuItemDTO.setMenuItemId(Long.parseLong(menuItemData.get("menuItemId").toString()));
-	        menuItemDTO.setQuantity(Integer.parseInt(menuItemData.get("quantity").toString()));
-	        menuItems.add(menuItemDTO);
-	    }
-	    return menuItems;
-	}
+	
 	
 @DeleteMapping("/clearAll/{customerId}")
 @PreAuthorize("hasAuthority('customer')")
@@ -60,25 +49,17 @@ public String clearCart( @PathVariable  long customerId) throws CustomerNotFound
 	
 }
 	
+private List<MenuItemsDTO> parseMenuItems(Map<String, Object> requestBody) {
+    List<Map<String, Object>> menuItemList = (List<Map<String, Object>>) requestBody.get("menuItems");
+    List<MenuItemsDTO> menuItems = new ArrayList<>();
+    for (Map<String, Object> menuItemData : menuItemList) {
+        MenuItemsDTO menuItemDTO = new MenuItemsDTO();
+        menuItemDTO.setMenuItemId(Long.parseLong(menuItemData.get("menuItemId").toString()));
+        menuItemDTO.setQuantity(Integer.parseInt(menuItemData.get("quantity").toString()));
+        menuItems.add(menuItemDTO);
+    }
+    return menuItems;
+}
 
-//	@PostMapping("/add/{customerId}")
-//	public String addToCart(@PathVariable long customerId, @RequestBody Map<String, Object> payload) {
-//
-//		long menuItemId = Long.parseLong(payload.get("menuItemId").toString());
-//		int quantity = Integer.parseInt(payload.get("quantity").toString());
-//
-//		cartService.addToCart(customerId, menuItemId, quantity);
-//
-//		return "added to cart ";
-//
-//	}
-//	
-//	@DeleteMapping("/remove/{customerId}")
-//	public String removeFromCart(@PathVariable long customerId, @RequestParam long menuItemId) {
-//	    cartService.removeFromCart(customerId, menuItemId);
-//	    return "Item removed from the cart";
-//	}
-
-	
 
 }
