@@ -40,18 +40,7 @@ public class OrdersController {
 	    return "Your order has been placed";
 	}
 
-	private List<MenuItemsDTO> parseMenuItems(Map<String, Object> requestBody) {
-	    List<Map<String, Object>> menuItemList = (List<Map<String, Object>>) requestBody.get("menuItems");
-	    List<MenuItemsDTO> menuItems = new ArrayList<>();
-	    for (Map<String, Object> menuItemData : menuItemList) {
-	        MenuItemsDTO menuItemDTO = new MenuItemsDTO();
-	        menuItemDTO.setMenuItemId(Long.parseLong(menuItemData.get("menuItemId").toString()));
-	        menuItemDTO.setQuantity(Integer.parseInt(menuItemData.get("quantity").toString()));
-	        // Set other properties if needed
-	        menuItems.add(menuItemDTO);
-	    }
-	    return menuItems;
-	}
+	
 
 	@GetMapping("/getById/{orderId}")
     @PreAuthorize("hasAuthority('customer')")
@@ -70,5 +59,18 @@ public class OrdersController {
     @PreAuthorize("hasAuthority('customer')")
 	public List<Orders> viewOrderHistory(@PathVariable int customerId){
 		return service.viewOrderHistory(customerId);
+	}
+	
+	private List<MenuItemsDTO> parseMenuItems(Map<String, Object> requestBody) {
+	    List<Map<String, Object>> menuItemList = (List<Map<String, Object>>) requestBody.get("menuItems");
+	    List<MenuItemsDTO> menuItems = new ArrayList<>();
+	    for (Map<String, Object> menuItemData : menuItemList) {
+	        MenuItemsDTO menuItemDTO = new MenuItemsDTO();
+	        menuItemDTO.setMenuItemId(Long.parseLong(menuItemData.get("menuItemId").toString()));
+	        menuItemDTO.setQuantity(Integer.parseInt(menuItemData.get("quantity").toString()));
+	        // Set other properties if needed
+	        menuItems.add(menuItemDTO);
+	    }
+	    return menuItems;
 	}
 }
