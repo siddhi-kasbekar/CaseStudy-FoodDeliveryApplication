@@ -121,8 +121,10 @@ public class CustomersRestController {
 	@GetMapping("/apply-discount")
     @PreAuthorize("hasAuthority('customer')")
 	public Discount getActiveDiscount(@RequestParam("currentDate") LocalDate currentDate) throws DiscountNotFoundException {
-		return customerService.findActiveDiscount(currentDate);
-	   
+
+		return  customerService.findActiveDiscount(currentDate);
+	    
+
 	}
 
 	
