@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -12,9 +14,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.hexaware.hotpot.dto.MenuItemsDTO;
+import com.hexaware.hotpot.dto.DiscountDTO;
 import com.hexaware.hotpot.dto.RestaurantsDTO;
 import com.hexaware.hotpot.entities.Customers;
+import com.hexaware.hotpot.entities.Discount;
 import com.hexaware.hotpot.entities.MenuItems;
 import com.hexaware.hotpot.entities.Orders;
 import com.hexaware.hotpot.entities.Restaurants;
@@ -24,6 +27,8 @@ class AdminServiceImpTest {
 	
 	@Autowired
 	IAdminService adminService;
+	
+	
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -86,7 +91,19 @@ class AdminServiceImpTest {
 
 	}
 
-	
+	 @Test
+	    public void testAddDiscount() {
+	        DiscountDTO discountDTO = new DiscountDTO();
+	        discountDTO.setDiscountPercentage(new BigDecimal("10")); 
+	        discountDTO.setStartDate(LocalDate.of(2024, 2, 13)); 
+	        discountDTO.setEndDate(LocalDate.of(2024, 2, 20));
+
+	        // Call the addDiscount method of the service
+	        Discount addedDiscount = adminService.addDiscount(discountDTO);
+
+	        assertNotNull(addedDiscount);
+	        
+	    }
 	
 
 	
