@@ -2,8 +2,6 @@ package com.hexaware.hotpot.entities;
 
 import java.time.LocalDateTime;
 
-
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
@@ -13,8 +11,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -30,7 +28,8 @@ import jakarta.validation.constraints.NotNull;
 public class Orders {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "order_id_sequence")
+	@SequenceGenerator(name = "order_id_sequence", sequenceName = "ORDER_ID_SEQUENCE",initialValue = 501, allocationSize = 1)
 	@Column(name = "OrderID")
 	private int orderId;
 
