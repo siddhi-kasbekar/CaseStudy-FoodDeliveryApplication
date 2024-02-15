@@ -5,10 +5,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
 /*
@@ -23,7 +22,9 @@ import jakarta.validation.constraints.Pattern;
 public class Administrator {
 
     @Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "admin_id_sequence")
+    @SequenceGenerator(name = "admin_id_sequence", sequenceName = "ADMIN_ID_SEQUENCE",initialValue = 1, allocationSize = 1)
+    @Column(name = "AdminID")
     private int adminId;
 
     @NotBlank(message = "Username is required")

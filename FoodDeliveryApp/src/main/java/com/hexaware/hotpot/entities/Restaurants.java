@@ -10,6 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
@@ -25,7 +26,8 @@ import jakarta.validation.constraints.Pattern;
 public class Restaurants {
 
 	@Id	
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "restaurant_id_sequence")
+    @SequenceGenerator(name = "restaurant_id_sequence", sequenceName = "RESTAURANT_ID_SEQUENCE",initialValue = 601, allocationSize = 1)
 	@Column(name = "RestaurantID")
 	private int restaurantId;
 

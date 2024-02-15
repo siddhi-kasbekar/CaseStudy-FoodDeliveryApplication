@@ -13,6 +13,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -25,38 +26,37 @@ import jakarta.validation.constraints.Pattern;
  *
  */
 
-
 @Entity
 public class Payment {
-	
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "PaymentID")
-    private int paymentId;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "payment_id_sequence")
+	@SequenceGenerator(name = "payment_id_sequence", sequenceName = "PAYMENT_ID_SEQUENCE",initialValue = 1, allocationSize = 1)
+	@Column(name = "PaymentID")
+	private int paymentId;
 
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "UserID")
+	@JsonIgnore
+	private Customers customer;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "UserID")
-    @JsonIgnore
-    private Customers customer;
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "CartID")
+	@JsonIgnore
+	private Cart cart;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "CartID")
-    @JsonIgnore
-    private Cart cart;
+	private LocalDateTime paymentDate;
 
-    private LocalDateTime paymentDate;
+	@NotNull(message = "Amount is required")
+	private BigDecimal amount;
 
-    @NotNull(message = "Amount is required")
-    private BigDecimal amount;
+	@NotBlank(message = "Payment method is required")
+	@Pattern(regexp = "^(upi|net banking|cod|credit card|debit card)$", message = "Invalid payment method")
+	private String paymentMethod;
 
-    @NotBlank(message = "Payment method is required")
-    @Pattern(regexp = "^(upi|net banking|cod|credit card|debit card)$", message = "Invalid payment method")
-    private String paymentMethod;
-
-    @NotBlank(message = "Transaction ID is required")
-    @Pattern(regexp = "\\d{10}", message = "Transaction ID must be 10 digits")
-    private String transactionID;
+	@NotBlank(message = "Transaction ID is required")
+	@Pattern(regexp = "\\d{10}", message = "Transaction ID must be 10 digits")
+	private String transactionID;
 
 	public Payment() {
 		super();
@@ -137,6 +137,4 @@ public class Payment {
 				+ transactionID + "]";
 	}
 
-    
-    
 }

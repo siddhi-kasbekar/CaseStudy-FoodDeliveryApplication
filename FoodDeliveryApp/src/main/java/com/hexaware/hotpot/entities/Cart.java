@@ -3,7 +3,6 @@ package com.hexaware.hotpot.entities;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CascadeType;
@@ -13,6 +12,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.SequenceGenerator;
 
 /*
  * Author: Siddhi Kasbekar
@@ -25,7 +25,9 @@ import jakarta.persistence.OneToMany;
 @Entity
 public class Cart {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cart_id_sequence")
+    @SequenceGenerator(name = "cart_id_sequence", sequenceName = "CART_ID_SEQUENCE",initialValue = 101, allocationSize = 1)
+	@Column(name = "CartID")
 	private int cartId;
 
 	private double total;
