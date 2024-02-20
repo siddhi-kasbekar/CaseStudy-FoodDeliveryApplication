@@ -3,6 +3,7 @@ package com.hexaware.hotpot.entities;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CascadeType;
@@ -53,7 +54,20 @@ public class Cart {
 	@JsonIgnoreProperties("cart")
 	private Set<Payment> paymentSet = new HashSet<>();
 	
+	@OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
+    @JsonIgnore // Prevent infinite recursion
+    private Set<CartDetails> cartItems = new HashSet<>();
 
+	
+
+
+	public Set<CartDetails> getCartItems() {
+		return cartItems;
+	}
+
+	public void setCartItems(Set<CartDetails> cartItems) {
+		this.cartItems = cartItems;
+	}
 
 	public Cart() {
 		super();

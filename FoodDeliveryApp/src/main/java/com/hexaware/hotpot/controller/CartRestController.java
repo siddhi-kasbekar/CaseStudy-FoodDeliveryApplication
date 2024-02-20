@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hexaware.hotpot.dto.CartDetailsDTO;
+import com.hexaware.hotpot.dto.DiscountDTO;
 import com.hexaware.hotpot.dto.MenuItemsDTO;
 import com.hexaware.hotpot.entities.Cart;
 import com.hexaware.hotpot.exception.CustomerNotFoundException;
@@ -60,6 +62,40 @@ private List<MenuItemsDTO> parseMenuItems(Map<String, Object> requestBody) {
     }
     return menuItems;
 }
+
+
+@PostMapping("/addToCart/{customerId}/{cartId}")
+@PreAuthorize("hasAuthority('customer')")
+public String addToCart(@PathVariable Long customerId, @PathVariable int cartId,  @RequestBody CartDetailsDTO cartDetailsDTO){
+    System.out.println("Received JSON: " + cartDetailsDTO.toString());
+
+	cartService.addToCart(customerId, cartId, cartDetailsDTO);
+	return "added to cart";
+	
+	
+}
+
+@DeleteMapping("/removeFromCart/{customerId}/{cartId}")
+@PreAuthorize("hasAuthority('customer')")
+public String removeFromCart(@PathVariable Long customerId, @PathVariable int cartId,  @RequestBody CartDetailsDTO cartDetailsDTO){
+    System.out.println("Received JSON: " + cartDetailsDTO.toString());
+
+	cartService.removeFromCart(customerId, cartId, cartDetailsDTO);
+	return "removed from  cart";
+	
+	
+}
+
+@PostMapping("/applyDiscount/{cartId}")
+@PreAuthorize("hasAuthority('customer')")
+public String applyDiscount(@PathVariable int cartId, @RequestBody DiscountDTO discountDTO) {
+    // Call the method to calculate and update the total with the discount
+	cartService.calculateDiscountedTotal(cartId, discountDTO);
+    
+    return "Discount applied successfully";
+}
+
+
 
 
 }

@@ -45,7 +45,16 @@ import jakarta.persistence.SequenceGenerator;
 	    private MenuItems menuItem;
 
 	    private int quantity;
+	    private double price;
 
+
+		public double getPrice() {
+			return price;
+		}
+
+		public void setPrice(double price) {
+			this.price = price;
+		}
 
 		public CartDetails() {
 			super();
@@ -98,5 +107,3 @@ import jakarta.persistence.SequenceGenerator;
 
 
 	}
-
-

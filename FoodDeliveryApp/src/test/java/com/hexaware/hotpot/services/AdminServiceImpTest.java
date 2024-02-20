@@ -94,7 +94,7 @@ class AdminServiceImpTest {
 	 @Test
 	    public void testAddDiscount() {
 	        DiscountDTO discountDTO = new DiscountDTO();
-	        discountDTO.setDiscountPercentage(new BigDecimal("10")); 
+	        discountDTO.setDiscountPercentage(10); 
 	        discountDTO.setStartDate(LocalDate.of(2024, 2, 13)); 
 	        discountDTO.setEndDate(LocalDate.of(2024, 2, 20));
 
