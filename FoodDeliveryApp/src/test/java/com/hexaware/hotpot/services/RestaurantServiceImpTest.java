@@ -37,7 +37,6 @@ class RestaurantServiceImpTest {
 	@Test
 	void testRegisterRestaurant() {
 		RestaurantsDTO restaurantDTO=new RestaurantsDTO();
-		restaurantDTO.setRestaurantId(2);
 		restaurantDTO.setName("Imperial Sabre");
 		restaurantDTO.setLocation("Pune");
 		restaurantDTO.setContactNumber("8839953452");
