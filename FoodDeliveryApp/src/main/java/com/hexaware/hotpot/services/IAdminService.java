@@ -22,6 +22,11 @@ public interface IAdminService {
 	public Restaurants addRestaurant(RestaurantsDTO restaurant);
 
 	public void removeRestaurant(Integer restaurantId) ;
+	
+	public void removeCustomer(long customerId) ;
+
+	
+	
 
 	public List<MenuItems> getAllMenus();
 

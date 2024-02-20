@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.hexaware.hotpot.dto.CustomersDTO;
 import com.hexaware.hotpot.dto.DeliveryAddressDTO;
+import com.hexaware.hotpot.entities.Cart;
 import com.hexaware.hotpot.entities.Customers;
 import com.hexaware.hotpot.entities.DeliveryAddress;
 import com.hexaware.hotpot.entities.Discount;
@@ -82,10 +83,7 @@ public class CustomerServiceImp implements ICustomerService {
 		 // Set the role to the predefined value
 	    customer.setRole("customer");
 
-		// Create a new Cart and associate it with the Customer
-//		Cart cart = new Cart();
-//		cart.setCustomer(customer); // Set the Customers reference in Cart
-//		customer.setCart(cart);
+		
 
 		DeliveryAddressDTO addressDTO = customerDTO.getAddressDTO();
 		if (addressDTO != null) {
@@ -101,7 +99,12 @@ public class CustomerServiceImp implements ICustomerService {
 		}
 
 		customerRepo.save(customer);
-//		cartRepository.save(cart);
+		
+		// Create a new Cart and associate it with the Customer
+				Cart cart = new Cart();
+				cart.setCustomerId(customer.getCustId()); // Set the Customers reference in Cart
+				cart.setTotal(0);
+		cartRepository.save(cart);
 
 
 		return customer.getCustId();

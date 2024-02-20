@@ -10,7 +10,7 @@ public class DiscountDTO {
 	
     private int discountId;
 
-    private BigDecimal discountPercentage;
+    private int discountPercentage;
 
     private LocalDate startDate;
 
@@ -20,7 +20,7 @@ public class DiscountDTO {
 		super();
 	}
 
-	public DiscountDTO(int discountId, BigDecimal discountPercentage, LocalDate startDate, LocalDate endDate) {
+	public DiscountDTO(int discountId, int discountPercentage, LocalDate startDate, LocalDate endDate) {
 		super();
 		this.discountId = discountId;
 		this.discountPercentage = discountPercentage;
@@ -36,11 +36,11 @@ public class DiscountDTO {
 		this.discountId = discountId;
 	}
 
-	public BigDecimal getDiscountPercentage() {
+	public int getDiscountPercentage() {
 		return discountPercentage;
 	}
 
-	public void setDiscountPercentage(BigDecimal discountPercentage) {
+	public void setDiscountPercentage(int discountPercentage) {
 		this.discountPercentage = discountPercentage;
 	}
 

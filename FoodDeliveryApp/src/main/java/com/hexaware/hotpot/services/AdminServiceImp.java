@@ -74,7 +74,6 @@ public class AdminServiceImp implements IAdminService {
 	@Override
 	public Restaurants addRestaurant(RestaurantsDTO restaurant) {
 		Restaurants res = new Restaurants();
-//		res.setRestaurantId(restaurant.getRestaurantId());
 		res.setName(restaurant.getName());
 		res.setLocation(restaurant.getLocation());
 		res.setContactNumber(restaurant.getContactNumber());
@@ -151,6 +150,11 @@ public class AdminServiceImp implements IAdminService {
 		adminRepo.save(admin);
 
 		return admin.getAdminId();
+	}
+
+	@Override
+	public void removeCustomer(long customerId) {
+		customersRepository.deleteById(customerId);	
 	}
 
 //	@Override

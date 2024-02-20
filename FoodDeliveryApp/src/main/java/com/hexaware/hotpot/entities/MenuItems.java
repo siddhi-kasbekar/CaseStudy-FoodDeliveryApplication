@@ -44,7 +44,7 @@ public class MenuItems {
 
 	@NotNull(message = "Price is required")
 	@DecimalMin(value = "0.01", message = "Price must be greater than 0")
-	private Double price;
+	private double price;
 
 	private String availabilityTime;
 
@@ -56,7 +56,7 @@ public class MenuItems {
 
 	private int cookingTime;
 	
-	private int quantity;
+//	private int quantity;
 
 
 	@ManyToOne(cascade = CascadeType.ALL)
@@ -97,7 +97,7 @@ public class MenuItems {
 		this.tasteInfo = tasteInfo;
 		this.nutritionalInfo = nutritionalInfo;
 		this.cookingTime = cookingTime;
-		this.quantity=quantity;
+//		this.quantity=quantity;
 	}
 
 	public long getMenuitemId() {
@@ -212,13 +212,13 @@ public class MenuItems {
 //		this.quantity = quantity;
 //	}
 
-	public int getQuantity() {
-		return quantity;
-	}
-
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
+//	public int getQuantity() {
+//		return quantity;
+//	}
+//
+//	public void setQuantity(int quantity) {
+//		this.quantity = quantity;
+//	}
 
 	@Override
 	public String toString() {

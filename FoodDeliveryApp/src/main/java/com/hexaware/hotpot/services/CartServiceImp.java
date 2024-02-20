@@ -1,14 +1,16 @@
 package com.hexaware.hotpot.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.hexaware.hotpot.dto.CartDetailsDTO;
+import com.hexaware.hotpot.dto.DiscountDTO;
 import com.hexaware.hotpot.dto.MenuItemsDTO;
 import com.hexaware.hotpot.entities.Cart;
 import com.hexaware.hotpot.entities.CartDetails;
-
 import com.hexaware.hotpot.entities.MenuItems;
 import com.hexaware.hotpot.exception.CustomerNotFoundException;
 import com.hexaware.hotpot.repository.CartDetailsRepository;
@@ -111,6 +113,136 @@ public class CartServiceImp implements ICartService {
 	        throw new CustomerNotFoundException("Customer not found with ID: " + customerId);
 	    }
 	}
+
+	@Override
+	public void addToCart(Long customerId, int cartId, CartDetailsDTO cartDetailsDTO) {
+	    // Check if the cart exists for the given customer
+	    Optional<Cart> optionalCart = cartRepository.findById(cartId);
+
+	    if (optionalCart.isPresent()) {
+	        // If the cart exists, update the total
+	        Cart cart = optionalCart.get();
+	        cart.setTotal(0);
+	        // Check if the item already exists in the cart
+	        Optional<CartDetails> existingCartItem = cartDetailsRepo.findByCart_CartIdAndMenuItem_MenuItemId(cartId, cartDetailsDTO.getMenuItemId());
+
+	        if (existingCartItem.isPresent()) {
+	            // If the item already exists, increment the quantity by 1
+	            CartDetails cartDetails = existingCartItem.get();
+	            cartDetails.setQuantity(cartDetails.getQuantity() + 1);
+	            // Update the existing CartDetails
+	            cartDetailsRepo.save(cartDetails);
+	        } else {
+	            // If the item does not exist, create a new CartDetails
+	            CartDetails cartDetails = createNewCartDetailsWithDTO(cart, cartDetailsDTO);
+	            // Save the new CartDetails
+	            cartDetailsRepo.save(cartDetails);
+	        }
+
+	        // Calculate and set the original total
+	        cart.setTotal(calculateOriginTotal(cart));
+
+	        // Save changes
+	        cartRepository.save(cart);
+	    } else {
+	        // If the cart is not found, you might want to handle this scenario
+	        throw new IllegalArgumentException("Cart with ID " + cartId + " not found");
+	    }
+	}
+
+
+
+	
+	
+	private CartDetails createNewCartDetailsWithDTO(Cart cart, CartDetailsDTO cartDetailsDTO) {
+	    // Fetch menu item based on menuItemId
+		System.out.println(cartDetailsDTO.getMenuItemId());
+	    MenuItems menuItem = menuItemsRepo.findById(cartDetailsDTO.getMenuItemId())
+	            .orElseThrow(() -> new IllegalArgumentException("Menu item not found"));
+	    
+
+	    // Create a new CartDetails
+	    CartDetails cartDetails = new CartDetails();
+	    cartDetails.setCart(cart);
+	    cartDetails.setMenuItems(menuItem);
+	    cartDetails.setQuantity(cartDetailsDTO.getQuantity());
+	    cartDetails.setPrice(cartDetailsDTO.getPrice()); 
+	    return cartDetails;
+	}
+
+	private double calculateOriginTotal(Cart cart) {
+	    // Fetch cart details for the given cart
+	    List<CartDetails> cartDetailsList = cartDetailsRepo.findByCart_CartId(cart.getCartId());
+
+	    double oTotal = cartDetailsList.stream()
+	            .mapToDouble(cartDetails -> cartDetails.getPrice() * cartDetails.getQuantity())
+	            .sum();
+
+	    return oTotal;
+	}
+
+	
+	@Override
+	@Transactional
+	public void removeFromCart(Long customerId, int cartId, CartDetailsDTO cartDetailsDTO) {
+	    // Check if the cart exists for the given customer
+	    Optional<Cart> optionalCart = cartRepository.findById(cartId);
+
+	    if (optionalCart.isPresent()) {
+	        // If the cart exists, update the total
+	        Cart cart = optionalCart.get();
+	        cart.setTotal(0);
+
+	        // Check if the item already exists in the cart
+	        Optional<CartDetails> existingCartItem = cartDetailsRepo.findByCart_CartIdAndMenuItem_MenuItemId(cartId, cartDetailsDTO.getMenuItemId());
+
+	        if (existingCartItem.isPresent()) {
+	            // If the item exists, decrement the quantity by 1
+	            CartDetails cartDetails = existingCartItem.get();
+	            int newQuantity = cartDetails.getQuantity() - 1;
+
+	            if (newQuantity > 0) {
+	                // If quantity is greater than 0, update the quantity
+	                cartDetails.setQuantity(newQuantity);
+	                cartDetailsRepo.save(cartDetails);
+	            } else {
+	                // If quantity becomes 0, delete the record from cart_details
+	                cartDetailsRepo.delete(cartDetails);
+	            }
+
+	            // Calculate and set the original total
+	            cart.setTotal(calculateOriginTotal(cart));
+
+	            // Save changes
+	            cartRepository.save(cart);
+	        } else {
+	            // If the item does not exist, you might want to handle this scenario
+	            throw new IllegalArgumentException("Item not found in the cart");
+	        }
+	    } else {
+	        // If the cart is not found, you might want to handle this scenario
+	        throw new IllegalArgumentException("Cart with ID " + cartId + " not found");
+	    }
+	}
+
+	
+	
+	@Override
+	@Transactional
+	public void calculateDiscountedTotal(int cartId, DiscountDTO discount) {
+	    Optional<Cart> optionalCart = cartRepository.findById(cartId);
+	    
+	    if (optionalCart.isPresent() && discount != null) {
+	        Cart cart = optionalCart.get();
+	        int discountPercentage = discount.getDiscountPercentage();
+	        double total = cart.getTotal();
+	        double discountedTotal = total - (total * discountPercentage / 100);
+	        cart.setTotal(discountedTotal);
+	        cartRepository.save(cart);
+	    }
+	}
+	
+	
 
 
 }

@@ -10,6 +10,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,6 +33,7 @@ import com.hexaware.hotpot.services.JwtService;
 
 import jakarta.validation.Valid;
 
+@CrossOrigin("http://localhost:4200")
 @RestController
 @RequestMapping("api/v1/admin")
 public class AdminRestController {
@@ -77,7 +79,7 @@ public class AdminRestController {
 	}
 
 	@PostMapping("/register")
-	@PreAuthorize("hasAuthority('admin')")
+//	@PreAuthorize("hasAuthority('admin')")
 
 	public String registerAdmin(@RequestBody AdminDTO adminDTO) {
 		long adminId = adminservice.registerManager(adminDTO);
@@ -101,13 +103,23 @@ public class AdminRestController {
 	}
 
 	@DeleteMapping("/removeRestaurant/{restaurantId}")
-	@PreAuthorize("hasAuthority('admin')")
+//	@PreAuthorize("hasAuthority('admin')")
 
 	public String removeRestaurant(@PathVariable Integer restaurantId) {
 		adminservice.removeRestaurant(restaurantId);
 		return "Restaurant removed successfully";
 	}
 
+	
+	@DeleteMapping("/removeCustomer/{customerId}")
+//	@PreAuthorize("hasAuthority('admin')")
+
+	public String removeCustomer(@PathVariable long customerId) {
+		adminservice.removeCustomer(customerId);
+		return "Customer removed successfully";
+	}
+	
+	
 	@GetMapping("/getAllMenus")
 	@PreAuthorize("hasAuthority('admin')")
 
@@ -116,7 +128,7 @@ public class AdminRestController {
 	}
 
 	@GetMapping("/getAllRestaurants")
-	@PreAuthorize("hasAuthority('admin')")
+//	@PreAuthorize("hasAuthority('admin')")
 	public List<Restaurants> getAllRestaurants() {
 		return adminservice.getAllRestaurants();
 	}
@@ -128,7 +140,7 @@ public class AdminRestController {
 	}
 
 	@GetMapping("/getAllCustomers")
-	@PreAuthorize("hasAuthority('admin') or hasAuthority('manager')")
+//	@PreAuthorize("hasAuthority('admin') or hasAuthority('manager')")
 	public List<Customers> getAllCustomers() {
 		return adminservice.getAllCustomers();
 	}

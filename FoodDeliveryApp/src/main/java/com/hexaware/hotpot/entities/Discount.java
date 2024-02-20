@@ -35,7 +35,7 @@ public class Discount {
 
     @NotNull(message = "Discount percentage is required")
     @Column(name = "DiscountPercentage")
-    private BigDecimal discountPercentage;
+    private int discountPercentage;
 
     @NotNull(message = "Start date is required")
     @Column(name = "StartDate")
@@ -49,7 +49,7 @@ public class Discount {
 		super();
 	}
 
-	public Discount(int discountId, Restaurants restaurant, BigDecimal discountPercentage, LocalDate startDate,
+	public Discount(int discountId, Restaurants restaurant, int discountPercentage, LocalDate startDate,
 			LocalDate endDate) {
 		super();
 		this.discountId = discountId;
@@ -75,11 +75,11 @@ public class Discount {
 		this.restaurant = restaurant;
 	}
 
-	public BigDecimal getDiscountPercentage() {
+	public int getDiscountPercentage() {
 		return discountPercentage;
 	}
 
-	public void setDiscountPercentage(BigDecimal discountPercentage) {
+	public void setDiscountPercentage(int discountPercentage) {
 		this.discountPercentage = discountPercentage;
 	}
 

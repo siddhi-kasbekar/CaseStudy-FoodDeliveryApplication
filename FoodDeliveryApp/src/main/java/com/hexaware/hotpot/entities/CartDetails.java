@@ -25,7 +25,31 @@ import jakarta.persistence.Table;
 	public class CartDetails{
 
 
-	    @Id
+	    public long getCartMenuItemId() {
+		return cartMenuItemId;
+	}
+
+	public void setCartMenuItemId(long cartMenuItemId) {
+		this.cartMenuItemId = cartMenuItemId;
+	}
+
+	public MenuItems getMenuItem() {
+		return menuItem;
+	}
+
+	public void setMenuItem(MenuItems menuItem) {
+		this.menuItem = menuItem;
+	}
+
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
+		@Id
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	    private long cartMenuItemId;
 
@@ -42,6 +66,8 @@ import jakarta.persistence.Table;
 	    private MenuItems menuItem;
 
 	    private int quantity;
+	    
+	    private double price;
 
 
 		public CartDetails() {

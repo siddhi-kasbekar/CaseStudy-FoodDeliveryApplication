@@ -48,7 +48,7 @@ public class DeliveryAddress {
 	private int pincode;
 	
 	@OneToOne(mappedBy = "address", cascade = CascadeType.ALL)
-    @JoinColumn(name = "aid")
+ 
     private Customers customer;
 	
 	public DeliveryAddress() {
