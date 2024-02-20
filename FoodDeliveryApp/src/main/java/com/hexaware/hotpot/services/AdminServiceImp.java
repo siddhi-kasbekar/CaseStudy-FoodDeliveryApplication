@@ -153,6 +153,12 @@ public class AdminServiceImp implements IAdminService {
 		return admin.getAdminId();
 	}
 
+	@Override
+	public List<Discount> getAllDiscounts() {
+		
+		return discountRepo.findAll();
+	}
+
 //	@Override
 //	public long registerAdmin(AdminDTO adminDTO) {
 //		

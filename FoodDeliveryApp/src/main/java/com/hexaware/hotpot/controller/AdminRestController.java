@@ -150,4 +150,10 @@ public class AdminRestController {
 		adminservice.removeDiscount(discountId);
 		return "Discount removed successfully";
 	}
+	
+	@GetMapping("/getAllDiscounts")
+	@PreAuthorize("hasAuthority('admin') or hasAuthority('manager')")
+	public List<Discount> getAllDiscounts(){
+		return adminservice.getAllDiscounts();
+	}
 }
