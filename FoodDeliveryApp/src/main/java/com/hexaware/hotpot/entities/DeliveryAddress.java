@@ -1,12 +1,14 @@
 package com.hexaware.hotpot.entities;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -26,7 +28,9 @@ import jakarta.validation.constraints.Pattern;
 public class DeliveryAddress {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "address_id_sequence")
+    @SequenceGenerator(name = "address_id_sequence", sequenceName = "ADDRESS_ID_SEQUENCE",initialValue = 1001, allocationSize = 1)
+	@Column(name = "AddressID")
 	private int  addressId;
 	
 	@NotBlank(message = "House number is required")

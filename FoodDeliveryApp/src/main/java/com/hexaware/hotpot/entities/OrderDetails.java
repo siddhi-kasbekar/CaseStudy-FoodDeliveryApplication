@@ -10,6 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.validation.constraints.NotNull;
 
 /*
@@ -20,26 +21,26 @@ import jakarta.validation.constraints.NotNull;
  *
  */
 
-
 @Entity
 public class OrderDetails {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "OrderDetailID")
-    private int orderDetailId;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "order_detail_id_sequence")
+	@SequenceGenerator(name = "order_detail_id_sequence", sequenceName = "ORDER_DETAIL_ID_SEQUENCE",initialValue = 10001, allocationSize = 1)
+	@Column(name = "OrderDetailID")
+	private int orderDetailId;
 
 	@JsonIgnore
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "OrderID")
-    private Orders order;
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "OrderID")
+	private Orders order;
 
 	@JsonIgnore
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "MenuID")
-    private MenuItems menuItem;
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "MenuID")
+	private MenuItems menuItem;
 
-    @NotNull(message = "quantity is required")
-    private int quantity;
+	@NotNull(message = "quantity is required")
+	private int quantity;
 
 	public OrderDetails() {
 		super();
@@ -53,7 +54,6 @@ public class OrderDetails {
 		this.quantity = quantity;
 	}
 
-	
 	public int getOrderDetailId() {
 		return orderDetailId;
 	}
@@ -92,6 +92,4 @@ public class OrderDetails {
 				+ ", quantity=" + quantity + "]";
 	}
 
-    
-    
 }

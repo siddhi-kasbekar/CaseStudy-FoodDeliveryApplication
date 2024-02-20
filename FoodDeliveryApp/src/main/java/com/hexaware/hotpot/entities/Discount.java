@@ -11,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.validation.constraints.NotNull;
 
 /*
@@ -21,29 +22,32 @@ import jakarta.validation.constraints.NotNull;
  *
  */
 
-
 @Entity
 public class Discount {
-	
-	@Id
-	 @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int discountId;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "RestaurantID")
-    private Restaurants restaurant;
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "discount_id_sequence")
+	@SequenceGenerator(name = "discount_id_sequence", sequenceName = "DISCOUNT_ID_SEQUENCE",initialValue = 301, allocationSize = 1)
+	@Column(name = "DiscountID")
+	private int discountId;
+
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "RestaurantID")
+	private Restaurants restaurant;
+
 
     @NotNull(message = "Discount percentage is required")
     @Column(name = "DiscountPercentage")
     private int discountPercentage;
 
-    @NotNull(message = "Start date is required")
-    @Column(name = "StartDate")
-    private LocalDate startDate;
 
-    @NotNull(message = "End date is required")
-    @Column(name = "EndDate")
-    private LocalDate endDate;
+	@NotNull(message = "Start date is required")
+	@Column(name = "StartDate")
+	private LocalDate startDate;
+
+	@NotNull(message = "End date is required")
+	@Column(name = "EndDate")
+	private LocalDate endDate;
 
 	public Discount() {
 		super();
@@ -104,7 +108,5 @@ public class Discount {
 		return "Discount [discountId=" + discountId + ", restaurant=" + restaurant + ", discountPercentage="
 				+ discountPercentage + ", startDate=" + startDate + ", endDate=" + endDate + "]";
 	}
-    
-    
 
 }

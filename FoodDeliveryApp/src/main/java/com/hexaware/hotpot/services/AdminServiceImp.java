@@ -153,8 +153,16 @@ public class AdminServiceImp implements IAdminService {
 	}
 
 	@Override
+
 	public void removeCustomer(long customerId) {
-		customersRepository.deleteById(customerId);	
+		customersRepository.deleteById(customerId);
+	}
+
+	@Override
+	public List<Discount> getAllDiscounts() {
+		
+		return discountRepo.findAll();
+
 	}
 
 //	@Override
