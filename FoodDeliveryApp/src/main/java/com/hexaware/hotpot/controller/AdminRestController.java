@@ -1,6 +1,7 @@
 package com.hexaware.hotpot.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,11 +24,13 @@ import com.hexaware.hotpot.dto.AdminDTO;
 import com.hexaware.hotpot.dto.AuthRequest;
 import com.hexaware.hotpot.dto.DiscountDTO;
 import com.hexaware.hotpot.dto.RestaurantsDTO;
+import com.hexaware.hotpot.entities.Administrator;
 import com.hexaware.hotpot.entities.Customers;
 import com.hexaware.hotpot.entities.Discount;
 import com.hexaware.hotpot.entities.MenuItems;
 import com.hexaware.hotpot.entities.Orders;
 import com.hexaware.hotpot.entities.Restaurants;
+import com.hexaware.hotpot.repository.AdministratorRepository;
 import com.hexaware.hotpot.services.IAdminService;
 import com.hexaware.hotpot.services.JwtService;
 
@@ -48,6 +51,9 @@ public class AdminRestController {
 
 	@Autowired
 	AuthenticationManager authenticationManager;
+	
+	@Autowired
+	 AdministratorRepository adminRepo;
 
 	@PostMapping("/login/authenticate")
 
@@ -62,9 +68,23 @@ public class AdminRestController {
 
 			// call generate token method from jwtService class
 
-			token = jwtService.generateToken(authRequest.getUsername());
+//			token = jwtService.generateToken(authRequest.getUsername());
+//
+//			log.info("Tokent : " + token);
+			Optional<Administrator> admin = adminRepo.findByUsername(authRequest.getUsername());
 
-			log.info("Tokent : " + token);
+	        if (admin.isPresent()) {
+	            String role = admin.get().getRole();
+	            Long adminId = (long) admin.get().getAdminId(); // Assuming you have a method like getAdminId in Administrator entity
+
+	            // Call generateToken method from JwtService class with additional parameters
+	            token = jwtService.generateToken(authRequest.getUsername(), role, adminId);
+
+	            log.info("Token: " + token);
+	        } else {
+	            log.error("Admin not found in the database");
+	            // Handle the case where the admin is not found in the database
+	        }
 
 		} else {
 

@@ -3,12 +3,11 @@ package com.hexaware.hotpot.controller;
 
 import java.time.LocalDate;
 import java.util.List;
-
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -25,11 +24,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hexaware.hotpot.dto.AuthRequest;
 import com.hexaware.hotpot.dto.CustomersDTO;
+import com.hexaware.hotpot.entities.Customers;
 import com.hexaware.hotpot.entities.Discount;
 import com.hexaware.hotpot.entities.Restaurants;
 import com.hexaware.hotpot.exception.CustomerNotFoundException;
 import com.hexaware.hotpot.exception.DiscountNotFoundException;
 import com.hexaware.hotpot.exception.LocationNotFoundException;
+import com.hexaware.hotpot.repository.CustomersRepository;
 import com.hexaware.hotpot.services.ICustomerService;
 import com.hexaware.hotpot.services.JwtService;
 
@@ -51,6 +52,9 @@ public class CustomersRestController {
 	@Autowired
 	AuthenticationManager authenticationManager;
 	
+	@Autowired
+	CustomersRepository customerRepo;
+	
 	
 	
 	@PostMapping("/login/authenticate")
@@ -67,9 +71,23 @@ public class CustomersRestController {
 					
 				  // call generate token method from jwtService class
 					
-			token =		jwtService.generateToken(authRequest.getUsername());
-					
-			log.info("Tokent : "+token);
+//			token =		jwtService.generateToken(authRequest.getUsername());
+//					
+//			log.info("Tokent : "+token);
+					 Optional<Customers> customer = customerRepo.findByUsername(authRequest.getUsername());
+
+				        if (customer.isPresent()) {
+				            String role = customer.get().getRole();
+				            Long customerId = customer.get().getCustId();
+
+				            // Call generateToken method from JwtService class with additional parameters
+				            token = jwtService.generateToken(authRequest.getUsername(), role, customerId);
+
+				            log.info("Token: " + token);
+				        } else {
+				            log.error("User not found in the database");
+				            // Handle the case where the user is not found in the database
+				        }
 					
 				}
 				else {

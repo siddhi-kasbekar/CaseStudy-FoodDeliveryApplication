@@ -51,9 +51,7 @@ public class DeliveryAddress {
     @Max(value = 999999)
 	private int pincode;
 	
-	@OneToOne(mappedBy = "address", cascade = CascadeType.ALL)
- 
-    private Customers customer;
+
 	
 	public DeliveryAddress() {
 		super();
@@ -96,12 +94,7 @@ public class DeliveryAddress {
 	}
 	
 	
-	public Customers getCustomer() {
-		return customer;
-	}
-	public void setCustomer(Customers customer) {
-		this.customer = customer;
-	}
+
 	@Override
 	public String toString() {
 		return "DeliveryAddress [addressId=" + addressId + ", houseNo=" + houseNo + ", area=" + area + ", landmark="
