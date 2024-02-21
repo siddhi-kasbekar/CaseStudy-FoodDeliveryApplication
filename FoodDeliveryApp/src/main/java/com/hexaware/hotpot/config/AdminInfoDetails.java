@@ -17,13 +17,17 @@ public class AdminInfoDetails implements UserDetails {
 	private String name;
     private String password;
     private List<GrantedAuthority> authorities;
+    private String role; // Add user role attribute
+    private Long adminId; // Add customer ID attribute
 
-    public AdminInfoDetails(Administrator admin) {
+    public AdminInfoDetails(Administrator admin,String role,Long adminId ) {
         name=admin.getUserName();
         password=admin.getPassword();
         authorities= Arrays.stream(admin.getRole().split(","))
                 .map(SimpleGrantedAuthority::new) // .map(str -> new SimpleGrantedAuthority(str))
                 .collect(Collectors.toList());
+        this.role = role; // Set user role
+        this.adminId = adminId; // Set customer ID
     }
 	
 	
@@ -60,6 +64,13 @@ public class AdminInfoDetails implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+    public String getRole() {
+        return role;
+    }
+
+    public Long getAdminId() {
+        return adminId;
     }
 
 }
