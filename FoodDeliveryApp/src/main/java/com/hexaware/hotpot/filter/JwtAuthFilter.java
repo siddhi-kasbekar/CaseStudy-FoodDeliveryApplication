@@ -53,6 +53,14 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 	             
 	            	authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 	                SecurityContextHolder.getContext().setAuthentication(authToken);
+	                
+	             // Get user role and customer ID from token claims
+	                String userRole = jwtService.extractClaim(token, claims -> claims.get("role", String.class));
+	                Long customerId = jwtService.extractClaim(token, claims -> claims.get("customerId", Long.class));
+
+	                // Add user role and customer ID to the response headers
+	                response.setHeader("user-role", userRole);
+	                response.setHeader("customer-id", String.valueOf(customerId));
 	            }
 	        }
 	        filterChain.doFilter(request, response);

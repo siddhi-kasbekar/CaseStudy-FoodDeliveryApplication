@@ -89,7 +89,6 @@ public final class Customers {
 		this.paymentSet = paymentSet;
 	}
 
-
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "aid")
 	private DeliveryAddress address;

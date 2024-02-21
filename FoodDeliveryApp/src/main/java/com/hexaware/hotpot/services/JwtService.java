@@ -20,9 +20,12 @@ public class JwtService {
 
 	public static final String SECRET = "5368899B59703373367639792F429F4528482B4D6251655468576D5A71347437";
 
-	public String createToken(Map<String, Object> claims, String username) {
+	public String createToken(Map<String, Object> claims, String username, String role, Long customerId) {
 
-		return Jwts.builder().setClaims(claims).setSubject(username).setIssuedAt(new Date(System.currentTimeMillis()))
+		return Jwts.builder().setClaims(claims).setSubject(username)
+				.claim("role", role) // Add user role claim
+	            .claim("customerId", customerId) // Add customer ID claim
+				.setIssuedAt(new Date(System.currentTimeMillis()))
 				.setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 2))
 				.signWith(getSignKey(), SignatureAlgorithm.HS256).compact();
 
@@ -35,11 +38,11 @@ public class JwtService {
 		return Keys.hmacShaKeyFor(keyBytes);
 	}
 
-	public String generateToken(String username) {
+	public String generateToken(String username, String role, Long customerId) {
 
 		Map<String, Object> claims = new HashMap<>();
 
-		return createToken(claims, username);
+		return createToken(claims, username, role, customerId);//changed
 
 	}
 

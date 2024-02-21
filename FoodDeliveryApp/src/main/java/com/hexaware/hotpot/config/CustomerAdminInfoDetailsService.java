@@ -33,7 +33,9 @@ public class CustomerAdminInfoDetailsService implements UserDetailsService {
     	 // Check if the username exists in the customer table
         Optional<Customers> customer = customerRepo.findByUsername(username);
         if (customer.isPresent()) {
-            return new CustomerInfoDetails(customer.get());
+        	 String role = customer.get().getRole();
+             Long customerId = customer.get().getCustId(); // Assuming you have a getId method in Customers entity
+            return new CustomerInfoDetails(customer.get(), role, customerId);
         }
 
         // Check if the username exists in the admin table

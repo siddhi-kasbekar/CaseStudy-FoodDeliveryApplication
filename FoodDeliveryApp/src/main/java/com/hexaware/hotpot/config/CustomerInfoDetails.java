@@ -18,13 +18,17 @@ public class CustomerInfoDetails implements UserDetails {
     private String name;
     private String password;
     private List<GrantedAuthority> authorities;
+    private String role; // Add user role attribute
+    private Long customerId; // Add customer ID attribute
 
-    public CustomerInfoDetails(Customers customer) {
+    public CustomerInfoDetails(Customers customer, String role, Long customerId) {
         name=customer.getUsername();
         password=customer.getPassword();
         authorities= Arrays.stream(customer.getRole().split(","))
                 .map(SimpleGrantedAuthority::new) // .map(str -> new SimpleGrantedAuthority(str))
                 .collect(Collectors.toList());
+        this.role = role; // Set user role
+        this.customerId = customerId; // Set customer ID
     }
 
     @Override
@@ -60,5 +64,13 @@ public class CustomerInfoDetails implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+    
+    public String getRole() {
+        return role;
+    }
+
+    public Long getCustomerId() {
+        return customerId;
     }
 }
