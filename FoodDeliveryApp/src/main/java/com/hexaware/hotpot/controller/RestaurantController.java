@@ -34,7 +34,7 @@ public class RestaurantController {
 	IRestaurantService service ;
 	
 	@PostMapping("/register")
-//    @PreAuthorize("hasAuthority('admin')")
+    @PreAuthorize("hasAuthority('admin')")
 	public Restaurants registerRestaurant(@RequestBody RestaurantsDTO restaurantDTO) {
 		 return service.registerRestaurant(restaurantDTO);
 //		 return "restaurant registerd successfully";

@@ -145,7 +145,7 @@ public class AdminServiceImp implements IAdminService {
 		admin.setPassword(passwordEncoder.encode(adminDTO.getPassword()));
 		admin.setName(adminDTO.getName());
 		admin.setEmail(adminDTO.getEmail());
-		admin.setRole("manager");
+		admin.setRole("admin");
 		
 		adminRepo.save(admin);
 
@@ -163,6 +163,11 @@ public class AdminServiceImp implements IAdminService {
 		
 		return discountRepo.findAll();
 
+	}
+
+	@Override
+	public List<Administrator> getAllManagers() {
+		return adminRepo.findByRole("manager");
 	}
 
 //	@Override
