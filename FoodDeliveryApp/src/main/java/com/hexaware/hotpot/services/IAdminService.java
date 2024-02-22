@@ -5,6 +5,7 @@ import java.util.List;
 import com.hexaware.hotpot.dto.AdminDTO;
 import com.hexaware.hotpot.dto.DiscountDTO;
 import com.hexaware.hotpot.dto.RestaurantsDTO;
+import com.hexaware.hotpot.entities.Administrator;
 import com.hexaware.hotpot.entities.Customers;
 import com.hexaware.hotpot.entities.Discount;
 import com.hexaware.hotpot.entities.MenuItems;
@@ -25,9 +26,6 @@ public interface IAdminService {
 	
 	public void removeCustomer(long customerId) ;
 
-	
-	
-
 
 
 	public List<MenuItems> getAllMenus();
@@ -43,4 +41,6 @@ public interface IAdminService {
 	public void removeDiscount(int discountId);
 
 	public List<Discount> getAllDiscounts();
+	
+	public List<Administrator> getAllManagers();
 }

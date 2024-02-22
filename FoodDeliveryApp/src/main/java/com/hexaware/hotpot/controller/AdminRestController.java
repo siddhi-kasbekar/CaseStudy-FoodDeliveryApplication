@@ -99,7 +99,7 @@ public class AdminRestController {
 	}
 
 	@PostMapping("/register")
-//	@PreAuthorize("hasAuthority('admin')")
+	@PreAuthorize("hasAuthority('admin')")
 
 	public String registerAdmin(@RequestBody AdminDTO adminDTO) {
 		long adminId = adminservice.registerManager(adminDTO);
@@ -123,7 +123,7 @@ public class AdminRestController {
 	}
 
 	@DeleteMapping("/removeRestaurant/{restaurantId}")
-//	@PreAuthorize("hasAuthority('admin')")
+	@PreAuthorize("hasAuthority('admin')")
 
 	public String removeRestaurant(@PathVariable Integer restaurantId) {
 		adminservice.removeRestaurant(restaurantId);
@@ -132,7 +132,7 @@ public class AdminRestController {
 
 	
 	@DeleteMapping("/removeCustomer/{customerId}")
-//	@PreAuthorize("hasAuthority('admin')")
+	@PreAuthorize("hasAuthority('admin')")
 
 	public String removeCustomer(@PathVariable long customerId) {
 		adminservice.removeCustomer(customerId);
@@ -148,7 +148,7 @@ public class AdminRestController {
 	}
 
 	@GetMapping("/getAllRestaurants")
-//	@PreAuthorize("hasAuthority('admin')")
+	@PreAuthorize("hasAuthority('admin')")
 	public List<Restaurants> getAllRestaurants() {
 		return adminservice.getAllRestaurants();
 	}
@@ -160,7 +160,7 @@ public class AdminRestController {
 	}
 
 	@GetMapping("/getAllCustomers")
-//	@PreAuthorize("hasAuthority('admin') or hasAuthority('manager')")
+	@PreAuthorize("hasAuthority('admin') or hasAuthority('manager')")
 	public List<Customers> getAllCustomers() {
 		return adminservice.getAllCustomers();
 	}
@@ -188,4 +188,12 @@ public class AdminRestController {
 	public List<Discount> getAllDiscounts(){
 		return adminservice.getAllDiscounts();
 	}
+	
+	@GetMapping("/getAllManagers")
+	@PreAuthorize("hasAuthority('admin')")
+	public List<Administrator> getAllManagers(){
+		return adminservice.getAllManagers();
+	}
+
+	
 }
