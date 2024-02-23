@@ -153,14 +153,14 @@ public class AdminRestController {
 	
 	
 	@GetMapping("/getAllMenus")
-	@PreAuthorize("hasAuthority('admin')")
+	@PreAuthorize("hasAuthority('admin') or hasAuthority('manager')")
 
 	public List<MenuItems> getAllMenus() {
 		return adminservice.getAllMenus();
 	}
 
 	@GetMapping("/getAllRestaurants")
-	@PreAuthorize("hasAuthority('admin')")
+	@PreAuthorize("hasAuthority('admin') or hasAuthority('manager')")
 	public List<Restaurants> getAllRestaurants() {
 		return adminservice.getAllRestaurants();
 	}
