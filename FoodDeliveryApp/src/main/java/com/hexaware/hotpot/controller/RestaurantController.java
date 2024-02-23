@@ -1,5 +1,6 @@
 package com.hexaware.hotpot.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +13,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hexaware.hotpot.dto.MenuItemsDTO;
 import com.hexaware.hotpot.dto.RestaurantsDTO;
 import com.hexaware.hotpot.entities.MenuItems;
@@ -22,8 +26,6 @@ import com.hexaware.hotpot.exception.LocationNotFoundException;
 import com.hexaware.hotpot.exception.MenuItemNotFoundException;
 import com.hexaware.hotpot.exception.RestaurantNotFoundException;
 import com.hexaware.hotpot.services.IRestaurantService;
-
-import jakarta.validation.Valid;
 
 @CrossOrigin("http://localhost:4200")
 @RestController
@@ -42,12 +44,25 @@ public class RestaurantController {
 	
 	
 	
-	@PostMapping("/addMenu/{restaurantId}")
+	@PostMapping("/addMenu")
     @PreAuthorize("hasAuthority('manager')")
-	public String addMenu(@Valid @RequestBody MenuItemsDTO menuDTO,@PathVariable int restaurantId) {
-		service.addMenu(menuDTO,restaurantId);
-		return "menu added successfully";
-	}
+	public String addMenu(
+		    @RequestPart("menuDTOJson") String menuDTOJson,
+		    @RequestPart("imageFile") MultipartFile imageFile		   ) {
+		    
+		    ObjectMapper objectMapper = new ObjectMapper();
+		    try {
+		        MenuItemsDTO menuItemDTO = objectMapper.readValue(menuDTOJson, MenuItemsDTO.class);
+//		        menuItemDTO.setRestaurantId(restaurantId);
+		        menuItemDTO.setImageFile(imageFile);
+
+		        service.addMenu(menuItemDTO, menuItemDTO.getRestaurantId());
+		        return "menu added successfully";
+		    } catch (IOException e) {
+		        // Handle the exception (e.g., log it or return an error response)
+		        return "Error parsing menuDTOJson: " + e.getMessage();
+		    }
+		}
 
 	@PutMapping("/updateMenu/{menuItemId}")
     @PreAuthorize("hasAuthority('manager')")

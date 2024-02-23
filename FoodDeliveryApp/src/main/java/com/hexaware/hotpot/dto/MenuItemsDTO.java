@@ -1,5 +1,7 @@
 package com.hexaware.hotpot.dto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class MenuItemsDTO {
 
 	private long menuItemId;
@@ -24,6 +26,19 @@ public class MenuItemsDTO {
 	private int restaurantId;
 	
 	private int quantity;
+	
+    private MultipartFile imageFile;
+
+
+	public MultipartFile getImageFile() {
+		return imageFile;
+	}
+
+
+	public void setImageFile(MultipartFile imageFile) {
+		this.imageFile = imageFile;
+	}
+
 
 	public MenuItemsDTO() {
 		super();

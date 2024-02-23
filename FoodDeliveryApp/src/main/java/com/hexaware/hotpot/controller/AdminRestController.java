@@ -126,10 +126,9 @@ public class AdminRestController {
 
 	@PutMapping("/update-restaurant/{restaurantId}")
 	@PreAuthorize("hasAuthority('admin')")
-	public String updateRestaurant(@RequestBody RestaurantsDTO restaurantDTO,@PathVariable int restaurantId) throws RestaurantNotFoundException {
-		
-		 adminservice.updateRestaurant(restaurantDTO,restaurantId);
-		 return "Restaurant updated successfully!";
+	public Restaurants updateRestaurant(@RequestBody RestaurantsDTO restaurantDTO,@PathVariable int restaurantId) throws RestaurantNotFoundException {
+		System.out.println(restaurantId);
+		 return adminservice.updateRestaurant(restaurantDTO,restaurantId);
 		
 	}
 	
