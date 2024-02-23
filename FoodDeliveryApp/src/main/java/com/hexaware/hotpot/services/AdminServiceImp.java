@@ -179,8 +179,8 @@ public class AdminServiceImp implements IAdminService {
 
 	@Override
 	public Restaurants updateRestaurant(RestaurantsDTO restaurantDTO,int restaurantId) throws RestaurantNotFoundException {
-	    Restaurants restaurant = restaurantRepository.findById(restaurantDTO.getRestaurantId())
-	            .orElseThrow(() -> new RestaurantNotFoundException("Restaurant not found with ID: " + restaurantDTO.getRestaurantId()));
+	    Restaurants restaurant = restaurantRepository.findById(restaurantId)
+	            .orElseThrow(() -> new RestaurantNotFoundException("Restaurant not found with ID: " + restaurantId));
 
 	    restaurant.setName(Objects.requireNonNullElse(restaurantDTO.getName(), restaurant.getName()));
 	    restaurant.setLocation(Objects.requireNonNullElse(restaurantDTO.getLocation(), restaurant.getLocation()));

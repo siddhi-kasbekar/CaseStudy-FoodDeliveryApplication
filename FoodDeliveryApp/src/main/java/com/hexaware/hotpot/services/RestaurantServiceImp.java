@@ -1,5 +1,6 @@
 package com.hexaware.hotpot.services;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -78,6 +79,15 @@ public class RestaurantServiceImp implements IRestaurantService {
 		menuItem.setTasteInfo(menuItemDTO.getTasteInfo());
 		menuItem.setNutritionalInfo(menuItemDTO.getNutritionalInfo());
 		menuItem.setCookingTime(menuItemDTO.getCookingTime());
+		// Check if an image file is provided
+	    if (menuItemDTO.getImageFile() != null && !menuItemDTO.getImageFile().isEmpty()) {
+	        try {
+	            menuItem.setImage(menuItemDTO.getImageFile().getBytes());
+	        } catch (IOException e) {
+	            // Handle exception (e.g., log it or throw a custom exception)
+	            logger.error("Failed to read image file", e);
+	        }
+	    }
 
 		if (restaurantOptional.isPresent()) {
 			Restaurants restaurant = restaurantOptional.get();
