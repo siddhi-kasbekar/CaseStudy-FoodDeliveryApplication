@@ -53,9 +53,9 @@ public class AdminRestController {
 
 	@Autowired
 	AuthenticationManager authenticationManager;
-	
+
 	@Autowired
-	 AdministratorRepository adminRepo;
+	AdministratorRepository adminRepo;
 
 	@PostMapping("/login/authenticate")
 
@@ -75,18 +75,19 @@ public class AdminRestController {
 //			log.info("Tokent : " + token);
 			Optional<Administrator> admin = adminRepo.findByUsername(authRequest.getUsername());
 
-	        if (admin.isPresent()) {
-	            String role = admin.get().getRole();
-	            Long adminId = (long) admin.get().getAdminId(); // Assuming you have a method like getAdminId in Administrator entity
+			if (admin.isPresent()) {
+				String role = admin.get().getRole();
+				Long adminId = (long) admin.get().getAdminId(); // Assuming you have a method like getAdminId in
+																// Administrator entity
 
-	            // Call generateToken method from JwtService class with additional parameters
-	            token = jwtService.generateToken(authRequest.getUsername(), role, adminId);
+				// Call generateToken method from JwtService class with additional parameters
+				token = jwtService.generateToken(authRequest.getUsername(), role, adminId);
 
-	            log.info("Token: " + token);
-	        } else {
-	            log.error("Admin not found in the database");
-	            // Handle the case where the admin is not found in the database
-	        }
+				log.info("Token: " + token);
+			} else {
+				log.error("Admin not found in the database");
+				// Handle the case where the admin is not found in the database
+			}
 
 		} else {
 
@@ -126,13 +127,14 @@ public class AdminRestController {
 
 	@PutMapping("/update-restaurant/{restaurantId}")
 	@PreAuthorize("hasAuthority('admin')")
-	public Restaurants updateRestaurant(@RequestBody RestaurantsDTO restaurantDTO,@PathVariable int restaurantId) throws RestaurantNotFoundException {
-		System.out.println(restaurantId);
-		 return adminservice.updateRestaurant(restaurantDTO,restaurantId);
-		
+	public String updateRestaurant(@RequestBody RestaurantsDTO restaurantDTO, @PathVariable int restaurantId)
+			throws RestaurantNotFoundException {
+
+		adminservice.updateRestaurant(restaurantDTO, restaurantId);
+		return "Restaurant updated successfully!";
+
 	}
-	
-	
+
 	@DeleteMapping("/removeRestaurant/{restaurantId}")
 	@PreAuthorize("hasAuthority('admin')")
 
@@ -141,7 +143,6 @@ public class AdminRestController {
 		return "Restaurant removed successfully";
 	}
 
-	
 	@DeleteMapping("/removeCustomer/{customerId}")
 	@PreAuthorize("hasAuthority('admin')")
 
@@ -149,8 +150,7 @@ public class AdminRestController {
 		adminservice.removeCustomer(customerId);
 		return "Customer removed successfully";
 	}
-	
-	
+
 	@GetMapping("/getAllMenus")
 	@PreAuthorize("hasAuthority('admin') or hasAuthority('manager')")
 
@@ -193,19 +193,19 @@ public class AdminRestController {
 		adminservice.removeDiscount(discountId);
 		return "Discount removed successfully";
 	}
-	
+
 	@GetMapping("/getAllDiscounts")
 	@PreAuthorize("hasAuthority('admin') or hasAuthority('manager')")
-	public List<Discount> getAllDiscounts(){
+	public List<Discount> getAllDiscounts() {
 		return adminservice.getAllDiscounts();
 	}
-	
+
 	@GetMapping("/getAllManagers")
 	@PreAuthorize("hasAuthority('admin')")
-	public List<Administrator> getAllManagers(){
+	public List<Administrator> getAllManagers() {
 		return adminservice.getAllManagers();
 	}
-	
+
 	@DeleteMapping("/removeManager/{managerId}")
 	@PreAuthorize("hasAuthority('admin')")
 	public String removeManager(@PathVariable Integer managerId) {
@@ -213,5 +213,4 @@ public class AdminRestController {
 		return "Manager removed successfully";
 	}
 
-	
 }
