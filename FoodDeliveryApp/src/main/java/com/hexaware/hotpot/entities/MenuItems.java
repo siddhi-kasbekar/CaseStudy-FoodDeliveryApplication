@@ -12,6 +12,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
@@ -56,7 +57,29 @@ public class MenuItems {
 
 	private String nutritionalInfo;
 
+	public long getMenuItemId() {
+		return menuItemId;
+	}
+
+	public void setMenuItemId(long menuItemId) {
+		this.menuItemId = menuItemId;
+	}
+
+	public byte[] getImage() {
+		return image;
+	}
+
+	public void setImage(byte[] image) {
+		this.image = image;
+	}
+
+
+
 	private int cookingTime;
+	
+	@Lob
+    @Column(name = "image", columnDefinition = "LONGBLOB")
+    private byte[] image;
 
 
 	@ManyToOne(cascade = CascadeType.ALL)
