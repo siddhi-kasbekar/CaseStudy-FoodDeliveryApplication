@@ -194,6 +194,13 @@ public class AdminRestController {
 	public List<Administrator> getAllManagers(){
 		return adminservice.getAllManagers();
 	}
+	
+	@DeleteMapping("/removeManager/{managerId}")
+	@PreAuthorize("hasAuthority('admin')")
+	public String removeManager(@PathVariable Integer managerId) {
+		adminservice.removeManager(managerId);
+		return "Manager removed successfully";
+	}
 
 	
 }

@@ -25,6 +25,8 @@ public interface IAdminService {
 	public void removeRestaurant(Integer restaurantId) ;
 	
 	public void removeCustomer(long customerId) ;
+	
+	public void removeManager(int managerId);
 
 
 
