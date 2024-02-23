@@ -145,7 +145,7 @@ public class AdminServiceImp implements IAdminService {
 		admin.setPassword(passwordEncoder.encode(adminDTO.getPassword()));
 		admin.setName(adminDTO.getName());
 		admin.setEmail(adminDTO.getEmail());
-		admin.setRole("admin");
+		admin.setRole("manager");
 		
 		adminRepo.save(admin);
 
