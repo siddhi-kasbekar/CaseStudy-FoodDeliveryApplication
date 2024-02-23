@@ -1,7 +1,7 @@
 package com.hexaware.hotpot.services;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.Objects;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import com.hexaware.hotpot.dto.AdminDTO;
 import com.hexaware.hotpot.dto.DiscountDTO;
-import com.hexaware.hotpot.dto.MenuItemsDTO;
 import com.hexaware.hotpot.dto.RestaurantsDTO;
 import com.hexaware.hotpot.entities.Administrator;
 import com.hexaware.hotpot.entities.Customers;
@@ -19,6 +18,7 @@ import com.hexaware.hotpot.entities.Discount;
 import com.hexaware.hotpot.entities.MenuItems;
 import com.hexaware.hotpot.entities.Orders;
 import com.hexaware.hotpot.entities.Restaurants;
+import com.hexaware.hotpot.exception.RestaurantNotFoundException;
 import com.hexaware.hotpot.repository.AdministratorRepository;
 import com.hexaware.hotpot.repository.CustomersRepository;
 import com.hexaware.hotpot.repository.DiscountRepository;
@@ -177,6 +177,23 @@ public class AdminServiceImp implements IAdminService {
 		adminRepo.deleteById(managerId);
 	}
 
+	@Override
+	public Restaurants updateRestaurant(RestaurantsDTO restaurantDTO,int restaurantId) throws RestaurantNotFoundException {
+	    Restaurants restaurant = restaurantRepository.findById(restaurantDTO.getRestaurantId())
+	            .orElseThrow(() -> new RestaurantNotFoundException("Restaurant not found with ID: " + restaurantDTO.getRestaurantId()));
+
+	    restaurant.setName(Objects.requireNonNullElse(restaurantDTO.getName(), restaurant.getName()));
+	    restaurant.setLocation(Objects.requireNonNullElse(restaurantDTO.getLocation(), restaurant.getLocation()));
+	    restaurant.setContactNumber(Objects.requireNonNullElse(restaurantDTO.getContactNumber(), restaurant.getContactNumber()));
+	    restaurant.setRating(Objects.requireNonNullElse(restaurantDTO.getRating(), restaurant.getRating()));
+	    // Update menu items, orders, discounts if required (similar to how it's done for Customer DTO)
+
+	    // Save the updated restaurant
+	    return restaurantRepository.save(restaurant);
+	}
+	
+	
+	
 //	@Override
 //	public long registerAdmin(AdminDTO adminDTO) {
 //		

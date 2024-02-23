@@ -11,6 +11,7 @@ import com.hexaware.hotpot.entities.Discount;
 import com.hexaware.hotpot.entities.MenuItems;
 import com.hexaware.hotpot.entities.Orders;
 import com.hexaware.hotpot.entities.Restaurants;
+import com.hexaware.hotpot.exception.RestaurantNotFoundException;
 
 public interface IAdminService {
 
@@ -21,7 +22,8 @@ public interface IAdminService {
 
 	public Restaurants addRestaurant(RestaurantsDTO restaurant);
 
-
+    public Restaurants updateRestaurant(RestaurantsDTO restaurant,int restaurantId)throws RestaurantNotFoundException;
+	
 	public void removeRestaurant(Integer restaurantId) ;
 	
 	public void removeCustomer(long customerId) ;
