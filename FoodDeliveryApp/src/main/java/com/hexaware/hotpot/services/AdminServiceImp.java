@@ -170,6 +170,13 @@ public class AdminServiceImp implements IAdminService {
 		return adminRepo.findByRole("manager");
 	}
 
+	@Override
+	public void removeManager(int managerId) {
+
+
+		adminRepo.deleteById(managerId);
+	}
+
 //	@Override
 //	public long registerAdmin(AdminDTO adminDTO) {
 //		
