@@ -39,8 +39,9 @@ public class RestaurantController {
 		 return service.registerRestaurant(restaurantDTO);
 //		 return "restaurant registerd successfully";
 	}
-
-
+	
+	
+	
 	@PostMapping("/addMenu/{restaurantId}")
     @PreAuthorize("hasAuthority('manager')")
 	public String addMenu(@Valid @RequestBody MenuItemsDTO menuDTO,@PathVariable int restaurantId) {

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,6 +31,7 @@ import com.hexaware.hotpot.entities.Discount;
 import com.hexaware.hotpot.entities.MenuItems;
 import com.hexaware.hotpot.entities.Orders;
 import com.hexaware.hotpot.entities.Restaurants;
+import com.hexaware.hotpot.exception.RestaurantNotFoundException;
 import com.hexaware.hotpot.repository.AdministratorRepository;
 import com.hexaware.hotpot.services.IAdminService;
 import com.hexaware.hotpot.services.JwtService;
@@ -122,6 +124,16 @@ public class AdminRestController {
 		}
 	}
 
+	@PutMapping("/update-restaurant/{restaurantId}")
+	@PreAuthorize("hasAuthority('admin')")
+	public String updateRestaurant(@RequestBody RestaurantsDTO restaurantDTO,@PathVariable int restaurantId) throws RestaurantNotFoundException {
+		
+		 adminservice.updateRestaurant(restaurantDTO,restaurantId);
+		 return "Restaurant updated successfully!";
+		
+	}
+	
+	
 	@DeleteMapping("/removeRestaurant/{restaurantId}")
 	@PreAuthorize("hasAuthority('admin')")
 
