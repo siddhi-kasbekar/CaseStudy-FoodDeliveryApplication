@@ -79,7 +79,7 @@ class AdminServiceImpTest {
 
 	@Test
 	void testGetAllOrders() {
-		List<Orders> ordersList = adminService.getAllOrders();
+		List<Object[]> ordersList = adminService.getAllOrders();
 		assertNotNull(ordersList);
 
 	}

@@ -101,24 +101,15 @@ public class AdminServiceImp implements IAdminService {
 	}
 
 	@Override
-	public List<Orders> getAllOrders() {
+	public List<Object[]> getAllOrders() {
 		
-		return orderRepository.findAll();
+		return orderRepository.findAllOrdersWithCustomerAndRestaurantInfo();
 	}
 	
 	@Override
 	public List<Customers> getAllCustomers() {
 		return customersRepository.findAll();
 	}
-
-	
-
-	
-
-
-	
-
-
 
 	@Override
 	public Discount addDiscount(DiscountDTO discountdto) {

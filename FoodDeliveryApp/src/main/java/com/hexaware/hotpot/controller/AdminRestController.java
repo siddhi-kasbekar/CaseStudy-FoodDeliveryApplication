@@ -166,7 +166,7 @@ public class AdminRestController {
 
 	@GetMapping("/getAllOrders")
 	@PreAuthorize("hasAuthority('manager')")
-	public List<Orders> getAllOrders() {
+	public List<Object[]> getAllOrders() {
 		return adminservice.getAllOrders();
 	}
 
