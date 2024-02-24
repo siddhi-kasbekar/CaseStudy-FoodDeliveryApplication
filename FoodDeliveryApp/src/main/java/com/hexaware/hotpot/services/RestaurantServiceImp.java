@@ -136,11 +136,11 @@ public class RestaurantServiceImp implements IRestaurantService {
 
 
 	@Override
-	public void deleteMenu(int menuId) {
+	public void deleteMenu(long menuId) {
 
 		logger.info("Menu Item deleted successfully!");
 
-		restaurantRepo.deleteById(menuId);
+		menuItemRepo.deleteById(menuId);
 	}
 
 	@Override
