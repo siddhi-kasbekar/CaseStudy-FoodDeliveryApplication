@@ -47,4 +47,10 @@ public class MenuServiceImp implements IMenuService {
 		return menuItem;
 	}
 
+	@Override
+	public void deleteMenu(long menuId) {
+		repo.deleteById(menuId);
+		
+	}
+
 }

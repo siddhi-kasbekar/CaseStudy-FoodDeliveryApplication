@@ -82,7 +82,7 @@ public class MenuItems {
     private byte[] image;
 
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "RestaurantID")
 	@JsonIgnore
 	private Restaurants restaurant;
