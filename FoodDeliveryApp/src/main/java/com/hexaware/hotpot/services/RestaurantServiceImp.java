@@ -135,13 +135,13 @@ public class RestaurantServiceImp implements IRestaurantService {
 	}
 
 
-	@Override
-	public void deleteMenu(long menuId) {
-
-		logger.info("Menu Item deleted successfully!");
-
-		menuItemRepo.deleteById(menuId);
-	}
+//	@Override
+//	public void deleteMenu(long menuId) {
+//
+//		logger.info("Menu Item deleted successfully!");
+//
+//		menuItemRepo.deleteById(menuId);
+//	}
 
 	@Override
 	public List<MenuItems> getMenuByCategory(String category) throws MenuItemNotFoundException {

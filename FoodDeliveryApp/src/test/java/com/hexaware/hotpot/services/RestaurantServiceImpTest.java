@@ -89,12 +89,12 @@ class RestaurantServiceImpTest {
 	}
     
 	
-	@Test
-	void testDeleteMenu() {
-		int menuItemToRemove=2;
-		rservice.deleteMenu(menuItemToRemove);
-		 assertTrue(true);
-	}
+//	@Test
+//	void testDeleteMenu() {
+//		int menuItemToRemove=2;
+//		rservice.deleteMenu(menuItemToRemove);
+//		 assertTrue(true);
+//	}
 
 	@Test
 	void testGetMenuByCategory() throws MenuItemNotFoundException {
