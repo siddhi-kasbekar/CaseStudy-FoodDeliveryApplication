@@ -18,7 +18,7 @@ public interface IRestaurantService {
 
 	public void updateMenu(long menuItemId,MenuItemsDTO menuDTO) throws MenuItemNotFoundException;
 
-	public void deleteMenu(int menuId);
+	public void deleteMenu(long menuId);
 
 	public List<MenuItems> getMenuByCategory(String category) throws MenuItemNotFoundException ;
 

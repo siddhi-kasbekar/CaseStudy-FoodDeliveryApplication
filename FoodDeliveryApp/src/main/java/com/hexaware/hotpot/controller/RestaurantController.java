@@ -73,7 +73,7 @@ public class RestaurantController {
 
 	@DeleteMapping("/deleteMenu/{menuId}")
     @PreAuthorize("hasAuthority('admin') or hasAuthority('manager')")
-	public String deleteMenu(@PathVariable int menuId) {
+	public String deleteMenu(@PathVariable long menuId) {
 		service.deleteMenu(menuId);
 		return "menu deleted successfully";
 	}
