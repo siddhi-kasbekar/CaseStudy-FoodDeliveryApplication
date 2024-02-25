@@ -159,7 +159,7 @@ public class AdminRestController {
 	}
 
 	@GetMapping("/getAllRestaurants")
-	@PreAuthorize("hasAuthority('admin') or hasAuthority('manager')")
+	@PreAuthorize("hasAuthority('admin') or hasAuthority('manager') or hasAuthority('customer') ")
 	public List<Restaurants> getAllRestaurants() {
 		return adminservice.getAllRestaurants();
 	}
