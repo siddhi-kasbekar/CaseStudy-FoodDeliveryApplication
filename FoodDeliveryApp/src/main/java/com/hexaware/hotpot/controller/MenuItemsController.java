@@ -27,10 +27,10 @@ public class MenuItemsController {
 		return service.getMenuByCategory(category);
 	}
 
-	@GetMapping("/getByKeyword/{keyword}")
+	@GetMapping("/getByKeyword/{restaurantId}/{keyword}")
     @PreAuthorize("hasAuthority('customer')")
-	public List<MenuItems> searchMenuItems(@PathVariable String keyword) throws MenuItemNotFoundException{
-		return service.searchMenuItemsByKeyword(keyword);
+	public List<MenuItems> searchMenuItems(@PathVariable String keyword,@PathVariable int restaurantId) throws MenuItemNotFoundException{
+		return service.searchMenuItemsByKeyword(keyword,restaurantId);
 	}
 	
 	@DeleteMapping("/deleteMenu/{menuId}")

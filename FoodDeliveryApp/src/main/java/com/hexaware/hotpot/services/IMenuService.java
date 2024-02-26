@@ -9,7 +9,7 @@ public interface IMenuService {
 
 	public List<MenuItems> getMenuByCategory(String category) throws MenuItemNotFoundException;
 
-	public List<MenuItems> searchMenuItemsByKeyword(String keyword) throws MenuItemNotFoundException;
+	public List<MenuItems> searchMenuItemsByKeyword(String keyword,int restaurantId) throws MenuItemNotFoundException;
 	
 	public List<MenuItems> getByRestaurant(int restaurantId);
 	public void deleteMenu(long menuId);

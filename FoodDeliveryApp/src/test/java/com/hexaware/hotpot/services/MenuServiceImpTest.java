@@ -32,7 +32,7 @@ class MenuServiceImpTest {
 
 	@Test
 	void testSearchMenuItemsByKeyword() throws MenuItemNotFoundException {
-		List<MenuItems> menu=service.searchMenuItemsByKeyword("pas");
+		List<MenuItems> menu=service.searchMenuItemsByKeyword("pas",601);
 		boolean flag =menu.isEmpty();
 		assertFalse(flag);
 	}
