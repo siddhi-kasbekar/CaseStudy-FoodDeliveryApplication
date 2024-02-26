@@ -38,8 +38,8 @@ public class MenuServiceImp implements IMenuService {
 	}
 
 	@Override
-	public List<MenuItems> searchMenuItemsByKeyword(String keyword) throws MenuItemNotFoundException {
-		List<MenuItems> menuItem = repo.findByItemNameContainingIgnoreCase(keyword);
+	public List<MenuItems> searchMenuItemsByKeyword(String keyword,int restaurantId) throws MenuItemNotFoundException {
+		List<MenuItems> menuItem = repo.findByItemNameContainingIgnoreCaseAndRestaurantRestaurantId(keyword,restaurantId);
 		if (menuItem.isEmpty()) {
 			throw new MenuItemNotFoundException(" menu items for keyword: " + keyword+" not found");
 		}
