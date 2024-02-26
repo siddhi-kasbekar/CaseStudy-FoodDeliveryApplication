@@ -53,4 +53,12 @@ public class MenuServiceImp implements IMenuService {
 		
 	}
 
+	@Override
+	public List<MenuItems> getByRestaurant(int restaurantId) {
+		// TODO Auto-generated method stub
+		return repo.findByRestaurantRestaurantId(restaurantId);
+	}
+	
+	
+
 }

@@ -39,4 +39,12 @@ public class MenuItemsController {
 		service.deleteMenu(menuId);
 		return "menu deleted successfully";
 	}
+	
+	@GetMapping("/getByRestaurant/{restaurantId}")
+    @PreAuthorize("hasAuthority('customer')")
+	public List<MenuItems> getMenuItemsByRestaurantId(@PathVariable int restaurantId) {
+		return service.getByRestaurant(restaurantId);
+	}
+	
+	
 }
