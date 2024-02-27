@@ -3,19 +3,28 @@ package com.hexaware.hotpot.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.hexaware.hotpot.entities.Cart;
-import com.hexaware.hotpot.entities.Customers;
 
 @Repository
 public interface CartRepository extends JpaRepository<Cart, Integer> {
 	
-//	List<Cart> findByCustomerCustomerId(long custId);
-//	
-//    Cart findByCustomer(Customers customer);
+
 	
     Cart findByCustomerId(long customerId);
+    
+    @Query(nativeQuery = true,
+            value = "SELECT c.cartid, c.total, cd.menuitem_id, cd.price, cd.quantity, cd.price * cd.quantity AS individualTotal " +
+                    "FROM cart c " +
+                    "JOIN cart_details cd ON c.cartid = cd.cart_id " +
+                    "WHERE c.custid = :customerId")
+     List<Object[]> getCartDetailsByCustomerId(@Param("customerId") Long customerId);
+    
+
+
 
 
 	

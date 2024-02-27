@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -64,35 +65,68 @@ private List<MenuItemsDTO> parseMenuItems(Map<String, Object> requestBody) {
 }
 
 
-@PostMapping("/addToCart/{customerId}/{cartId}")
+@PostMapping("/addToCart/{customerId}")
 @PreAuthorize("hasAuthority('customer')")
-public String addToCart(@PathVariable Long customerId, @PathVariable int cartId,  @RequestBody CartDetailsDTO cartDetailsDTO){
+public String addToCart(@PathVariable Long customerId,  @RequestBody CartDetailsDTO cartDetailsDTO){
     System.out.println("Received JSON: " + cartDetailsDTO.toString());
 
-	cartService.addToCart(customerId, cartId, cartDetailsDTO);
+	cartService.addToCart(customerId,  cartDetailsDTO);
 	return "added to cart";
 	
 	
 }
 
-@DeleteMapping("/removeFromCart/{customerId}/{cartId}")
+@DeleteMapping("/removeFromCart/{customerId}")
 @PreAuthorize("hasAuthority('customer')")
-public String removeFromCart(@PathVariable Long customerId, @PathVariable int cartId,  @RequestBody CartDetailsDTO cartDetailsDTO){
+public String removeFromCart(@PathVariable Long customerId,  @RequestBody CartDetailsDTO cartDetailsDTO){
     System.out.println("Received JSON: " + cartDetailsDTO.toString());
 
-	cartService.removeFromCart(customerId, cartId, cartDetailsDTO);
+	cartService.removeFromCart(customerId, cartDetailsDTO);
 	return "removed from  cart";
 	
 	
 }
 
-@PostMapping("/applyDiscount/{cartId}")
+@PostMapping("/applyDiscount/{customerId}")
 @PreAuthorize("hasAuthority('customer')")
-public String applyDiscount(@PathVariable int cartId, @RequestBody DiscountDTO discountDTO) {
+public String applyDiscount(@PathVariable long customerId, @RequestBody DiscountDTO discountDTO) {
     // Call the method to calculate and update the total with the discount
-	cartService.calculateDiscountedTotal(cartId, discountDTO);
+	cartService.calculateDiscountedTotal(customerId, discountDTO);
     
     return "Discount applied successfully";
+}
+
+@GetMapping("/details/{customerId}")
+@PreAuthorize("hasAuthority('customer')")
+public List<CartDetailsDTO> getCartDetails(@PathVariable Long customerId) {
+    List<Object[]> cartDetails = cartService.getCartDetails(customerId);
+
+    // Process the data and convert it to a DTO
+    return processCartDetails(cartDetails);
+}
+
+private List<CartDetailsDTO> processCartDetails(List<Object[]> cartDetails) {
+	List<CartDetailsDTO> cartItemDetailsList = new ArrayList<>();
+
+	double total = 0.0;  // Initialize total outside the loop
+
+	if (!cartDetails.isEmpty()) {
+	    // Assuming total is at index 1 in the result set
+	    total = ((Number) cartDetails.get(0)[1]).doubleValue();
+	}
+
+	for (Object[] row : cartDetails) {
+	    long menuItemId = ((Number) row[2]).longValue(); // Assuming menuItemId is at index 2
+	    double price = ((Number) row[3]).doubleValue(); // Assuming price is at index 3
+	    int quantity = ((Number) row[4]).intValue();    // Assuming quantity is at index 4
+	    double individualTotal = ((Number) row[5]).doubleValue(); // Assuming individualTotal is at index 5
+
+	    CartDetailsDTO cartItemDetailsDTO = new CartDetailsDTO(menuItemId, quantity, price, total, individualTotal);
+	    cartItemDetailsList.add(cartItemDetailsDTO);
+	}
+
+	return cartItemDetailsList;
+
 }
 
 

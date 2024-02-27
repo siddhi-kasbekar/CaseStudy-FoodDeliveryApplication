@@ -115,16 +115,16 @@ public class CartServiceImp implements ICartService {
 	}
 
 	@Override
-	public void addToCart(Long customerId, int cartId, CartDetailsDTO cartDetailsDTO) {
-	    // Check if the cart exists for the given customer
-	    Optional<Cart> optionalCart = cartRepository.findById(cartId);
+	public void addToCart(Long customerId, CartDetailsDTO cartDetailsDTO) {
+	    // Find the cart for the given customer
+	    Cart cart = cartRepository.findByCustomerId(customerId);
 
-	    if (optionalCart.isPresent()) {
+	    if (cart != null) {
 	        // If the cart exists, update the total
-	        Cart cart = optionalCart.get();
 	        cart.setTotal(0);
+
 	        // Check if the item already exists in the cart
-	        Optional<CartDetails> existingCartItem = cartDetailsRepo.findByCart_CartIdAndMenuItem_MenuItemId(cartId, cartDetailsDTO.getMenuItemId());
+	        Optional<CartDetails> existingCartItem = cartDetailsRepo.findByCart_CartIdAndMenuItem_MenuItemId(cart.getCartId(), cartDetailsDTO.getMenuItemId());
 
 	        if (existingCartItem.isPresent()) {
 	            // If the item already exists, increment the quantity by 1
@@ -146,9 +146,10 @@ public class CartServiceImp implements ICartService {
 	        cartRepository.save(cart);
 	    } else {
 	        // If the cart is not found, you might want to handle this scenario
-	        throw new IllegalArgumentException("Cart with ID " + cartId + " not found");
+	        throw new IllegalArgumentException("Cart for customer with ID " + customerId + " not found");
 	    }
 	}
+
 
 
 
@@ -184,17 +185,16 @@ public class CartServiceImp implements ICartService {
 	
 	@Override
 	@Transactional
-	public void removeFromCart(Long customerId, int cartId, CartDetailsDTO cartDetailsDTO) {
-	    // Check if the cart exists for the given customer
-	    Optional<Cart> optionalCart = cartRepository.findById(cartId);
+	public void removeFromCart(Long customerId, CartDetailsDTO cartDetailsDTO) {
+	    // Find the cart for the given customer
+	    Cart cart = cartRepository.findByCustomerId(customerId);
 
-	    if (optionalCart.isPresent()) {
+	    if (cart != null) {
 	        // If the cart exists, update the total
-	        Cart cart = optionalCart.get();
 	        cart.setTotal(0);
 
 	        // Check if the item already exists in the cart
-	        Optional<CartDetails> existingCartItem = cartDetailsRepo.findByCart_CartIdAndMenuItem_MenuItemId(cartId, cartDetailsDTO.getMenuItemId());
+	        Optional<CartDetails> existingCartItem = cartDetailsRepo.findByCart_CartIdAndMenuItem_MenuItemId(cart.getCartId(), cartDetailsDTO.getMenuItemId());
 
 	        if (existingCartItem.isPresent()) {
 	            // If the item exists, decrement the quantity by 1
@@ -221,7 +221,7 @@ public class CartServiceImp implements ICartService {
 	        }
 	    } else {
 	        // If the cart is not found, you might want to handle this scenario
-	        throw new IllegalArgumentException("Cart with ID " + cartId + " not found");
+	        throw new IllegalArgumentException("Cart for customer with ID " + customerId + " not found");
 	    }
 	}
 
@@ -229,17 +229,22 @@ public class CartServiceImp implements ICartService {
 	
 	@Override
 	@Transactional
-	public void calculateDiscountedTotal(int cartId, DiscountDTO discount) {
-	    Optional<Cart> optionalCart = cartRepository.findById(cartId);
-	    
-	    if (optionalCart.isPresent() && discount != null) {
-	        Cart cart = optionalCart.get();
+	public void calculateDiscountedTotal(Long customerId, DiscountDTO discount) {
+	    Cart cart = cartRepository.findByCustomerId(customerId);
+
+	    if (cart != null && discount != null) {
 	        int discountPercentage = discount.getDiscountPercentage();
 	        double total = cart.getTotal();
 	        double discountedTotal = total - (total * discountPercentage / 100);
 	        cart.setTotal(discountedTotal);
 	        cartRepository.save(cart);
 	    }
+	}
+
+	
+	@Override
+	public List<Object[]> getCartDetails(long customerId) {
+	    return cartRepository.getCartDetailsByCustomerId(customerId);
 	}
 	
 	
