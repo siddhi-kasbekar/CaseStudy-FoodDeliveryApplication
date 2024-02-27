@@ -8,9 +8,19 @@ public class CartDetailsDTO {
     private long menuItemId;
     private int quantity;
     private double price;
+    private double total;
+    private double individualTotal;
 
 
-    public double getPrice() {
+    public double getTotal() {
+		return total;
+	}
+
+	public void setTotal(double total) {
+		this.total = total;
+	}
+
+	public double getPrice() {
 		return price;
 	}
 
@@ -25,32 +35,37 @@ public class CartDetailsDTO {
 
     // Constructor with parameters
 
-    public CartDetailsDTO( long menuItemId, int quantity) {
-
-//        this.cartMenuItemId = cartMenuItemId;
-//        this.cartId = cartId;
-        this.menuItemId = menuItemId;
-        this.quantity = quantity;
-    }
-
-    // Getters and setters
-//    public long getCartMenuItemId() {
-//        return cartMenuItemId;
-//    }
+//    public CartDetailsDTO( long menuItemId, int quantity,double price) {
 //
-//    public void setCartMenuItemId(long cartMenuItemId) {
-//        this.cartMenuItemId = cartMenuItemId;
+////        this.cartMenuItemId = cartMenuItemId;
+////        this.cartId = cartId;
+//        this.menuItemId = menuItemId;
+//        this.quantity = quantity;
+//        this.price=price;
 //    }
-//
-//    public long getCartId() {
-//        return cartId;
-//    }
-//
-//    public void setCartId(long cartId) {
-//        this.cartId = cartId;
-//    }
+    
+    public CartDetailsDTO( long menuItemId, int quantity,double price,double total,double individualTotal) {
 
-    public long getMenuItemId() {
+//      this.cartMenuItemId = cartMenuItemId;
+//      this.cartId = cartId;
+      this.menuItemId = menuItemId;
+      this.quantity = quantity;
+      this.price=price;
+      this.total=total;
+      this.individualTotal=individualTotal;
+  }
+
+
+
+    public double getIndividualTotal() {
+		return individualTotal;
+	}
+
+	public void setIndividualTotal(double individualTotal) {
+		this.individualTotal = individualTotal;
+	}
+
+	public long getMenuItemId() {
         return menuItemId;
     }
 

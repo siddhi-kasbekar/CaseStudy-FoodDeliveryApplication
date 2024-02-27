@@ -20,11 +20,13 @@ public interface ICartService {
 
 	public Cart getCartItems(Long customerId);
 	
-	public void addToCart(Long customerId, int cartId, CartDetailsDTO cartDetailsDTO);
+	public void addToCart(Long customerId, CartDetailsDTO cartDetailsDTO);
 	
-	public void removeFromCart(Long customerId, int cartId, CartDetailsDTO cartDetailsDTO);
+	public void removeFromCart(Long customerId, CartDetailsDTO cartDetailsDTO);
 	
-	public void calculateDiscountedTotal(int cartId, DiscountDTO discount);
+	public void calculateDiscountedTotal(Long customerId, DiscountDTO discount);
+	
+	public List<Object[]> getCartDetails(long customerId);
 	
 	
 }
