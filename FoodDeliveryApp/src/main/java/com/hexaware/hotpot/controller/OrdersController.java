@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,6 +25,7 @@ import com.hexaware.hotpot.services.IOrderService;
 
 import jakarta.validation.Valid;
 
+@CrossOrigin("http://localhost:4200")
 @RestController
 @RequestMapping("/api/v1/order")
 public class OrdersController {
@@ -31,12 +33,12 @@ public class OrdersController {
 	@Autowired
 	IOrderService service;
 	
-	@PostMapping("/placeOrder")
+	@PostMapping("/placeOrder/{customerId}")
     @PreAuthorize("hasAuthority('customer')")		
-	public String placeOrder(@Valid @RequestParam long customerId, @RequestParam int restaurantId, @RequestBody Map<String, Object> requestBody) throws RestaurantNotFoundException, CustomerNotFoundException {
+	public String placeOrder(@Valid @PathVariable long customerId, @RequestBody Map<String, Object> requestBody) throws RestaurantNotFoundException, CustomerNotFoundException {
 	    List<MenuItemsDTO> menuItems = parseMenuItems(requestBody);
-	    double totalCost = (double) requestBody.get("totalCost");
-	    service.placeOrder(customerId, restaurantId, menuItems,totalCost);
+	    double totalCost = ((Integer) requestBody.get("totalCost")).doubleValue();
+	    service.placeOrder(customerId, menuItems,totalCost);
 	    return "Your order has been placed";
 	}
 
