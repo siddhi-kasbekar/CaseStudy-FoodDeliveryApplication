@@ -65,19 +65,19 @@ public class OrderServiceImp implements IOrderService {
 	private static final Logger logger = LoggerFactory.getLogger(OrderServiceImp.class);
 
 	@Override
-	public void placeOrder(long customerId, int restaurantId, List<MenuItemsDTO> menuItems, double totalCost) throws RestaurantNotFoundException, CustomerNotFoundException {
+	public void placeOrder(long customerId, List<MenuItemsDTO> menuItems, double totalCost) throws RestaurantNotFoundException, CustomerNotFoundException {
 	    logger.info("Your order has been placed");
 
 	    // Retrieve customer and restaurant entities from their IDs
 	    Customers customer = customerRepo.findById(customerId).orElseThrow(() -> new CustomerNotFoundException("Customer not found"));
-	    Restaurants restaurant = restaurantRepo.findById(restaurantId).orElseThrow(() -> new RestaurantNotFoundException("Restaurant not found"));
+//	    Restaurants restaurant = restaurantRepo.findById(restaurantId).orElseThrow(() -> new RestaurantNotFoundException("Restaurant not found"));
 
 	    Orders order = new Orders();
 	    order.setOrderDate(LocalDateTime.now()); // Assuming you set the order date to current date and time
 	    order.setTotalCost(totalCost); //will be fetched from cart
 	    order.setStatus("Placed"); // Assuming initial status is "Placed"
 	    order.setCustomer(customer);
-	    order.setRestaurant(restaurant);
+//	    order.setRestaurant(restaurant);
 	    
 
 	    ordersRepo.save(order);
