@@ -1,6 +1,7 @@
 package com.hexaware.hotpot.services;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -59,6 +60,14 @@ public class MenuServiceImp implements IMenuService {
 		return repo.findByRestaurantRestaurantId(restaurantId);
 	}
 	
-	
+	public List<MenuItems> getMenuItemsByRestaurantId(int restaurantId, boolean showOnlyVegetarian) {
+	    List<MenuItems> menuItems;
+	    if (showOnlyVegetarian) {
+	        menuItems = repo.findByRestaurantRestaurantIdAndSpecialDietaryInfo(restaurantId, "veg");
+	    } else {
+	        menuItems = repo.findByRestaurantRestaurantId(restaurantId);
+	    }
+	    return menuItems;
+	}
 
 }
