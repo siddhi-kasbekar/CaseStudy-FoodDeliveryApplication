@@ -22,7 +22,9 @@ public interface ICartService {
 	
 	public void addToCart(Long customerId, CartDetailsDTO cartDetailsDTO);
 	
-	public void removeFromCart(Long customerId, CartDetailsDTO cartDetailsDTO);
+//	public void removeFromCart(Long customerId, CartDetailsDTO cartDetailsDTO);
+	
+	public void removeFromCart(Long customerId, Long menuItemId, int quantity);
 	
 	public void calculateDiscountedTotal(Long customerId, DiscountDTO discount);
 	

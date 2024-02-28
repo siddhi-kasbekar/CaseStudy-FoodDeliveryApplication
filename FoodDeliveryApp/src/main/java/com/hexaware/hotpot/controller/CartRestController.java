@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +23,7 @@ import com.hexaware.hotpot.entities.Cart;
 import com.hexaware.hotpot.exception.CustomerNotFoundException;
 import com.hexaware.hotpot.services.ICartService;
 
+@CrossOrigin("http://localhost:4200")
 @RestController
 @RequestMapping("api/v1/cart")
 public class CartRestController {
@@ -76,15 +78,25 @@ public String addToCart(@PathVariable Long customerId,  @RequestBody CartDetails
 	
 }
 
-@DeleteMapping("/removeFromCart/{customerId}")
+//@DeleteMapping("/removeFromCart/{customerId}")
+//@PreAuthorize("hasAuthority('customer')")
+//public String removeFromCart(@PathVariable Long customerId,  @RequestBody CartDetailsDTO cartDetailsDTO){
+//    System.out.println("Received JSON: " + cartDetailsDTO.toString());
+//
+//	cartService.removeFromCart(customerId, cartDetailsDTO);
+//	return "removed from  cart";
+//	
+//	
+//}
+@DeleteMapping("/removeFromCart/{customerId}/{menuItemId}")
 @PreAuthorize("hasAuthority('customer')")
-public String removeFromCart(@PathVariable Long customerId,  @RequestBody CartDetailsDTO cartDetailsDTO){
-    System.out.println("Received JSON: " + cartDetailsDTO.toString());
+public String removeFromCart(@PathVariable Long customerId, @PathVariable Long menuItemId) {
 
-	cartService.removeFromCart(customerId, cartDetailsDTO);
-	return "removed from  cart";
-	
-	
+    int fixedQuantity = 1;
+
+    cartService.removeFromCart(customerId, menuItemId, fixedQuantity);
+
+    return "removed from cart";
 }
 
 @PostMapping("/applyDiscount/{customerId}")
