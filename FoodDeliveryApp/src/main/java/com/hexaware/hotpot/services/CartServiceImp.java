@@ -183,9 +183,51 @@ public class CartServiceImp implements ICartService {
 	}
 
 	
+//	@Override
+//	@Transactional
+//	public void removeFromCart(Long customerId, CartDetailsDTO cartDetailsDTO) {
+//	    // Find the cart for the given customer
+//	    Cart cart = cartRepository.findByCustomerId(customerId);
+//
+//	    if (cart != null) {
+//	        // If the cart exists, update the total
+//	        cart.setTotal(0);
+//
+//	        // Check if the item already exists in the cart
+//	        Optional<CartDetails> existingCartItem = cartDetailsRepo.findByCart_CartIdAndMenuItem_MenuItemId(cart.getCartId(), cartDetailsDTO.getMenuItemId());
+//
+//	        if (existingCartItem.isPresent()) {
+//	            // If the item exists, decrement the quantity by 1
+//	            CartDetails cartDetails = existingCartItem.get();
+//	            int newQuantity = cartDetails.getQuantity() - 1;
+//
+//	            if (newQuantity > 0) {
+//	                // If quantity is greater than 0, update the quantity
+//	                cartDetails.setQuantity(newQuantity);
+//	                cartDetailsRepo.save(cartDetails);
+//	            } else {
+//	                // If quantity becomes 0, delete the record from cart_details
+//	                cartDetailsRepo.delete(cartDetails);
+//	            }
+//
+//	            // Calculate and set the original total
+//	            cart.setTotal(calculateOriginTotal(cart));
+//
+//	            // Save changes
+//	            cartRepository.save(cart);
+//	        } else {
+//	            // If the item does not exist, you might want to handle this scenario
+//	            throw new IllegalArgumentException("Item not found in the cart");
+//	        }
+//	    } else {
+//	        // If the cart is not found, you might want to handle this scenario
+//	        throw new IllegalArgumentException("Cart for customer with ID " + customerId + " not found");
+//	    }
+//	}
+
 	@Override
 	@Transactional
-	public void removeFromCart(Long customerId, CartDetailsDTO cartDetailsDTO) {
+	public void removeFromCart(Long customerId, Long menuItemId, int quantity) {
 	    // Find the cart for the given customer
 	    Cart cart = cartRepository.findByCustomerId(customerId);
 
@@ -194,12 +236,12 @@ public class CartServiceImp implements ICartService {
 	        cart.setTotal(0);
 
 	        // Check if the item already exists in the cart
-	        Optional<CartDetails> existingCartItem = cartDetailsRepo.findByCart_CartIdAndMenuItem_MenuItemId(cart.getCartId(), cartDetailsDTO.getMenuItemId());
+	        Optional<CartDetails> existingCartItem = cartDetailsRepo.findByCart_CartIdAndMenuItem_MenuItemId(cart.getCartId(), menuItemId);
 
 	        if (existingCartItem.isPresent()) {
-	            // If the item exists, decrement the quantity by 1
+	            // If the item exists, decrement the quantity by specified quantity
 	            CartDetails cartDetails = existingCartItem.get();
-	            int newQuantity = cartDetails.getQuantity() - 1;
+	            int newQuantity = cartDetails.getQuantity() - quantity;
 
 	            if (newQuantity > 0) {
 	                // If quantity is greater than 0, update the quantity
