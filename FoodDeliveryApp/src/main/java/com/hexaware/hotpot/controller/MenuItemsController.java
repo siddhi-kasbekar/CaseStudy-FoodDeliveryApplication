@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hexaware.hotpot.entities.MenuItems;
@@ -42,9 +43,10 @@ public class MenuItemsController {
 	
 	@GetMapping("/getByRestaurant/{restaurantId}")
     @PreAuthorize("hasAuthority('customer')")
-	public List<MenuItems> getMenuItemsByRestaurantId(@PathVariable int restaurantId) {
-		return service.getByRestaurant(restaurantId);
-	}
-	
-	
+	public List<MenuItems> getMenuItemsByRestaurantId(
+		    @PathVariable int restaurantId,
+		    @RequestParam(required = false, defaultValue = "false") boolean showOnlyVegetarian) {
+
+		    return service.getMenuItemsByRestaurantId(restaurantId, showOnlyVegetarian);
+		}
 }

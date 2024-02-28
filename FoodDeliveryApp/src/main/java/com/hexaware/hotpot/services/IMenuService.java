@@ -13,4 +13,6 @@ public interface IMenuService {
 	
 	public List<MenuItems> getByRestaurant(int restaurantId);
 	public void deleteMenu(long menuId);
+	
+	public List<MenuItems> getMenuItemsByRestaurantId(int restaurantId, boolean showOnlyVegetarian);
 }
