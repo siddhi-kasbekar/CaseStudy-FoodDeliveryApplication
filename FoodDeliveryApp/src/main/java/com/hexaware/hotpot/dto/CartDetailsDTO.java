@@ -10,9 +10,18 @@ public class CartDetailsDTO {
     private double price;
     private double total;
     private double individualTotal;
+    private String itemName;
 
 
-    public double getTotal() {
+    public String getItemName() {
+		return itemName;
+	}
+
+	public void setItemName(String itemName) {
+		this.itemName = itemName;
+	}
+
+	public double getTotal() {
 		return total;
 	}
 
@@ -44,15 +53,17 @@ public class CartDetailsDTO {
 //        this.price=price;
 //    }
     
-    public CartDetailsDTO( long menuItemId, int quantity,double price,double total,double individualTotal) {
+    public CartDetailsDTO( long menuItemId,String itemName, int quantity,double price,double total,double individualTotal) {
 
 //      this.cartMenuItemId = cartMenuItemId;
 //      this.cartId = cartId;
       this.menuItemId = menuItemId;
+      this.itemName=itemName;
       this.quantity = quantity;
       this.price=price;
       this.total=total;
       this.individualTotal=individualTotal;
+     
   }
 
 

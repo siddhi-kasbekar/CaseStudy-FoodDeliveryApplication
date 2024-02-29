@@ -70,4 +70,9 @@ public class MenuServiceImp implements IMenuService {
 	    return menuItems;
 	}
 
+	@Override
+	public List<MenuItems> getMenuByPriceRange(int restaurantId, double minPrice, double maxPrice) {
+		return repo.findByRestaurantRestaurantIdAndPriceBetween(restaurantId, minPrice, maxPrice);
+	}
+
 }

@@ -52,7 +52,7 @@ class OrderServiceImpTest {
 	
 	@Test
 	void testViewOrderHistory() {
-		List<Orders> orders =service.viewOrderHistory(1);
+		List<Object[]>  orders =service.viewOrderHistory(1);
 		boolean flag=orders.isEmpty();
 		assertTrue(flag);
 		

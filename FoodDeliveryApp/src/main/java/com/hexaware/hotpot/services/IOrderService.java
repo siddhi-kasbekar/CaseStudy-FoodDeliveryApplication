@@ -18,6 +18,6 @@ public interface IOrderService {
 
 	public String updateOrderStatus(int orderId,String status) throws OrderNotFoundException;
 	
-	public List<Orders> viewOrderHistory(long customerId);
+	public List<Object[]>  viewOrderHistory(long customerId);
 	
 }
