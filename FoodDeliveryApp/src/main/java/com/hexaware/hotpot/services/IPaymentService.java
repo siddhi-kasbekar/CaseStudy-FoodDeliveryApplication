@@ -7,9 +7,10 @@ import com.hexaware.hotpot.exception.CustomerNotFoundException;
 public interface IPaymentService {
 	
 	
-	public Payment processPayment(long customerId, int cartId,PaymentDTO paymentDTO) throws CustomerNotFoundException;
+//	public Payment processPayment(long customerId, int cartId,PaymentDTO paymentDTO) throws CustomerNotFoundException;
 
-	
+    public void processPayment(long customerId, PaymentDTO paymentDTO) throws CustomerNotFoundException ;
+
 	
 
 }

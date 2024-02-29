@@ -1,16 +1,16 @@
 package com.hexaware.hotpot.services;
 
 import java.time.LocalDateTime;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hexaware.hotpot.dto.PaymentDTO;
-import com.hexaware.hotpot.entities.Cart;
 import com.hexaware.hotpot.entities.Customers;
 import com.hexaware.hotpot.entities.Payment;
 import com.hexaware.hotpot.exception.CustomerNotFoundException;
-import com.hexaware.hotpot.repository.CartRepository;
+import com.hexaware.hotpot.exception.RestaurantNotFoundException;
 import com.hexaware.hotpot.repository.CustomersRepository;
 import com.hexaware.hotpot.repository.PaymentRepository;
 
@@ -24,31 +24,57 @@ public class PaymentService implements IPaymentService {
 	CustomersRepository customerRepo;
 	
 	@Autowired
-	CartRepository cartRepo;
+	IOrderService orderService;
 	
 	@Autowired
 	PaymentRepository paymentRepo;
 
 	@Override
-	public Payment processPayment(long customerId, int cartId, PaymentDTO paymentDTO) throws CustomerNotFoundException {
-		 // Retrieve customer and cart entities from their IDs
-	    Customers customer = customerRepo.findById(customerId)
-	            .orElseThrow(() -> new CustomerNotFoundException("Customer not found with id: " + customerId));
+	public void processPayment(long customerId, PaymentDTO paymentDTO) throws CustomerNotFoundException {
 
-	    Cart cart = cartRepo.findById(cartId)
-	            .orElseThrow(() -> new RuntimeException("Cart not found with id: " + cartId));
 
-	    Payment payment = new Payment();
-	    payment.setCustomer(customer);
-	    payment.setCart(cart);
-	    payment.setPaymentDate(LocalDateTime.now());
-	    payment.setAmount(paymentDTO.getAmount());
-	    payment.setPaymentMethod(paymentDTO.getPaymentMethod());
-	    payment.setTransactionID(paymentDTO.getTransactionID());
+		Customers customer = customerRepo.findById(customerId)
+                .orElseThrow(() -> new CustomerNotFoundException("Customer not found with id: " + customerId));
 
-	    return paymentRepo.save(payment); 
-	    
+        Payment payment = new Payment();
+        payment.setCustomer(customer);
+        payment.setPaymentDate(LocalDateTime.now());
+        payment.setAmount(paymentDTO.getAmount());
+        payment.setPaymentMethod(paymentDTO.getPaymentMethod());
+        payment.setTransactionID(generateRandomTransactionID()); // Set a random transaction ID
+        payment.setCardNumber(paymentDTO.getCardNumber());
+        payment.setExpiryDate(paymentDTO.getExpiryDate());
+        payment.setCvv(paymentDTO.getCvv());
+        payment.setCardHolder(paymentDTO.getCardHolder());
+        payment.setStatus("success");
+        
+
+        Payment processedPayment = paymentRepo.save(payment);
+
+
+        try {
+            orderService.placeOrder(customerId, paymentDTO.getMenuItems(), paymentDTO.getTotalCost());
+
+//            // Update the status to "success" after placing the order
+//           
+//            paymentRepo.save(processedPayment);
+
+        } catch (RestaurantNotFoundException | CustomerNotFoundException e) {
+            // Handle exceptions
+            e.printStackTrace();
+        }
+	}
+	
+	private String generateRandomTransactionID() {
+	    Random random = new Random();
+	    int transactionIDLength = 10;
+	    StringBuilder sb = new StringBuilder(transactionIDLength);
+	    for (int i = 0; i < transactionIDLength; i++) {
+	        sb.append(random.nextInt(10));
+	    }
+	    return sb.toString();
 	}
 }
+	
 
 
