@@ -22,10 +22,10 @@ public class MenuItemsController {
 	@Autowired
 	IMenuService service;
 	
-	@GetMapping("/getByCategory/{category}")
+	@GetMapping("/getByCategory/{restaurantId}/{category}")
     @PreAuthorize("hasAuthority('customer')")
-	public List<MenuItems> getMenuByCategory(@PathVariable String category) throws MenuItemNotFoundException{
-		return service.getMenuByCategory(category);
+	public List<MenuItems> getMenuByCategory(@PathVariable String category,@PathVariable int restaurantId) throws MenuItemNotFoundException{
+		return service.getMenuByCategory(category, restaurantId);
 	}
 
 	@GetMapping("/getByKeyword/{restaurantId}/{keyword}")

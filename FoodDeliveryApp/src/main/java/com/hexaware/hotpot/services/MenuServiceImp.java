@@ -28,9 +28,9 @@ public class MenuServiceImp implements IMenuService {
 	MenuItemsRepository repo;
 
 	@Override
-	public List<MenuItems> getMenuByCategory(String category) throws MenuItemNotFoundException {
+	public List<MenuItems> getMenuByCategory(String category,int restaurantId) throws MenuItemNotFoundException {
 
-		List<MenuItems> menuItem = repo.findByCategory(category);
+		List<MenuItems> menuItem = repo.findByCategoryAndRestaurantRestaurantId(category,restaurantId);
 		if (menuItem.isEmpty()) {
 			throw new MenuItemNotFoundException(" menu items for category: " + category+" not found");
 		}

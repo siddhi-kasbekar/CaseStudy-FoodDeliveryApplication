@@ -25,7 +25,7 @@ class MenuServiceImpTest {
 
 	@Test
 	void testGetMenuByCategory() throws MenuItemNotFoundException {
-		List<MenuItems> menu=service.getMenuByCategory("dinner");
+		List<MenuItems> menu=service.getMenuByCategory("dinner",602);
 		boolean flag =menu.isEmpty();
 		assertFalse(flag);
 	}
