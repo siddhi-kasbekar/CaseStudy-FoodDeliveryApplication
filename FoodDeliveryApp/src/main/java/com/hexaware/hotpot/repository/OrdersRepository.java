@@ -17,10 +17,9 @@ public interface OrdersRepository extends JpaRepository<Orders, Integer> {
 	// od.menuItem WHERE o.customer.customerId = :customerId")
 	List<Orders> findByCustomerCustomerId(long customerId);
 
-	@Query(value = "SELECT o.*, c.customer_name AS customerName, r.name AS restaurantName " 
+	@Query(value = "SELECT o.*, c.customer_name AS customerName " 
 	+ "FROM orders o "
-			+ "JOIN customers c ON o.custid = c.customerid "
-			+ "JOIN restaurants r ON o.res_id = r.restaurantid", nativeQuery = true)
-	List<Object[]> findAllOrdersWithCustomerAndRestaurantInfo();
+			+ "JOIN customers c ON o.custid = c.customerid ", nativeQuery = true)
+	List<Object[]> findAllOrdersWithCustomerInfo();
 
 }
