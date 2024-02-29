@@ -103,7 +103,7 @@ public class AdminServiceImp implements IAdminService {
 	@Override
 	public List<Object[]> getAllOrders() {
 		
-		return orderRepository.findAllOrdersWithCustomerAndRestaurantInfo();
+		return orderRepository.findAllOrdersWithCustomerInfo();
 	}
 	
 	@Override
