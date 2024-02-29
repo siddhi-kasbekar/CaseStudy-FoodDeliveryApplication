@@ -50,9 +50,9 @@ public class Cart {
 		this.customerId = customerId;
 	}
 
-	@OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
-	@JsonIgnoreProperties("cart")
-	private Set<Payment> paymentSet = new HashSet<>();
+//	@OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
+//	@JsonIgnoreProperties("cart")
+//	private Set<Payment> paymentSet = new HashSet<>();
 	
 	@OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
     @JsonIgnore // Prevent infinite recursion
@@ -105,13 +105,13 @@ public class Cart {
 //		this.customer = customer;
 //	}
 
-	public Set<Payment> getPaymentSet() {
-		return paymentSet;
-	}
-
-	public void setPaymentSet(Set<Payment> paymentSet) {
-		this.paymentSet = paymentSet;
-	}
+//	public Set<Payment> getPaymentSet() {
+//		return paymentSet;
+//	}
+//
+//	public void setPaymentSet(Set<Payment> paymentSet) {
+//		this.paymentSet = paymentSet;
+//	}
 
 
 

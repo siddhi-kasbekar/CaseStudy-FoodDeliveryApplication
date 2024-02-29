@@ -1,93 +1,127 @@
 package com.hexaware.hotpot.dto;
-
 import java.math.BigDecimal;
-import java.security.Timestamp;
-import java.time.LocalDateTime;
+import java.util.List;
 
 public class PaymentDTO {
 
-	private int paymentId;
-    private long customerId; 
-    private int cartId; 
-    private LocalDateTime paymentDate;
-    private BigDecimal amount;
+    // Payment details
+    private double amount;
     private String paymentMethod;
     private String transactionID;
+    private String cardNumber;
+    private String expiryDate;
+    private int cvv;
+    private String cardHolder;
+    private String status;
+    private double totalCost;
+
+  
+	public double getTotalCost() {
+		return totalCost;
+	}
+
+	public void setTotalCost(double totalCost) {
+		this.totalCost = totalCost;
+	}
+
+	// Additional details
+    private List<MenuItemsDTO> menuItems;
+
+    // Constructors, getters, and setters...
 
     public PaymentDTO() {
-    	super();
+        // Default constructor
     }
 
-    public PaymentDTO(int paymentId, long customerId, int cartId, LocalDateTime paymentDate, BigDecimal amount,
-            String paymentMethod, String transactionID) {
-       
-    	super();
-    	this.paymentId = paymentId;
-        this.customerId = customerId;
-        this.cartId = cartId;
-        this.paymentDate = paymentDate;
+    // Constructor with all fields
+    public PaymentDTO(double amount, String paymentMethod, String transactionID,
+                             String cardNumber, String expiryDate, int cvv, String cardHolder,
+                             List<MenuItemsDTO> menuItems, String status,double totalCost) {
         this.amount = amount;
         this.paymentMethod = paymentMethod;
         this.transactionID = transactionID;
+        this.cardNumber = cardNumber;
+        this.expiryDate = expiryDate;
+        this.cvv = cvv;
+        this.cardHolder = cardHolder;
+        this.menuItems = menuItems;
+        this.status=status;
+        this.totalCost=totalCost;
     }
 
-   
+	public double getAmount() {
+		return amount;
+	}
 
-    public int getPaymentId() {
-        return paymentId;
-    }
+	public void setAmount(double amount) {
+		this.amount = amount;
+	}
 
-    public void setPaymentId(int paymentId) {
-        this.paymentId = paymentId;
-    }
+	public String getPaymentMethod() {
+		return paymentMethod;
+	}
 
-    public long getCustomerId() {
-        return customerId;
-    }
+	public void setPaymentMethod(String paymentMethod) {
+		this.paymentMethod = paymentMethod;
+	}
 
-    public void setCustomerId(long customerId) {
-        this.customerId = customerId;
-    }
+	public String getTransactionID() {
+		return transactionID;
+	}
 
-    public int getCartId() {
-        return cartId;
-    }
+	public void setTransactionID(String transactionID) {
+		this.transactionID = transactionID;
+	}
 
-    public void setCartId(int cartId) {
-        this.cartId = cartId;
-    }
+	public String getCardNumber() {
+		return cardNumber;
+	}
 
-    public LocalDateTime getPaymentDate() {
-        return paymentDate;
-    }
+	public void setCardNumber(String cardNumber) {
+		this.cardNumber = cardNumber;
+	}
 
-    public void setPaymentDate(LocalDateTime paymentDate) {
-        this.paymentDate = paymentDate;
-    }
+	public String getExpiryDate() {
+		return expiryDate;
+	}
 
-    public BigDecimal getAmount() {
-        return amount;
-    }
+	public void setExpiryDate(String expiryDate) {
+		this.expiryDate = expiryDate;
+	}
 
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
-    }
+	public int getCvv() {
+		return cvv;
+	}
 
-    public String getPaymentMethod() {
-        return paymentMethod;
-    }
+	public void setCvv(int cvv) {
+		this.cvv = cvv;
+	}
 
-    public void setPaymentMethod(String paymentMethod) {
-        this.paymentMethod = paymentMethod;
-    }
+	public String getCardHolder() {
+		return cardHolder;
+	}
 
-    public String getTransactionID() {
-        return transactionID;
-    }
+	public void setCardHolder(String cardHolder) {
+		this.cardHolder = cardHolder;
+	}
 
-    public void setTransactionID(String transactionID) {
-        this.transactionID = transactionID;
-    }
 	
-	
+	public List<MenuItemsDTO> getMenuItems() {
+		return menuItems;
+	}
+
+	public void setMenuItems(List<MenuItemsDTO> menuItems) {
+		this.menuItems = menuItems;
+	}
+
+	  public String getStatus() {
+			return status;
+		}
+
+		public void setStatus(String status) {
+			this.status = status;
+		}
+
+  
 }
+
