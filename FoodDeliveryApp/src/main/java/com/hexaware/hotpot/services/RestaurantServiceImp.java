@@ -146,7 +146,7 @@ public class RestaurantServiceImp implements IRestaurantService {
 	@Override
 	public List<MenuItems> getMenuByCategory(String category) throws MenuItemNotFoundException {
 
-		List<MenuItems> menuItem = menuItemRepo.findByCategory(category);
+		List<MenuItems> menuItem = menuItemRepo.findByCategoryAndRestaurantRestaurantId(category, 0);
 		if (menuItem.isEmpty()) {
 			throw new MenuItemNotFoundException("Error retrieving menu items for category: " + category);
 		}

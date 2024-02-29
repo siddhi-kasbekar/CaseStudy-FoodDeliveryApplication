@@ -11,13 +11,16 @@ import com.hexaware.hotpot.entities.Restaurants;
 @Repository
 public interface MenuItemsRepository extends JpaRepository<MenuItems, Long> {
 
-	List<MenuItems> findByCategory(String category);
+	
 
     List<MenuItems> findByItemNameContainingIgnoreCaseAndRestaurantRestaurantId(String keyword, int restaurantId);
 	
     List<MenuItems> findByRestaurantRestaurantId(int restaurantId);
 
 	List<MenuItems> findByRestaurantRestaurantIdAndSpecialDietaryInfo(int restaurantId, String string);
+
+	List<MenuItems> findByCategoryAndRestaurantRestaurantId(String category, int restaurantId);
+
 	
 
 	//List<MenuItems> findByRestaurantId(Restaurants restaurant);

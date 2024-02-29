@@ -7,7 +7,7 @@ import com.hexaware.hotpot.exception.MenuItemNotFoundException;
 
 public interface IMenuService {
 
-	public List<MenuItems> getMenuByCategory(String category) throws MenuItemNotFoundException;
+	public List<MenuItems> getMenuByCategory(String category,int restaurantId) throws MenuItemNotFoundException;
 
 	public List<MenuItems> searchMenuItemsByKeyword(String keyword,int restaurantId) throws MenuItemNotFoundException;
 	
