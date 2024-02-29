@@ -1,5 +1,8 @@
 package com.hexaware.hotpot.controller;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -13,10 +16,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hexaware.hotpot.dto.MenuItemsDTO;
+import com.hexaware.hotpot.dto.OrderHistoryDTO;
 import com.hexaware.hotpot.entities.Orders;
 import com.hexaware.hotpot.exception.CustomerNotFoundException;
 import com.hexaware.hotpot.exception.OrderNotFoundException;
@@ -59,8 +62,33 @@ public class OrdersController {
 	
 	@GetMapping("/viewHistory/{customerId}")
     @PreAuthorize("hasAuthority('customer')")
-	public List<Orders> viewOrderHistory(@PathVariable int customerId){
-		return service.viewOrderHistory(customerId);
+	public List<OrderHistoryDTO> viewOrderHistory(@PathVariable int customerId){
+		List<Object[]> orderHistoryDetails = service.viewOrderHistory(customerId);
+	    List<OrderHistoryDTO> orderHistoryDTOList = new ArrayList<>();
+
+	    for (Object[] row : orderHistoryDetails) {
+	        long orderDetailId = ((Number) row[0]).longValue();
+	        int quantity = ((Number) row[1]).intValue();
+	        long menuId = ((Number) row[2]).longValue();
+	        long orderId = ((Number) row[3]).longValue();
+	        String status = (String) row[6];
+	        
+	        Timestamp timestamp = (Timestamp) row[5];
+	        LocalDateTime orderDate = timestamp.toLocalDateTime();
+
+
+
+	        double totalCost = ((Number) row[7]).doubleValue();
+	        int custId = ((Number) row[8]).intValue();
+	        Long restaurantId = row[9] != null ? ((Number) row[8]).longValue() : null;
+	        String menuName = (String) row[10];
+
+	        OrderHistoryDTO orderHistoryDTO = new OrderHistoryDTO(orderDetailId, quantity, menuId, orderId, orderDate,
+	                status, totalCost, custId, restaurantId, menuName);
+	        orderHistoryDTOList.add(orderHistoryDTO);
+	    }
+
+	    return orderHistoryDTOList;
 	}
 	
 	private List<MenuItemsDTO> parseMenuItems(Map<String, Object> requestBody) {

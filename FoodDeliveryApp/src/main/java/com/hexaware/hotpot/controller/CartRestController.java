@@ -129,11 +129,12 @@ private List<CartDetailsDTO> processCartDetails(List<Object[]> cartDetails) {
 
 	for (Object[] row : cartDetails) {
 	    long menuItemId = ((Number) row[2]).longValue(); // Assuming menuItemId is at index 2
-	    double price = ((Number) row[3]).doubleValue(); // Assuming price is at index 3
-	    int quantity = ((Number) row[4]).intValue();    // Assuming quantity is at index 4
-	    double individualTotal = ((Number) row[5]).doubleValue(); // Assuming individualTotal is at index 5
+        String itemName = (String) row[3]; // Assuming item_name is at index 3
+	    double price = ((Number) row[4]).doubleValue(); // Assuming price is at index 3
+	    int quantity = ((Number) row[5]).intValue();    // Assuming quantity is at index 4
+	    double individualTotal = ((Number) row[6]).doubleValue(); // Assuming individualTotal is at index 5
 
-	    CartDetailsDTO cartItemDetailsDTO = new CartDetailsDTO(menuItemId, quantity, price, total, individualTotal);
+	    CartDetailsDTO cartItemDetailsDTO = new CartDetailsDTO(menuItemId, itemName,quantity, price, total, individualTotal);
 	    cartItemDetailsList.add(cartItemDetailsDTO);
 	}
 

@@ -21,6 +21,7 @@ public interface MenuItemsRepository extends JpaRepository<MenuItems, Long> {
 
 	List<MenuItems> findByCategoryAndRestaurantRestaurantId(String category, int restaurantId);
 
+	List<MenuItems> findByRestaurantRestaurantIdAndPriceBetween( int restaurantId, double minPrice, double maxPrice);
 	
 
 	//List<MenuItems> findByRestaurantId(Restaurants restaurant);

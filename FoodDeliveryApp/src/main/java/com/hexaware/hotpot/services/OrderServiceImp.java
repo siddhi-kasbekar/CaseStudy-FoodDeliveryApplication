@@ -140,11 +140,14 @@ public class OrderServiceImp implements IOrderService {
 	}
 
 	@Override
-	public List<Orders> viewOrderHistory(long customerId) {
+	public List<Object[]>  viewOrderHistory(long customerId) {
 
 		
-		return ordersRepo.findByCustomerCustomerId(customerId);
+		return ordersRepo.findOrderDetailsAndOrdersByCustomerId(customerId);
 
 	}
+
+
+	
 
 }

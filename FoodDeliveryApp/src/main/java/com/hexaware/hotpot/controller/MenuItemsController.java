@@ -27,6 +27,15 @@ public class MenuItemsController {
 	public List<MenuItems> getMenuByCategory(@PathVariable String category,@PathVariable int restaurantId) throws MenuItemNotFoundException{
 		return service.getMenuByCategory(category, restaurantId);
 	}
+	
+	@GetMapping("/getByPriceRange/{restaurantId}/{minPrice}/{maxPrice}")
+	@PreAuthorize("hasAuthority('customer')")
+	public List<MenuItems> getMenuByPriceRange(
+	        @PathVariable int restaurantId,
+	        @PathVariable double minPrice,
+	        @PathVariable double maxPrice) throws MenuItemNotFoundException {
+	    return service.getMenuByPriceRange(restaurantId, minPrice, maxPrice);
+	}
 
 	@GetMapping("/getByKeyword/{restaurantId}/{keyword}")
     @PreAuthorize("hasAuthority('customer')")
