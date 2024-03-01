@@ -165,6 +165,12 @@ public class AdminRestController {
 		return adminservice.getAllMenusForManager(adminId);
 	}
 	
+	@GetMapping("/getAllCategoriesForManager/{adminId}")
+	@PreAuthorize("hasAuthority('manager')")
+	public List<MenuItems> getAllCategoriesFormanager(@PathVariable  int adminId) {
+		return adminservice.getAllCategoriesForManager(adminId);
+	}
+	
 	
 	
 	@GetMapping("/getAllRestaurants")

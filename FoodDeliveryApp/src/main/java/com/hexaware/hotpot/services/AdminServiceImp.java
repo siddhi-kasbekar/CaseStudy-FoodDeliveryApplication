@@ -197,6 +197,11 @@ public class AdminServiceImp implements IAdminService {
 		return adminRepo.findMenuItemsByAdminId(adminId);
 	}
 	
+	@Override
+	public List<MenuItems> getAllCategoriesForManager(int adminId) {
+		return adminRepo.findCategoryByAdminId(adminId);
+	}
+	
 	
 	
 //	@Override

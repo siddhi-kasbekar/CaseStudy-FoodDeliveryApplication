@@ -19,6 +19,9 @@ public interface AdministratorRepository extends JpaRepository<Administrator, In
     @Query("SELECT m FROM MenuItems m WHERE m.restaurant = (SELECT a.restaurant FROM Administrator a WHERE a.adminId = :adminId)")
     List<MenuItems> findMenuItemsByAdminId(int adminId);
 
+    @Query("SELECT c FROM MenuCategory c WHERE c.restaurant = (SELECT a.restaurant FROM Administrator a WHERE a.adminId = :adminId)")
+    List<MenuItems> findCategoryByAdminId(int adminId);
+
 
 
 }
