@@ -3,6 +3,8 @@ package com.hexaware.hotpot.entities;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,6 +12,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -49,11 +52,21 @@ public class Restaurants {
 	private Set<MenuItems> menuItemSet = new HashSet<>(); // collections should be initialized to avoid
 																	// nullPoitner Escep
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
 	private Set<Orders> orderSet = new HashSet<>();
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
 	private Set<Discount> discountSet = new HashSet<>();
+	
+	@JsonIgnore
+	@OneToOne(mappedBy = "restaurant", cascade = CascadeType.ALL)
+    private Administrator admin;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
+    private Set<MenuCategory> menuCategories = new HashSet<>();
 
 	public Restaurants() {
 		super();
@@ -130,6 +143,22 @@ public class Restaurants {
 
 	public void setDiscountSet(Set<Discount> discountSet) {
 		this.discountSet = discountSet;
+	}
+
+	public Administrator getAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(Administrator admin) {
+		this.admin = admin;
+	}
+
+	public Set<MenuCategory> getMenuCategories() {
+		return menuCategories;
+	}
+
+	public void setMenuCategories(Set<MenuCategory> menuCategories) {
+		this.menuCategories = menuCategories;
 	}
 
 	@Override

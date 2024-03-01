@@ -13,18 +13,21 @@ public class AdminDTO {
     private String name;
 
     private String email;
+    
+    private int restaurantId;
 
 	public AdminDTO() {
 		super();
 	}
 
-	public AdminDTO(int adminId, String userName, String password, String name, String email) {
+	public AdminDTO(int adminId, String userName, String password, String name, String email,int restaurantId) {
 		super();
 		this.adminId = adminId;
 		this.userName = userName;
 		this.password = password;
 		this.name = name;
 		this.email = email;
+		this.restaurantId=restaurantId;
 	}
 
 	public int getAdminId() {
@@ -65,6 +68,14 @@ public class AdminDTO {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public int getRestaurantId() {
+		return restaurantId;
+	}
+
+	public void setRestaurantId(int restaurantId) {
+		this.restaurantId = restaurantId;
 	}
     
     

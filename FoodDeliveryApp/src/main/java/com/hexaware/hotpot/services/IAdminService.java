@@ -36,7 +36,7 @@ public interface IAdminService {
 
 	public List<Restaurants> getAllRestaurants();
 
-	public List<Object[]> getAllOrders();
+	public List<Object[]> getAllOrders(int adminId);
 
 	public List<Customers> getAllCustomers();
 
@@ -47,4 +47,6 @@ public interface IAdminService {
 	public List<Discount> getAllDiscounts();
 	
 	public List<Administrator> getAllManagers();
+	
+	public List<MenuItems> getAllMenusForManager(int adminId);
 }

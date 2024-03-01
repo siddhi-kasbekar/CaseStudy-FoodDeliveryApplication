@@ -176,4 +176,12 @@ public class RestaurantServiceImp implements IRestaurantService {
 		return restaurants;
 	}
 
+
+
+	@Override
+	public List<Restaurants> getRestaurantsByAdminId(int adminId) {
+		
+		return restaurantRepo.findRestaurantsByAdminId(adminId);
+	}
+
 }

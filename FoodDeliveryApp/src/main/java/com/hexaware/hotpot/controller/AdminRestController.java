@@ -29,11 +29,11 @@ import com.hexaware.hotpot.entities.Administrator;
 import com.hexaware.hotpot.entities.Customers;
 import com.hexaware.hotpot.entities.Discount;
 import com.hexaware.hotpot.entities.MenuItems;
-import com.hexaware.hotpot.entities.Orders;
 import com.hexaware.hotpot.entities.Restaurants;
 import com.hexaware.hotpot.exception.RestaurantNotFoundException;
 import com.hexaware.hotpot.repository.AdministratorRepository;
 import com.hexaware.hotpot.services.IAdminService;
+import com.hexaware.hotpot.services.IRestaurantService;
 import com.hexaware.hotpot.services.JwtService;
 
 import jakarta.validation.Valid;
@@ -56,6 +56,9 @@ public class AdminRestController {
 
 	@Autowired
 	AdministratorRepository adminRepo;
+	
+	@Autowired
+	IRestaurantService restaurantService;
 
 	@PostMapping("/login/authenticate")
 
@@ -137,7 +140,6 @@ public class AdminRestController {
 
 	@DeleteMapping("/removeRestaurant/{restaurantId}")
 	@PreAuthorize("hasAuthority('admin')")
-
 	public String removeRestaurant(@PathVariable Integer restaurantId) {
 		adminservice.removeRestaurant(restaurantId);
 		return "Restaurant removed successfully";
@@ -145,7 +147,6 @@ public class AdminRestController {
 
 	@DeleteMapping("/removeCustomer/{customerId}")
 	@PreAuthorize("hasAuthority('admin')")
-
 	public String removeCustomer(@PathVariable long customerId) {
 		adminservice.removeCustomer(customerId);
 		return "Customer removed successfully";
@@ -153,21 +154,35 @@ public class AdminRestController {
 
 	@GetMapping("/getAllMenus")
 	@PreAuthorize("hasAuthority('admin') or hasAuthority('manager')")
-
 	public List<MenuItems> getAllMenus() {
 		return adminservice.getAllMenus();
 	}
 
+	
+	@GetMapping("/getAllMenusForManager/{adminId}")
+	@PreAuthorize("hasAuthority('manager')")
+	public List<MenuItems> getAllMenusFormanager(@PathVariable  int adminId) {
+		return adminservice.getAllMenusForManager(adminId);
+	}
+	
+	
+	
 	@GetMapping("/getAllRestaurants")
 	@PreAuthorize("hasAuthority('admin') or hasAuthority('manager') or hasAuthority('customer') ")
 	public List<Restaurants> getAllRestaurants() {
 		return adminservice.getAllRestaurants();
 	}
+	
+	@GetMapping("/getAllRestaurants/{adminId}")
+	@PreAuthorize("hasAuthority('manager') ")
+	public List<Restaurants> getAllRestaurantsByManager( @PathVariable int adminId ) {
+		return restaurantService.getRestaurantsByAdminId(adminId);
+	}
 
-	@GetMapping("/getAllOrders")
+	@GetMapping("/getAllOrders/{adminId}")
 	@PreAuthorize("hasAuthority('manager')")
-	public List<Object[]> getAllOrders() {
-		return adminservice.getAllOrders();
+	public List<Object[]> getAllOrders( @PathVariable  int adminId) {
+		return adminservice.getAllOrders(adminId);
 	}
 
 	@GetMapping("/getAllCustomers")

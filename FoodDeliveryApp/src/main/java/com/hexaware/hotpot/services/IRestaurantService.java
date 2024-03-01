@@ -24,4 +24,6 @@ public interface IRestaurantService {
 
 	public List<Restaurants> searchRestaurants(String keyword)throws RestaurantNotFoundException;
 	public List<Restaurants> searchByLocation(String location) throws LocationNotFoundException;
+	
+	List<Restaurants> getRestaurantsByAdminId( int adminId);
 }
