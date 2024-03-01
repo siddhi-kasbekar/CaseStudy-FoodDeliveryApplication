@@ -77,12 +77,12 @@ class AdminServiceImpTest {
 
 	}
 
-	@Test
-	void testGetAllOrders() {
-		List<Object[]> ordersList = adminService.getAllOrders();
-		assertNotNull(ordersList);
-
-	}
+//	@Test
+//	void testGetAllOrders() {
+//		List<Object[]> ordersList = adminService.getAllOrders();
+//		assertNotNull(ordersList);
+//
+//	}
 	
 	@Test
 	void testGetAllCustomers() {

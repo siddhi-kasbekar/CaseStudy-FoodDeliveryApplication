@@ -1,10 +1,15 @@
 package com.hexaware.hotpot.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -45,6 +50,12 @@ public class Administrator {
     private String email;
     
     private   String role ;
+    
+    
+    @JsonIgnore
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "restaurantId")
+	private Restaurants restaurant;
     
     
 
@@ -111,6 +122,15 @@ public class Administrator {
 
 	public void setRole(String role) {
 		this.role = role;
+	}
+
+	
+	public Restaurants getRestaurant() {
+		return restaurant;
+	}
+
+	public void setRestaurant(Restaurants restaurant) {
+		this.restaurant = restaurant;
 	}
 
 	@Override

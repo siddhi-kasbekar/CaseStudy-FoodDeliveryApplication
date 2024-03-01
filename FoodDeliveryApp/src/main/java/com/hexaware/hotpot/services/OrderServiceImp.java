@@ -70,14 +70,12 @@ public class OrderServiceImp implements IOrderService {
 
 	    // Retrieve customer and restaurant entities from their IDs
 	    Customers customer = customerRepo.findById(customerId).orElseThrow(() -> new CustomerNotFoundException("Customer not found"));
-//	    Restaurants restaurant = restaurantRepo.findById(restaurantId).orElseThrow(() -> new RestaurantNotFoundException("Restaurant not found"));
 
 	    Orders order = new Orders();
 	    order.setOrderDate(LocalDateTime.now()); // Assuming you set the order date to current date and time
 	    order.setTotalCost(totalCost); //will be fetched from cart
 	    order.setStatus("Placed"); // Assuming initial status is "Placed"
 	    order.setCustomer(customer);
-//	    order.setRestaurant(restaurant);
 	    
 
 	    ordersRepo.save(order);
@@ -87,6 +85,12 @@ public class OrderServiceImp implements IOrderService {
 	        MenuItems menuItem = menuItemRepo.findById(menuItemDTO.getMenuItemId())
 	                                         .orElseThrow(() -> new RuntimeException("Menu item not found"));
 
+	     // Set the restaurant in the order from the menu item
+	        order.setRestaurant(menuItem.getRestaurant());
+	        
+	     // Save the updated order to persist the changes
+	        ordersRepo.save(order);
+	        
 	        OrderDetails orderDetails = new OrderDetails();
 	        orderDetails.setOrder(order);
 	        orderDetails.setMenuItem(menuItem);

@@ -62,6 +62,9 @@ public class AdminServiceImp implements IAdminService {
     @Autowired
     private PasswordEncoder passwordEncoder;
     
+    @Autowired
+    private RestaurantsRepository restaurantRepo;
+    
     private static final Logger logger = LoggerFactory.getLogger(AdminServiceImp.class);
 
 	
@@ -101,9 +104,9 @@ public class AdminServiceImp implements IAdminService {
 	}
 
 	@Override
-	public List<Object[]> getAllOrders() {
+	public List<Object[]> getAllOrders(int adminId) {
 		
-		return orderRepository.findAllOrdersWithCustomerInfo();
+		return orderRepository.findAllOrdersWithCustomerInfo(adminId);
 	}
 	
 	@Override
@@ -137,7 +140,13 @@ public class AdminServiceImp implements IAdminService {
 		admin.setName(adminDTO.getName());
 		admin.setEmail(adminDTO.getEmail());
 		admin.setRole("manager");
+
+		Restaurants restaurant = restaurantRepo.findById(adminDTO.getRestaurantId())
+		        .orElseThrow(() -> new RuntimeException("Restaurant not found with ID: " + adminDTO.getRestaurantId()));
+
 		
+	    admin.setRestaurant(restaurant);
+
 		adminRepo.save(admin);
 
 		return admin.getAdminId();
@@ -181,6 +190,11 @@ public class AdminServiceImp implements IAdminService {
 
 	    // Save the updated restaurant
 	    return restaurantRepository.save(restaurant);
+	}
+
+	@Override
+	public List<MenuItems> getAllMenusForManager(int adminId) {
+		return adminRepo.findMenuItemsByAdminId(adminId);
 	}
 	
 	
