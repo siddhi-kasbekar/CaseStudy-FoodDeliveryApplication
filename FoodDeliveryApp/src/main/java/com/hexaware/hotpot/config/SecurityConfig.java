@@ -45,10 +45,10 @@ public class SecurityConfig {
     	
 		return http.cors().and().csrf().disable()
 
-    			.authorizeHttpRequests().requestMatchers("api/v1/customers/register","api/v1/customers/register","/api/v1/admin/login/authenticate",  "/api/v1/customers/login/authenticate").permitAll()
+    			.authorizeHttpRequests().requestMatchers("api/v1/customers/register",  "api/v1/customers/register","/api/v1/admin/login/authenticate",  "/api/v1/customers/login/authenticate").permitAll()
 
     			.and()
-    			.authorizeHttpRequests().requestMatchers("api/v1/customers/**","api/v1/menuItem/**","api/v1/cart/**","/api/v1/order/**","/api/v1/payment/**","/api/v1/restaurant/**","api/v1/admin/**")
+    			.authorizeHttpRequests().requestMatchers("api/v1/customers/**","api/v1/menuItem/**","api/v1/cart/**","/api/v1/order/**","/api/v1/payment/**","/api/v1/restaurant/**","api/v1/admin/**","api/v1/menuCategory/**")
     			.authenticated().and()   //.formLogin().and().build();
     			.sessionManagement()
     			.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
