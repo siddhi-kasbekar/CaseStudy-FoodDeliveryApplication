@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.hexaware.hotpot.entities.Administrator;
+import com.hexaware.hotpot.entities.MenuCategory;
 import com.hexaware.hotpot.entities.MenuItems;
 
 @Repository
@@ -20,7 +21,7 @@ public interface AdministratorRepository extends JpaRepository<Administrator, In
     List<MenuItems> findMenuItemsByAdminId(int adminId);
 
     @Query("SELECT c FROM MenuCategory c WHERE c.restaurant = (SELECT a.restaurant FROM Administrator a WHERE a.adminId = :adminId)")
-    List<MenuItems> findCategoryByAdminId(int adminId);
+    List<MenuCategory> findCategoryByAdminId(int adminId);
 
 
 
