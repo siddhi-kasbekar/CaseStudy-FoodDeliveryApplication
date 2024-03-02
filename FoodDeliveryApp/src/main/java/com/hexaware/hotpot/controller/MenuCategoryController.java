@@ -1,7 +1,5 @@
 package com.hexaware.hotpot.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -13,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hexaware.hotpot.dto.MenuCategoryDTO;
 import com.hexaware.hotpot.entities.MenuCategory;
 import com.hexaware.hotpot.services.IMenuCategoryService;
 
@@ -24,10 +23,10 @@ public class MenuCategoryController {
 	@Autowired
 	IMenuCategoryService service;
 	
-	@PostMapping("/create-category")
+	@PostMapping("/create-category/{restaurantId}")
 	@PreAuthorize("hasAuthority('manager')")
-	MenuCategory createCategory(@RequestBody MenuCategory category) {
-	      return service.createCategory(category);
+	MenuCategory createCategory(@RequestBody MenuCategoryDTO categoryDTO,@PathVariable int restaurantId) {
+	      return service.createCategory(categoryDTO,restaurantId);
 	}
 
 	@GetMapping("/get-category/{categoryId}")

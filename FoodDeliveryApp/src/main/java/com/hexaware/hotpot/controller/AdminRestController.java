@@ -28,6 +28,7 @@ import com.hexaware.hotpot.dto.RestaurantsDTO;
 import com.hexaware.hotpot.entities.Administrator;
 import com.hexaware.hotpot.entities.Customers;
 import com.hexaware.hotpot.entities.Discount;
+import com.hexaware.hotpot.entities.MenuCategory;
 import com.hexaware.hotpot.entities.MenuItems;
 import com.hexaware.hotpot.entities.Restaurants;
 import com.hexaware.hotpot.exception.RestaurantNotFoundException;
@@ -167,7 +168,7 @@ public class AdminRestController {
 	
 	@GetMapping("/getAllCategoriesForManager/{adminId}")
 	@PreAuthorize("hasAuthority('manager')")
-	public List<MenuItems> getAllCategoriesFormanager(@PathVariable  int adminId) {
+	public List<MenuCategory> getAllCategoriesFormanager(@PathVariable  int adminId) {
 		return adminservice.getAllCategoriesForManager(adminId);
 	}
 	

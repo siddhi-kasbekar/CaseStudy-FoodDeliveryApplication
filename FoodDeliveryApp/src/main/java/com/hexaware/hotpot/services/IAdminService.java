@@ -8,8 +8,8 @@ import com.hexaware.hotpot.dto.RestaurantsDTO;
 import com.hexaware.hotpot.entities.Administrator;
 import com.hexaware.hotpot.entities.Customers;
 import com.hexaware.hotpot.entities.Discount;
+import com.hexaware.hotpot.entities.MenuCategory;
 import com.hexaware.hotpot.entities.MenuItems;
-import com.hexaware.hotpot.entities.Orders;
 import com.hexaware.hotpot.entities.Restaurants;
 import com.hexaware.hotpot.exception.RestaurantNotFoundException;
 
@@ -50,5 +50,5 @@ public interface IAdminService {
 	
 	public List<MenuItems> getAllMenusForManager(int adminId);
 	
-	public List<MenuItems> getAllCategoriesForManager(int adminId);
+	public List<MenuCategory> getAllCategoriesForManager(int adminId);
 }

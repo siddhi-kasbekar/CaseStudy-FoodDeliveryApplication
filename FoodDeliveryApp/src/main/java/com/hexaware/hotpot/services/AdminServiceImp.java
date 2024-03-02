@@ -15,8 +15,8 @@ import com.hexaware.hotpot.dto.RestaurantsDTO;
 import com.hexaware.hotpot.entities.Administrator;
 import com.hexaware.hotpot.entities.Customers;
 import com.hexaware.hotpot.entities.Discount;
+import com.hexaware.hotpot.entities.MenuCategory;
 import com.hexaware.hotpot.entities.MenuItems;
-import com.hexaware.hotpot.entities.Orders;
 import com.hexaware.hotpot.entities.Restaurants;
 import com.hexaware.hotpot.exception.RestaurantNotFoundException;
 import com.hexaware.hotpot.repository.AdministratorRepository;
@@ -198,7 +198,7 @@ public class AdminServiceImp implements IAdminService {
 	}
 	
 	@Override
-	public List<MenuItems> getAllCategoriesForManager(int adminId) {
+	public List<MenuCategory> getAllCategoriesForManager(int adminId) {
 		return adminRepo.findCategoryByAdminId(adminId);
 	}
 	
