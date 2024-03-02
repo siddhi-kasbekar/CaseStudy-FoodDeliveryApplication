@@ -1,5 +1,6 @@
 package com.hexaware.hotpot.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,9 +47,9 @@ public class MenuCategoryServiceImpl implements IMenuCategoryService {
 
 
 	@Override
-	public MenuCategory getCategoryById(int categoryId) {
+	public List<MenuCategory> getCategoryByRestaurantId(int restaurantId) {
 		
-		return repo.getById(categoryId);
+		return repo.findByRestaurantRestaurantId(restaurantId);
 	}
 
 	@Override

@@ -1,5 +1,7 @@
 package com.hexaware.hotpot.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -29,10 +31,10 @@ public class MenuCategoryController {
 	      return service.createCategory(categoryDTO,restaurantId);
 	}
 
-	@GetMapping("/get-category/{categoryId}")
-	@PreAuthorize("hasAuthority('manager')")
-	MenuCategory getCategoryById(@PathVariable int categoryId) {
-		return service.getCategoryById(categoryId);
+	@GetMapping("/get-category/{restaurantId}")
+	@PreAuthorize("hasAuthority('customer')")
+	List<MenuCategory> getCategoryByRestaurantId(@PathVariable int restaurantId) {
+		return service.getCategoryByRestaurantId(restaurantId);
 	}
 
 	@PostMapping("/update-category")

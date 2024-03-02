@@ -60,19 +60,27 @@ public class MenuServiceImp implements IMenuService {
 		return repo.findByRestaurantRestaurantId(restaurantId);
 	}
 	
-	public List<MenuItems> getMenuItemsByRestaurantId(int restaurantId, boolean showOnlyVegetarian) {
+	public List<MenuItems> getMenuItemsByRestaurantId(int restaurantId) {
 	    List<MenuItems> menuItems;
-	    if (showOnlyVegetarian) {
-	        menuItems = repo.findByRestaurantRestaurantIdAndSpecialDietaryInfo(restaurantId, "veg");
-	    } else {
+	   
 	        menuItems = repo.findByRestaurantRestaurantId(restaurantId);
-	    }
+	   
 	    return menuItems;
 	}
 
 	@Override
 	public List<MenuItems> getMenuByPriceRange(int restaurantId, double minPrice, double maxPrice) {
 		return repo.findByRestaurantRestaurantIdAndPriceBetween(restaurantId, minPrice, maxPrice);
+	}
+
+	@Override
+	public List<MenuItems> getMenuBySpecialDietaryInfo(int restaurantId, String dietaryInfo) throws MenuItemNotFoundException {
+		List<MenuItems> menuItem = repo.findByRestaurantRestaurantIdAndSpecialDietaryInfo(restaurantId, dietaryInfo);
+		if (menuItem.isEmpty()) {
+			throw new MenuItemNotFoundException(" menu items for not found");
+		}
+
+		return menuItem;
 	}
 
 }

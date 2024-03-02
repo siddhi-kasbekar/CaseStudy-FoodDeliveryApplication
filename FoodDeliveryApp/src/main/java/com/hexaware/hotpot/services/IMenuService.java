@@ -14,7 +14,9 @@ public interface IMenuService {
 	public List<MenuItems> getByRestaurant(int restaurantId);
 	public void deleteMenu(long menuId);
 	
-	public List<MenuItems> getMenuItemsByRestaurantId(int restaurantId, boolean showOnlyVegetarian);
+	public List<MenuItems> getMenuItemsByRestaurantId(int restaurantId);
 	
 	public List<MenuItems> getMenuByPriceRange(int restaurantId, double minPrice, double maxPrice);
+	
+	public List<MenuItems> getMenuBySpecialDietaryInfo(int restaurantId, String dietaryInfo) throws MenuItemNotFoundException;
 }

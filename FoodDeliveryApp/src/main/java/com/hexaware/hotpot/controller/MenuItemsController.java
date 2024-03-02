@@ -53,9 +53,14 @@ public class MenuItemsController {
 	@GetMapping("/getByRestaurant/{restaurantId}")
     @PreAuthorize("hasAuthority('customer')")
 	public List<MenuItems> getMenuItemsByRestaurantId(
-		    @PathVariable int restaurantId,
-		    @RequestParam(required = false, defaultValue = "false") boolean showOnlyVegetarian) {
+		    @PathVariable int restaurantId) {
 
-		    return service.getMenuItemsByRestaurantId(restaurantId, showOnlyVegetarian);
+		    return service.getMenuItemsByRestaurantId(restaurantId);
 		}
+	
+	@GetMapping("/getBySpecialDietaryInfo/{restaurantId}/{dietaryInfo}")
+    @PreAuthorize("hasAuthority('customer')")
+	public List<MenuItems> getMenuBySpecialDietaryInfo(@PathVariable int restaurantId,@PathVariable String dietaryInfo) throws MenuItemNotFoundException{
+		return service.getMenuBySpecialDietaryInfo(restaurantId, dietaryInfo);
+	}
 }

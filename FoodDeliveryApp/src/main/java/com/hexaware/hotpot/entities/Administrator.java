@@ -33,7 +33,7 @@ public class Administrator {
     private int adminId;
 
     @NotBlank(message = "Username is required")
-    @Pattern(regexp = "^[a-zA-Z0-9_-]+$", message = "Username must contain only letters, numbers, underscores, and hyphens")
+    @Email(message = "Invalid username format")
     @Column(name = "UserName", nullable = false, unique = true)
     private String username;
 

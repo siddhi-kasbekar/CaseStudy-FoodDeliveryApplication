@@ -8,5 +8,5 @@ import com.hexaware.hotpot.entities.MenuCategory;
 
 public interface MenuCategoryRepository extends JpaRepository<MenuCategory, Integer> {
 
-
+	List<MenuCategory> findByRestaurantRestaurantId(int restaurantId);
 }
