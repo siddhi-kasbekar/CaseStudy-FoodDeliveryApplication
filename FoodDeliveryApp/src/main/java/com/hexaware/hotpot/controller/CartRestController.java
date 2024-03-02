@@ -1,6 +1,7 @@
 package com.hexaware.hotpot.controller;
 
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -17,10 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hexaware.hotpot.dto.CartDetailsDTO;
-import com.hexaware.hotpot.dto.DiscountDTO;
 import com.hexaware.hotpot.dto.MenuItemsDTO;
 import com.hexaware.hotpot.entities.Cart;
 import com.hexaware.hotpot.exception.CustomerNotFoundException;
+import com.hexaware.hotpot.exception.DiscountNotFoundException;
 import com.hexaware.hotpot.services.ICartService;
 
 @CrossOrigin("http://localhost:4200")
@@ -69,7 +70,7 @@ private List<MenuItemsDTO> parseMenuItems(Map<String, Object> requestBody) {
 
 @PostMapping("/addToCart/{customerId}")
 @PreAuthorize("hasAuthority('customer')")
-public String addToCart(@PathVariable Long customerId,  @RequestBody CartDetailsDTO cartDetailsDTO){
+public String addToCart(@PathVariable Long customerId,  @RequestBody CartDetailsDTO cartDetailsDTO) throws CustomerNotFoundException{
     System.out.println("Received JSON: " + cartDetailsDTO.toString());
 
 	cartService.addToCart(customerId,  cartDetailsDTO);
@@ -99,11 +100,12 @@ public String removeFromCart(@PathVariable Long customerId, @PathVariable Long m
     return "removed from cart";
 }
 
-@PostMapping("/applyDiscount/{customerId}")
+@GetMapping("/applyDiscount/{customerId}")
 @PreAuthorize("hasAuthority('customer')")
-public String applyDiscount(@PathVariable long customerId, @RequestBody DiscountDTO discountDTO) {
+public String applyDiscount(@PathVariable long customerId) throws DiscountNotFoundException {
     // Call the method to calculate and update the total with the discount
-	cartService.calculateDiscountedTotal(customerId, discountDTO);
+	LocalDate currentDate = LocalDate.now();
+    cartService.calculateDiscountedTotal(customerId, currentDate);
     
     return "Discount applied successfully";
 }

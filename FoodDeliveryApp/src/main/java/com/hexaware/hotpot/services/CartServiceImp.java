@@ -1,5 +1,6 @@
 package com.hexaware.hotpot.services;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,15 +8,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hexaware.hotpot.dto.CartDetailsDTO;
-import com.hexaware.hotpot.dto.DiscountDTO;
 import com.hexaware.hotpot.dto.MenuItemsDTO;
 import com.hexaware.hotpot.entities.Cart;
 import com.hexaware.hotpot.entities.CartDetails;
+import com.hexaware.hotpot.entities.Discount;
 import com.hexaware.hotpot.entities.MenuItems;
 import com.hexaware.hotpot.exception.CustomerNotFoundException;
+import com.hexaware.hotpot.exception.DiscountNotFoundException;
 import com.hexaware.hotpot.repository.CartDetailsRepository;
 import com.hexaware.hotpot.repository.CartRepository;
 import com.hexaware.hotpot.repository.CustomersRepository;
+import com.hexaware.hotpot.repository.DiscountRepository;
 import com.hexaware.hotpot.repository.MenuItemsRepository;
 
 import jakarta.transaction.Transactional;
@@ -30,6 +33,8 @@ import jakarta.transaction.Transactional;
 @Service
 @Transactional
 public class CartServiceImp implements ICartService {
+	
+	private boolean clearingAndAdding = false;
 
 	@Autowired
 	private CartRepository cartRepository;
@@ -42,6 +47,9 @@ public class CartServiceImp implements ICartService {
 
 	@Autowired
 	private MenuItemsRepository menuItemsRepo;
+	
+	@Autowired
+	DiscountRepository discountRepo;
 
 	@Override
 	public Cart getCartItems(Long customerId) {
@@ -103,47 +111,60 @@ public class CartServiceImp implements ICartService {
 	    if (cart != null) {
 	        // Set total to 0
 	        cart.setTotal(0.0);
-	        // Save the updated cart
-	        cartRepository.save(cart);
 	        
 	     // Delete the cart details associated with the customer's cart
 	        List<CartDetails> cartDetailsList = cartDetailsRepo.findByCart_CartId(cart.getCartId());
 	        cartDetailsRepo.deleteAll(cartDetailsList);
+	        
+	     
+
+	        // Save the updated cart
+	        cartRepository.save(cart);
+	        
+	     
 	    } else {
 	        throw new CustomerNotFoundException("Customer not found with ID: " + customerId);
 	    }
 	}
 
 	@Override
-	public void addToCart(Long customerId, CartDetailsDTO cartDetailsDTO) {
+	public void addToCart(Long customerId, CartDetailsDTO cartDetailsDTO) throws CustomerNotFoundException {
 	    // Find the cart for the given customer
 	    Cart cart = cartRepository.findByCustomerId(customerId);
 
 	    if (cart != null) {
-	        // If the cart exists, update the total
-	        cart.setTotal(0);
+	        // Check if the cart is empty or if the restaurant ID matches the existing items
+	        if (cart.getCartItems().isEmpty() || isSameRestaurant(cart, cartDetailsDTO)) {
+	            // If the cart exists and either it's empty or the restaurant ID matches, proceed
 
-	        // Check if the item already exists in the cart
-	        Optional<CartDetails> existingCartItem = cartDetailsRepo.findByCart_CartIdAndMenuItem_MenuItemId(cart.getCartId(), cartDetailsDTO.getMenuItemId());
+	            // Set the total to 0
+	            cart.setTotal(0);
 
-	        if (existingCartItem.isPresent()) {
-	            // If the item already exists, increment the quantity by 1
-	            CartDetails cartDetails = existingCartItem.get();
-	            cartDetails.setQuantity(cartDetails.getQuantity() + 1);
-	            // Update the existing CartDetails
-	            cartDetailsRepo.save(cartDetails);
+	            // Check if the item already exists in the cart
+	            Optional<CartDetails> existingCartItem = cartDetailsRepo.findByCart_CartIdAndMenuItem_MenuItemId(cart.getCartId(), cartDetailsDTO.getMenuItemId());
+
+	            if (existingCartItem.isPresent()) {
+	                // If the item already exists, increment the quantity by 1
+	                CartDetails cartDetails = existingCartItem.get();
+	                cartDetails.setQuantity(cartDetails.getQuantity() + 1);
+	                // Update the existing CartDetails
+	                cartDetailsRepo.save(cartDetails);
+	            } else {
+	                // If the item does not exist, create a new CartDetails
+	                CartDetails cartDetails = createNewCartDetailsWithDTO(cart, cartDetailsDTO);
+	                // Save the new CartDetails
+	                cartDetailsRepo.save(cartDetails);
+	            }
+
+	            // Calculate and set the original total
+	            cart.setTotal(calculateOriginTotal(cart));
+
+	            // Save changes
+	            cartRepository.save(cart);
 	        } else {
-	            // If the item does not exist, create a new CartDetails
-	            CartDetails cartDetails = createNewCartDetailsWithDTO(cart, cartDetailsDTO);
-	            // Save the new CartDetails
-	            cartDetailsRepo.save(cartDetails);
+	        	// If the restaurant ID is different, clear the cart and add the new item
+	            clearCartAndAddItem(customerId, cartDetailsDTO);
 	        }
-
-	        // Calculate and set the original total
-	        cart.setTotal(calculateOriginTotal(cart));
-
-	        // Save changes
-	        cartRepository.save(cart);
 	    } else {
 	        // If the cart is not found, you might want to handle this scenario
 	        throw new IllegalArgumentException("Cart for customer with ID " + customerId + " not found");
@@ -151,7 +172,38 @@ public class CartServiceImp implements ICartService {
 	}
 
 
+	
+	// Helper method to check if the restaurant ID matches existing items in the cart
+	private boolean isSameRestaurant(Cart cart, CartDetailsDTO cartDetailsDTO) {
+	    int newRestaurantId = menuItemsRepo.findById(cartDetailsDTO.getMenuItemId())
+	            .map(menuItems -> menuItems.getRestaurant().getRestaurantId())
+	            .orElseThrow(() -> new IllegalArgumentException("Menu item not found"));
 
+	    
+	    System.out.println("New Restaurant ID: " + newRestaurantId);
+	 // Check if all existing items in the cart have the same restaurant ID
+	    return cart.getCartItems().stream()
+	            .allMatch(cartDetails -> {
+	                int existingRestaurantId = cartDetails.getMenuItems().getRestaurant().getRestaurantId();
+	                System.out.println("Existing Restaurant ID: " + existingRestaurantId);
+	                return existingRestaurantId == newRestaurantId;
+	            });
+
+	}
+	
+	// Helper method to clear the cart and add the new item
+	private void clearCartAndAddItem(Long customerId, CartDetailsDTO cartDetailsDTO) throws CustomerNotFoundException {
+	    // Add a flag to prevent infinite loop
+	    if (!clearingAndAdding) {
+	        clearingAndAdding = true;
+	        try {
+	            clearCart(customerId);
+	            addToCart(customerId, cartDetailsDTO);
+	        } finally {
+	            clearingAndAdding = false;
+	        }
+	    }
+	}
 
 	
 	
@@ -183,47 +235,7 @@ public class CartServiceImp implements ICartService {
 	}
 
 	
-//	@Override
-//	@Transactional
-//	public void removeFromCart(Long customerId, CartDetailsDTO cartDetailsDTO) {
-//	    // Find the cart for the given customer
-//	    Cart cart = cartRepository.findByCustomerId(customerId);
-//
-//	    if (cart != null) {
-//	        // If the cart exists, update the total
-//	        cart.setTotal(0);
-//
-//	        // Check if the item already exists in the cart
-//	        Optional<CartDetails> existingCartItem = cartDetailsRepo.findByCart_CartIdAndMenuItem_MenuItemId(cart.getCartId(), cartDetailsDTO.getMenuItemId());
-//
-//	        if (existingCartItem.isPresent()) {
-//	            // If the item exists, decrement the quantity by 1
-//	            CartDetails cartDetails = existingCartItem.get();
-//	            int newQuantity = cartDetails.getQuantity() - 1;
-//
-//	            if (newQuantity > 0) {
-//	                // If quantity is greater than 0, update the quantity
-//	                cartDetails.setQuantity(newQuantity);
-//	                cartDetailsRepo.save(cartDetails);
-//	            } else {
-//	                // If quantity becomes 0, delete the record from cart_details
-//	                cartDetailsRepo.delete(cartDetails);
-//	            }
-//
-//	            // Calculate and set the original total
-//	            cart.setTotal(calculateOriginTotal(cart));
-//
-//	            // Save changes
-//	            cartRepository.save(cart);
-//	        } else {
-//	            // If the item does not exist, you might want to handle this scenario
-//	            throw new IllegalArgumentException("Item not found in the cart");
-//	        }
-//	    } else {
-//	        // If the cart is not found, you might want to handle this scenario
-//	        throw new IllegalArgumentException("Cart for customer with ID " + customerId + " not found");
-//	    }
-//	}
+
 
 	@Override
 	@Transactional
@@ -268,20 +280,27 @@ public class CartServiceImp implements ICartService {
 	}
 
 	
+
 	
 	@Override
 	@Transactional
-	public void calculateDiscountedTotal(Long customerId, DiscountDTO discount) {
+	public void calculateDiscountedTotal(Long customerId, LocalDate currentDate) throws DiscountNotFoundException {
 	    Cart cart = cartRepository.findByCustomerId(customerId);
 
-	    if (cart != null && discount != null) {
-	        int discountPercentage = discount.getDiscountPercentage();
-	        double total = cart.getTotal();
-	        double discountedTotal = total - (total * discountPercentage / 100);
-	        cart.setTotal(discountedTotal);
-	        cartRepository.save(cart);
+	    if (cart != null) {
+	        Discount discount = discountRepo.findByStartDateBeforeAndEndDateAfter(currentDate, currentDate)
+		            .orElseThrow(() -> new DiscountNotFoundException("No active discount found for the current date"));
+
+	        if (discount != null) {
+	            int discountPercentage = discount.getDiscountPercentage();
+	            double total = cart.getTotal();
+	            double discountedTotal = total - (total * discountPercentage / 100);
+	            cart.setTotal(discountedTotal);
+	            cartRepository.save(cart);
+	        }
 	    }
 	}
+
 
 	
 	@Override

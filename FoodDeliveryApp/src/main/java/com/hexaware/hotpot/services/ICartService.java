@@ -1,12 +1,13 @@
 package com.hexaware.hotpot.services;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import com.hexaware.hotpot.dto.CartDetailsDTO;
-import com.hexaware.hotpot.dto.DiscountDTO;
 import com.hexaware.hotpot.dto.MenuItemsDTO;
 import com.hexaware.hotpot.entities.Cart;
 import com.hexaware.hotpot.exception.CustomerNotFoundException;
+import com.hexaware.hotpot.exception.DiscountNotFoundException;
 
 public interface ICartService {
 
@@ -20,13 +21,13 @@ public interface ICartService {
 
 	public Cart getCartItems(Long customerId);
 	
-	public void addToCart(Long customerId, CartDetailsDTO cartDetailsDTO);
+	public void addToCart(Long customerId, CartDetailsDTO cartDetailsDTO)throws CustomerNotFoundException;
 	
 //	public void removeFromCart(Long customerId, CartDetailsDTO cartDetailsDTO);
 	
 	public void removeFromCart(Long customerId, Long menuItemId, int quantity);
 	
-	public void calculateDiscountedTotal(Long customerId, DiscountDTO discount);
+	public void calculateDiscountedTotal(Long customerId, LocalDate currentDate) throws DiscountNotFoundException;
 	
 	public List<Object[]> getCartDetails(long customerId);
 	
