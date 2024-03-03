@@ -14,8 +14,7 @@ public interface OrdersRepository extends JpaRepository<Orders, Integer> {
 
 	Orders findById(int orderId);
 
-	// @Query("SELECT o FROM Orders o JOIN FETCH o.orderDetails od JOIN FETCH
-	// od.menuItem WHERE o.customer.customerId = :customerId")
+	
 	List<Orders> findByCustomerCustomerId(long customerId);
 
 	@Query(value = "SELECT o.*, c.customer_name AS customerName, c.phone AS customerPhone, CONCAT(da.house_no, ', ', da.area, ', ', da.landmark, ' ',da.city,' ', da.pincode) AS fullAddress, r.name, "

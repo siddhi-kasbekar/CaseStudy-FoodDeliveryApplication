@@ -41,10 +41,6 @@ public class Payment {
 	@JsonIgnore
 	private Customers customer;
 
-//	@ManyToOne(cascade = CascadeType.ALL)
-//	@JoinColumn(name = "CartID")
-//	@JsonIgnore
-//	private Cart cart;
 
 	private LocalDateTime paymentDate;
 
@@ -113,13 +109,6 @@ public class Payment {
 		this.customer = customer;
 	}
 
-//	public Cart getCart() {
-//		return cart;
-//	}
-//
-//	public void setCart(Cart cart) {
-//		this.cart = cart;
-//	}
 
 	public LocalDateTime getPaymentDate() {
 		return paymentDate;

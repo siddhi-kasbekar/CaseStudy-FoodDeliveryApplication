@@ -71,7 +71,7 @@ private List<MenuItemsDTO> parseMenuItems(Map<String, Object> requestBody) {
 @PostMapping("/addToCart/{customerId}")
 @PreAuthorize("hasAuthority('customer')")
 public String addToCart(@PathVariable Long customerId,  @RequestBody CartDetailsDTO cartDetailsDTO) throws CustomerNotFoundException{
-    System.out.println("Received JSON: " + cartDetailsDTO.toString());
+    
 
 	cartService.addToCart(customerId,  cartDetailsDTO);
 	return "added to cart";
@@ -79,16 +79,7 @@ public String addToCart(@PathVariable Long customerId,  @RequestBody CartDetails
 	
 }
 
-//@DeleteMapping("/removeFromCart/{customerId}")
-//@PreAuthorize("hasAuthority('customer')")
-//public String removeFromCart(@PathVariable Long customerId,  @RequestBody CartDetailsDTO cartDetailsDTO){
-//    System.out.println("Received JSON: " + cartDetailsDTO.toString());
-//
-//	cartService.removeFromCart(customerId, cartDetailsDTO);
-//	return "removed from  cart";
-//	
-//	
-//}
+
 @DeleteMapping("/removeFromCart/{customerId}/{menuItemId}")
 @PreAuthorize("hasAuthority('customer')")
 public String removeFromCart(@PathVariable Long customerId, @PathVariable Long menuItemId) {

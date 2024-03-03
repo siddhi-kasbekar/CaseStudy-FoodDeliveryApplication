@@ -1,7 +1,7 @@
 package com.hexaware.hotpot.controller;
 
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -98,7 +98,7 @@ public class OrdersController {
 	        MenuItemsDTO menuItemDTO = new MenuItemsDTO();
 	        menuItemDTO.setMenuItemId(Long.parseLong(menuItemData.get("menuItemId").toString()));
 	        menuItemDTO.setQuantity(Integer.parseInt(menuItemData.get("quantity").toString()));
-	        // Set other properties if needed
+	       
 	        menuItems.add(menuItemDTO);
 	    }
 	    return menuItems;

@@ -3,8 +3,7 @@ package com.hexaware.hotpot.dto;
 
 public class CartDetailsDTO {
 
-//    private long cartMenuItemId;
-//    private long cartId;
+
     private long menuItemId;
     private int quantity;
     private double price;
@@ -42,21 +41,10 @@ public class CartDetailsDTO {
         // Default constructor
     }
 
-    // Constructor with parameters
-
-//    public CartDetailsDTO( long menuItemId, int quantity,double price) {
-//
-////        this.cartMenuItemId = cartMenuItemId;
-////        this.cartId = cartId;
-//        this.menuItemId = menuItemId;
-//        this.quantity = quantity;
-//        this.price=price;
-//    }
+    
     
     public CartDetailsDTO( long menuItemId,String itemName, int quantity,double price,double total,double individualTotal) {
 
-//      this.cartMenuItemId = cartMenuItemId;
-//      this.cartId = cartId;
       this.menuItemId = menuItemId;
       this.itemName=itemName;
       this.quantity = quantity;

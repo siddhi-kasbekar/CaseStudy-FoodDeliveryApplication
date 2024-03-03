@@ -16,7 +16,7 @@ import com.hexaware.hotpot.exception.RestaurantNotFoundException;
 public interface IAdminService {
 
 	public long registerManager(AdminDTO adminDTO);
-	// public long registerAdmin(AdminDTO adminDTO);
+	
 
 	public String adminLogin(AdminDTO admindto);
 

@@ -37,10 +37,10 @@ public class MenuCategoryServiceImpl implements IMenuCategoryService {
 	        category.setRestaurant(restaurant);
 
 	        repo.save(category);
-//	        logger.info("Category added successfully!");
+
 
 	    } else {
-//	        logger.info("Restaurant with the searched id not found");
+
 	    }
 	    return category;
 	}

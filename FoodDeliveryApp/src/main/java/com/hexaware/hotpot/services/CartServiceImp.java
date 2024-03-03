@@ -4,8 +4,11 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 
 import com.hexaware.hotpot.dto.CartDetailsDTO;
 import com.hexaware.hotpot.dto.MenuItemsDTO;
@@ -50,6 +53,10 @@ public class CartServiceImp implements ICartService {
 	
 	@Autowired
 	DiscountRepository discountRepo;
+	
+	
+	private static final Logger log = LoggerFactory.getLogger(CartServiceImp.class);
+
 
 	@Override
 	public Cart getCartItems(Long customerId) {
@@ -60,31 +67,27 @@ public class CartServiceImp implements ICartService {
 	@Override
 	public Cart saveCartState(long customerId, List<MenuItemsDTO> menuItemsDTO, double total)
 			throws CustomerNotFoundException {
-		// Retrieve customer by ID
-//	     customerRepo.findById(customerId)
-//	            .orElseThrow(() -> new CustomerNotFoundException("Customer not found with id: " + customerId));
-
-		// Check if a cart already exists for the customer
+		
 		Cart existingCart = cartRepository.findByCustomerId(customerId);
 		Cart cart;
 		if (existingCart != null) {
-			// If a cart already exists, update the total
+			
 			existingCart.setTotal(total);
-			// Update other properties if needed
+			
 			return cartRepository.save(existingCart);
 		} else {
-			// Create a new cart
+			
 			cart = new Cart();
-			cart.setTotal(total); // Set the total
+			cart.setTotal(total); 
 			cart.setCustomerId(customerId);
 
-			// Save the new cart
+			
 			cartRepository.save(cart);
 		}
 
-		// Save cart details
+		
 		for (MenuItemsDTO menuItemDTO : menuItemsDTO) {
-			// Retrieve or create menu item entity
+			
 			MenuItems menuItem = menuItemsRepo.findById(menuItemDTO.getMenuItemId())
 					.orElseThrow(() -> new RuntimeException("Menu item not found"));
 
@@ -93,7 +96,7 @@ public class CartServiceImp implements ICartService {
 			cartDetails.setMenuItems(menuItem);
 			cartDetails.setQuantity(menuItemDTO.getQuantity());
 
-			// Save the cart detail
+			
 			cartDetailsRepo.save(cartDetails);
 		}
 
@@ -106,19 +109,19 @@ public class CartServiceImp implements ICartService {
 	@Override
 	@Transactional
 	public void clearCart(long customerId) throws CustomerNotFoundException {
-	    // Retrieve the cart by customer ID
+	    
 	    Cart cart = cartRepository.findByCustomerId(customerId);
 	    if (cart != null) {
-	        // Set total to 0
+	        
 	        cart.setTotal(0.0);
 	        
-	     // Delete the cart details associated with the customer's cart
+	     
 	        List<CartDetails> cartDetailsList = cartDetailsRepo.findByCart_CartId(cart.getCartId());
 	        cartDetailsRepo.deleteAll(cartDetailsList);
 	        
 	     
 
-	        // Save the updated cart
+	        
 	        cartRepository.save(cart);
 	        
 	     
@@ -129,44 +132,44 @@ public class CartServiceImp implements ICartService {
 
 	@Override
 	public void addToCart(Long customerId, CartDetailsDTO cartDetailsDTO) throws CustomerNotFoundException {
-	    // Find the cart for the given customer
+	    
 	    Cart cart = cartRepository.findByCustomerId(customerId);
 
 	    if (cart != null) {
-	        // Check if the cart is empty or if the restaurant ID matches the existing items
+	        
 	        if (cart.getCartItems().isEmpty() || isSameRestaurant(cart, cartDetailsDTO)) {
 	            // If the cart exists and either it's empty or the restaurant ID matches, proceed
 
 	            // Set the total to 0
 	            cart.setTotal(0);
 
-	            // Check if the item already exists in the cart
+	           
 	            Optional<CartDetails> existingCartItem = cartDetailsRepo.findByCart_CartIdAndMenuItem_MenuItemId(cart.getCartId(), cartDetailsDTO.getMenuItemId());
 
 	            if (existingCartItem.isPresent()) {
-	                // If the item already exists, increment the quantity by 1
+	                
 	                CartDetails cartDetails = existingCartItem.get();
 	                cartDetails.setQuantity(cartDetails.getQuantity() + 1);
-	                // Update the existing CartDetails
+	             
 	                cartDetailsRepo.save(cartDetails);
 	            } else {
-	                // If the item does not exist, create a new CartDetails
+	                
 	                CartDetails cartDetails = createNewCartDetailsWithDTO(cart, cartDetailsDTO);
-	                // Save the new CartDetails
+	               
 	                cartDetailsRepo.save(cartDetails);
 	            }
 
-	            // Calculate and set the original total
+	           
 	            cart.setTotal(calculateOriginTotal(cart));
 
-	            // Save changes
+	            
 	            cartRepository.save(cart);
 	        } else {
-	        	// If the restaurant ID is different, clear the cart and add the new item
+	        	
 	            clearCartAndAddItem(customerId, cartDetailsDTO);
 	        }
 	    } else {
-	        // If the cart is not found, you might want to handle this scenario
+	       
 	        throw new IllegalArgumentException("Cart for customer with ID " + customerId + " not found");
 	    }
 	}
@@ -177,15 +180,15 @@ public class CartServiceImp implements ICartService {
 	private boolean isSameRestaurant(Cart cart, CartDetailsDTO cartDetailsDTO) {
 	    int newRestaurantId = menuItemsRepo.findById(cartDetailsDTO.getMenuItemId())
 	            .map(menuItems -> menuItems.getRestaurant().getRestaurantId())
-	            .orElseThrow(() -> new IllegalArgumentException("Menu item not found"));
+	            .orElseThrow(() -> new IllegalArgumentException("item not found"));
 
 	    
-	    System.out.println("New Restaurant ID: " + newRestaurantId);
+	    log.info("New Restaurant ID: " + newRestaurantId);
 	 // Check if all existing items in the cart have the same restaurant ID
 	    return cart.getCartItems().stream()
 	            .allMatch(cartDetails -> {
 	                int existingRestaurantId = cartDetails.getMenuItems().getRestaurant().getRestaurantId();
-	                System.out.println("Existing Restaurant ID: " + existingRestaurantId);
+	                log.info("Existing Restaurant ID: " + existingRestaurantId);
 	                return existingRestaurantId == newRestaurantId;
 	            });
 
@@ -211,7 +214,7 @@ public class CartServiceImp implements ICartService {
 	    // Fetch menu item based on menuItemId
 		System.out.println(cartDetailsDTO.getMenuItemId());
 	    MenuItems menuItem = menuItemsRepo.findById(cartDetailsDTO.getMenuItemId())
-	            .orElseThrow(() -> new IllegalArgumentException("Menu item not found"));
+	            .orElseThrow(() -> new IllegalArgumentException("item cannot found"));
 	    
 
 	    // Create a new CartDetails
@@ -244,10 +247,10 @@ public class CartServiceImp implements ICartService {
 	    Cart cart = cartRepository.findByCustomerId(customerId);
 
 	    if (cart != null) {
-	        // If the cart exists, update the total
+	        
 	        cart.setTotal(0);
 
-	        // Check if the item already exists in the cart
+	        
 	        Optional<CartDetails> existingCartItem = cartDetailsRepo.findByCart_CartIdAndMenuItem_MenuItemId(cart.getCartId(), menuItemId);
 
 	        if (existingCartItem.isPresent()) {
@@ -264,17 +267,17 @@ public class CartServiceImp implements ICartService {
 	                cartDetailsRepo.delete(cartDetails);
 	            }
 
-	            // Calculate and set the original total
+	           
 	            cart.setTotal(calculateOriginTotal(cart));
 
-	            // Save changes
+	           
 	            cartRepository.save(cart);
 	        } else {
-	            // If the item does not exist, you might want to handle this scenario
+	            
 	            throw new IllegalArgumentException("Item not found in the cart");
 	        }
 	    } else {
-	        // If the cart is not found, you might want to handle this scenario
+	        
 	        throw new IllegalArgumentException("Cart for customer with ID " + customerId + " not found");
 	    }
 	}

@@ -1,7 +1,7 @@
 package com.hexaware.hotpot.services;
 
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -56,7 +56,7 @@ public class MenuServiceImp implements IMenuService {
 
 	@Override
 	public List<MenuItems> getByRestaurant(int restaurantId) {
-		// TODO Auto-generated method stub
+		
 		return repo.findByRestaurantRestaurantId(restaurantId);
 	}
 	

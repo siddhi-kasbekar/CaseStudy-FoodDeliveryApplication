@@ -55,12 +55,10 @@ public class PaymentService implements IPaymentService {
         try {
             orderService.placeOrder(customerId, paymentDTO.getMenuItems(), paymentDTO.getTotalCost());
 
-//            // Update the status to "success" after placing the order
-//           
-//            paymentRepo.save(processedPayment);
+
 
         } catch (RestaurantNotFoundException | CustomerNotFoundException e) {
-            // Handle exceptions
+            
             e.printStackTrace();
         }
 	}
