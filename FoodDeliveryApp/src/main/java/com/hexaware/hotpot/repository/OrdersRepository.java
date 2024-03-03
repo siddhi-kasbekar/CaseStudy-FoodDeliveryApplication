@@ -18,7 +18,7 @@ public interface OrdersRepository extends JpaRepository<Orders, Integer> {
 	// od.menuItem WHERE o.customer.customerId = :customerId")
 	List<Orders> findByCustomerCustomerId(long customerId);
 
-	@Query(value = "SELECT o.*, c.customer_name AS customerName, CONCAT(da.house_no, ', ', da.area, ', ', da.landmark, ' ',da.city,' ', da.pincode) AS fullAddress, r.name, "
+	@Query(value = "SELECT o.*, c.customer_name AS customerName, c.phone AS customerPhone, CONCAT(da.house_no, ', ', da.area, ', ', da.landmark, ' ',da.city,' ', da.pincode) AS fullAddress, r.name, "
 	        + "(SELECT GROUP_CONCAT(CONCAT(m.item_name, ' - ', od.quantity) SEPARATOR ', ') "
 	        + " FROM order_details od "
 	        + " JOIN menu_items m ON od.menuid = m.menu_itemid "
