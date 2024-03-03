@@ -52,7 +52,7 @@ public class RestaurantServiceImp implements IRestaurantService {
 
 
 		Restaurants res = new Restaurants();
-//		res.setRestaurantId(restaurant.getRestaurantId());
+
 		res.setName(restaurant.getName());
 		res.setLocation(restaurant.getLocation());
 		res.setContactNumber(restaurant.getContactNumber());
@@ -84,7 +84,7 @@ public class RestaurantServiceImp implements IRestaurantService {
 	        try {
 	            menuItem.setImage(menuItemDTO.getImageFile().getBytes());
 	        } catch (IOException e) {
-	            // Handle exception (e.g., log it or throw a custom exception)
+	            
 	            logger.error("Failed to read image file", e);
 	        }
 	    }
@@ -108,20 +108,20 @@ public class RestaurantServiceImp implements IRestaurantService {
 
 	@Override
 	public void updateMenu(long menuItemId,MenuItemsDTO menuDTO) throws MenuItemNotFoundException {
-	    // Retrieve the existing menu item entity from the database
+	    
 	    MenuItems existingMenuItem = menuItemRepo.findById(menuItemId)
 	            .orElseThrow(() -> new MenuItemNotFoundException("Menu item not found with ID: " + menuDTO.getMenuItemId()));
 
-	    // Update the menu item entity with the new values provided in the DTO
+	   
 	    existingMenuItem.setItemName(Objects.requireNonNullElse(menuDTO.getItemName(), existingMenuItem.getItemName()));
 	    existingMenuItem.setDescription(Objects.requireNonNullElse(menuDTO.getDescription(), existingMenuItem.getDescription()));
 	    existingMenuItem.setCategory(Objects.requireNonNullElse(menuDTO.getCategory(), existingMenuItem.getCategory()));
-	   // existingMenuItem.setPrice(Objects.requireNonNullElse(menuDTO.getPrice(), existingMenuItem.getPrice()));
+	   
 	    existingMenuItem.setAvailabilityTime(Objects.requireNonNullElse(menuDTO.getAvailabilityTime(), existingMenuItem.getAvailabilityTime()));
 	    existingMenuItem.setSpecialDietaryInfo(Objects.requireNonNullElse(menuDTO.getSpecialDietaryInfo(), existingMenuItem.getSpecialDietaryInfo()));
 	    existingMenuItem.setTasteInfo(Objects.requireNonNullElse(menuDTO.getTasteInfo(), existingMenuItem.getTasteInfo()));
 	    existingMenuItem.setNutritionalInfo(Objects.requireNonNullElse(menuDTO.getNutritionalInfo(), existingMenuItem.getNutritionalInfo()));
-	   // existingMenuItem.setCookingTime(Objects.requireNonNullElse(menuDTO.getCookingTime(), existingMenuItem.getCookingTime()));
+	   
 	    if (menuDTO.getPrice() != 0) {
 	    	 existingMenuItem.setPrice(menuDTO.getPrice());
 		}
@@ -135,13 +135,7 @@ public class RestaurantServiceImp implements IRestaurantService {
 	}
 
 
-//	@Override
-//	public void deleteMenu(long menuId) {
-//
-//		logger.info("Menu Item deleted successfully!");
-//
-//		menuItemRepo.deleteById(menuId);
-//	}
+
 
 	@Override
 	public List<MenuItems> getMenuByCategory(String category) throws MenuItemNotFoundException {

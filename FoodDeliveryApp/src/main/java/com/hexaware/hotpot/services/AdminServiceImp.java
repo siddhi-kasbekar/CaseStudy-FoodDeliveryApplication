@@ -3,8 +3,7 @@ package com.hexaware.hotpot.services;
 import java.util.List;
 import java.util.Objects;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -65,8 +64,7 @@ public class AdminServiceImp implements IAdminService {
     @Autowired
     private RestaurantsRepository restaurantRepo;
     
-    private static final Logger logger = LoggerFactory.getLogger(AdminServiceImp.class);
-
+    
 	
 	@Override
 	public String adminLogin(AdminDTO admindto) {
@@ -186,9 +184,7 @@ public class AdminServiceImp implements IAdminService {
 	    restaurant.setLocation(Objects.requireNonNullElse(restaurantDTO.getLocation(), restaurant.getLocation()));
 	    restaurant.setContactNumber(Objects.requireNonNullElse(restaurantDTO.getContactNumber(), restaurant.getContactNumber()));
 	    restaurant.setRating(Objects.requireNonNullElse(restaurantDTO.getRating(), restaurant.getRating()));
-	    // Update menu items, orders, discounts if required (similar to how it's done for Customer DTO)
-
-	    // Save the updated restaurant
+	    
 	    return restaurantRepository.save(restaurant);
 	}
 
@@ -204,21 +200,7 @@ public class AdminServiceImp implements IAdminService {
 	
 	
 	
-//	@Override
-//	public long registerAdmin(AdminDTO adminDTO) {
-//		
-//		Administrator admin = new Administrator();
-////		admin.setAdminId(adminDTO.getAdminId());
-//		admin.setUserName(adminDTO.getUserName());
-//		admin.setPassword(passwordEncoder.encode(adminDTO.getPassword()));
-//		admin.setName(adminDTO.getName());
-//		admin.setEmail(adminDTO.getEmail());
-//		admin.setRole("admin");
-//		
-//		adminRepo.save(admin);
-//
-//		return admin.getAdminId();
-//	}
+
 
 	
 

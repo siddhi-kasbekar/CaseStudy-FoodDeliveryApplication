@@ -36,10 +36,7 @@ public class Cart {
 	@Column(name = "custid")
 	private Long customerId;
 
-//	@OneToOne
-//	@JoinColumn(name = "custid")
-//    @JsonManagedReference // Manages serialization of the relationship
-//	private Customers customer;
+
 
 	
 	public Long getCustomerId() {
@@ -50,12 +47,10 @@ public class Cart {
 		this.customerId = customerId;
 	}
 
-//	@OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
-//	@JsonIgnoreProperties("cart")
-//	private Set<Payment> paymentSet = new HashSet<>();
+
 	
 	@OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
-    @JsonIgnore // Prevent infinite recursion
+    @JsonIgnore 
     private Set<CartDetails> cartItems = new HashSet<>();
 
 	
@@ -78,7 +73,7 @@ public class Cart {
 		this.cartId = cartId;
 
 		this.total = total;
-//		this.customer = customer;
+
 	}
 
 	public int getCartId() {
@@ -97,22 +92,9 @@ public class Cart {
 		this.total = total;
 	}
 
-//	public Customers getCustomer() {
-//		return customer;
-//	}
-//
-//	public void setCustomer(Customers customer) {
-//		this.customer = customer;
-//	}
 
-//	public Set<Payment> getPaymentSet() {
-//		return paymentSet;
-//	}
-//
-//	public void setPaymentSet(Set<Payment> paymentSet) {
-//		this.paymentSet = paymentSet;
-//	}
+	}
 
 
 
-}
+

@@ -23,7 +23,7 @@ public interface ICartService {
 	
 	public void addToCart(Long customerId, CartDetailsDTO cartDetailsDTO)throws CustomerNotFoundException;
 	
-//	public void removeFromCart(Long customerId, CartDetailsDTO cartDetailsDTO);
+
 	
 	public void removeFromCart(Long customerId, Long menuItemId, int quantity);
 	

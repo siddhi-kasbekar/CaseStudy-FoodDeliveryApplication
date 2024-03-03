@@ -68,25 +68,20 @@ public class CustomersRestController {
 		String token = null;
 		
 				if(authentication.isAuthenticated()) {
-					
-				  // call generate token method from jwtService class
-					
-//			token =		jwtService.generateToken(authRequest.getUsername());
-//					
-//			log.info("Tokent : "+token);
+				
 					 Optional<Customers> customer = customerRepo.findByUsername(authRequest.getUsername());
 
 				        if (customer.isPresent()) {
 				            String role = customer.get().getRole();
 				            Long customerId = customer.get().getCustId();
 
-				            // Call generateToken method from JwtService class with additional parameters
+				           
 				            token = jwtService.generateToken(authRequest.getUsername(), role, customerId);
 
-				            log.info("Token: " + token);
+				            log.info(token);
 				        } else {
 				            log.error("User not found in the database");
-				            // Handle the case where the user is not found in the database
+				           
 				        }
 					
 				}
@@ -129,7 +124,7 @@ public class CustomersRestController {
     @PreAuthorize("hasAuthority('customer')")
 	public List<Restaurants> getRestaurantByLocation(@PathVariable String location) throws LocationNotFoundException {
 		
-		//return customerService.getRestaurantByLocation(location);
+		
 		List<Restaurants> restaurants = customerService.getRestaurantByLocation(location);
 	    log.info("Retrieved restaurants for location {}: {}", location, restaurants);
 	    return restaurants;

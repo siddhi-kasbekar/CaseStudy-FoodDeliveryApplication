@@ -72,25 +72,21 @@ public class AdminRestController {
 
 		if (authentication.isAuthenticated()) {
 
-			// call generate token method from jwtService class
-
-//			token = jwtService.generateToken(authRequest.getUsername());
-//
-//			log.info("Tokent : " + token);
+			
 			Optional<Administrator> admin = adminRepo.findByUsername(authRequest.getUsername());
 
 			if (admin.isPresent()) {
 				String role = admin.get().getRole();
-				Long adminId = (long) admin.get().getAdminId(); // Assuming you have a method like getAdminId in
-																// Administrator entity
+				Long adminId = (long) admin.get().getAdminId(); 
+																
 
 				// Call generateToken method from JwtService class with additional parameters
 				token = jwtService.generateToken(authRequest.getUsername(), role, adminId);
 
-				log.info("Token: " + token);
+				log.info( token);
 			} else {
 				log.error("Admin not found in the database");
-				// Handle the case where the admin is not found in the database
+				
 			}
 
 		} else {

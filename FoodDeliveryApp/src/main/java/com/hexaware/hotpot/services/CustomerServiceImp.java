@@ -71,7 +71,7 @@ public class CustomerServiceImp implements ICustomerService {
 	public long registerCustomer(CustomersDTO customerDTO) {
 		logger.info("customer registered successfully");
 		Customers customer = new Customers();
-//		customer.setCustId(customerDTO.getCustId());
+
 		customer.setCustName(customerDTO.getCustName());
 		customer.setGender(customerDTO.getGender());
 		customer.setEmail(customerDTO.getEmail());
@@ -80,7 +80,7 @@ public class CustomerServiceImp implements ICustomerService {
 		customer.setPassword(passwordEncoder.encode(customerDTO.getPassword()));
 		
 		
-		 // Set the role to the predefined value
+		 
 	    customer.setRole("customer");
 
 		
@@ -100,7 +100,7 @@ public class CustomerServiceImp implements ICustomerService {
 
 		customerRepo.save(customer);
 		
-		// Create a new Cart and associate it with the Customer
+		
 				Cart cart = new Cart();
 				cart.setCustomerId(customer.getCustId()); // Set the Customers reference in Cart
 				cart.setTotal(0);
@@ -135,8 +135,7 @@ public class CustomerServiceImp implements ICustomerService {
 		DeliveryAddressDTO updatedAddressDTO = updatedCustomerDTO.getAddressDTO();
 		if (updatedAddressDTO != null) {
 			DeliveryAddress existingAddress = customers.getAddress();
-//			existingAddress.setAddressId(
-//					Objects.requireNonNullElse(updatedAddressDTO.getAddressId(), existingAddress.getAddressId()));
+
 			existingAddress.setHouseNo(
 					Objects.requireNonNullElse(updatedAddressDTO.getHouseNo(), existingAddress.getHouseNo()));
 			existingAddress.setArea(Objects.requireNonNullElse(updatedAddressDTO.getArea(), existingAddress.getArea()));

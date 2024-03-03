@@ -13,8 +13,7 @@ public interface CartDetailsRepository  extends JpaRepository<CartDetails, Long>
 	
     List<CartDetails> findByCart_CartId(long cartId);
     
-//    @Query("SELECT COALESCE(SUM(cd.total), 0) FROM CartDetails cd WHERE cd.cart.id = :cartId")
-//    double calculateTotalByCartId(@Param("cartId") Long cartId);
+
 
     Optional<CartDetails> findByCart_CartIdAndMenuItem_MenuItemId(int cartId, long menuItemId);
 

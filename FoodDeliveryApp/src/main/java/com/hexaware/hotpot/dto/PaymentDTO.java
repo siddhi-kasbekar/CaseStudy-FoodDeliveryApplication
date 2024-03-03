@@ -1,10 +1,10 @@
 package com.hexaware.hotpot.dto;
-import java.math.BigDecimal;
+
 import java.util.List;
 
 public class PaymentDTO {
 
-    // Payment details
+   
     private double amount;
     private String paymentMethod;
     private String transactionID;
@@ -24,16 +24,16 @@ public class PaymentDTO {
 		this.totalCost = totalCost;
 	}
 
-	// Additional details
+	
     private List<MenuItemsDTO> menuItems;
 
-    // Constructors, getters, and setters...
+   
 
     public PaymentDTO() {
-        // Default constructor
+      
     }
 
-    // Constructor with all fields
+    
     public PaymentDTO(double amount, String paymentMethod, String transactionID,
                              String cardNumber, String expiryDate, int cvv, String cardHolder,
                              List<MenuItemsDTO> menuItems, String status,double totalCost) {

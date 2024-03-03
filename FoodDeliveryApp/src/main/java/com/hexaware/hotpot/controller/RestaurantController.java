@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,7 +39,7 @@ public class RestaurantController {
     @PreAuthorize("hasAuthority('admin')")
 	public Restaurants registerRestaurant(@RequestBody RestaurantsDTO restaurantDTO) {
 		 return service.registerRestaurant(restaurantDTO);
-//		 return "restaurant registerd successfully";
+
 	}
 	
 	
@@ -53,13 +53,13 @@ public class RestaurantController {
 		    ObjectMapper objectMapper = new ObjectMapper();
 		    try {
 		        MenuItemsDTO menuItemDTO = objectMapper.readValue(menuDTOJson, MenuItemsDTO.class);
-//		        menuItemDTO.setRestaurantId(restaurantId);
+
 		        menuItemDTO.setImageFile(imageFile);
 
 		        service.addMenu(menuItemDTO, menuItemDTO.getRestaurantId());
 		        return "menu added successfully";
 		    } catch (IOException e) {
-		        // Handle the exception (e.g., log it or return an error response)
+		       
 		        return "Error parsing menuDTOJson: " + e.getMessage();
 		    }
 		}

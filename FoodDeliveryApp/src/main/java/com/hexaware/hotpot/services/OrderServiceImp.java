@@ -15,7 +15,7 @@ import com.hexaware.hotpot.entities.Customers;
 import com.hexaware.hotpot.entities.MenuItems;
 import com.hexaware.hotpot.entities.OrderDetails;
 import com.hexaware.hotpot.entities.Orders;
-import com.hexaware.hotpot.entities.Restaurants;
+
 import com.hexaware.hotpot.exception.CustomerNotFoundException;
 import com.hexaware.hotpot.exception.OrderNotFoundException;
 import com.hexaware.hotpot.exception.RestaurantNotFoundException;
@@ -68,19 +68,19 @@ public class OrderServiceImp implements IOrderService {
 	public void placeOrder(long customerId, List<MenuItemsDTO> menuItems, double totalCost) throws RestaurantNotFoundException, CustomerNotFoundException {
 	    logger.info("Your order has been placed");
 
-	    // Retrieve customer and restaurant entities from their IDs
+	    
 	    Customers customer = customerRepo.findById(customerId).orElseThrow(() -> new CustomerNotFoundException("Customer not found"));
 
 	    Orders order = new Orders();
-	    order.setOrderDate(LocalDateTime.now()); // Assuming you set the order date to current date and time
-	    order.setTotalCost(totalCost); //will be fetched from cart
-	    order.setStatus("Placed"); // Assuming initial status is "Placed"
+	    order.setOrderDate(LocalDateTime.now()); 
+	    order.setTotalCost(totalCost);
+	    order.setStatus("Placed"); 
 	    order.setCustomer(customer);
 	    
 
 	    ordersRepo.save(order);
 
-	    // Save menu items in order details table
+	  
 	    for (MenuItemsDTO menuItemDTO : menuItems) {
 	        MenuItems menuItem = menuItemRepo.findById(menuItemDTO.getMenuItemId())
 	                                         .orElseThrow(() -> new RuntimeException("Menu item not found"));
@@ -88,13 +88,13 @@ public class OrderServiceImp implements IOrderService {
 	     // Set the restaurant in the order from the menu item
 	        order.setRestaurant(menuItem.getRestaurant());
 	        
-	     // Save the updated order to persist the changes
+	     
 	        ordersRepo.save(order);
 	        
 	        OrderDetails orderDetails = new OrderDetails();
 	        orderDetails.setOrder(order);
 	        orderDetails.setMenuItem(menuItem);
-	        orderDetails.setQuantity(menuItemDTO.getQuantity()); // Assuming you have quantity in MenuItemDTO
+	        orderDetails.setQuantity(menuItemDTO.getQuantity()); 
 	        
 	        
 	        orderDetailsrepo.save(orderDetails);
