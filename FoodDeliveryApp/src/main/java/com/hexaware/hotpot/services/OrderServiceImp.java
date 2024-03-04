@@ -6,6 +6,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import com.hexaware.hotpot.dto.MenuItemsDTO;
@@ -15,7 +17,6 @@ import com.hexaware.hotpot.entities.Customers;
 import com.hexaware.hotpot.entities.MenuItems;
 import com.hexaware.hotpot.entities.OrderDetails;
 import com.hexaware.hotpot.entities.Orders;
-
 import com.hexaware.hotpot.exception.CustomerNotFoundException;
 import com.hexaware.hotpot.exception.OrderNotFoundException;
 import com.hexaware.hotpot.exception.RestaurantNotFoundException;
@@ -60,6 +61,9 @@ public class OrderServiceImp implements IOrderService {
 	
 	@Autowired
 	CartDetailsRepository cartDetailsRepo;
+	
+	@Autowired
+    private JavaMailSender javaMailSender;
 
 	
 	private static final Logger logger = LoggerFactory.getLogger(OrderServiceImp.class);
@@ -110,7 +114,24 @@ public class OrderServiceImp implements IOrderService {
 	    // Delete the cart details associated with the customer's cart
 	    List<CartDetails> cartDetailsList = cartDetailsRepo.findByCart_CartId(cart.getCartId());
 	    cartDetailsRepo.deleteAll(cartDetailsList);
+	    
+	    
+	 // Send an email to the customer
+        sendOrderConfirmationEmail(customer.getEmail(), order);
 	}
+	
+	private void sendOrderConfirmationEmail(String customerEmail, Orders order) {
+        String message = String.format("Your order has been placed successfully. Order ID: %d. Total Cost: Rs.%.2f",
+                order.getOrderId(), order.getTotalCost());
+
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setTo(customerEmail);
+        mailMessage.setSubject("Order Confirmation");
+        mailMessage.setText(message);
+
+        // Send the email
+        javaMailSender.send(mailMessage);
+    }
 
 
 	@Override
@@ -131,8 +152,16 @@ public class OrderServiceImp implements IOrderService {
 
 		Orders order = ordersRepo.findById(orderId);
 		if (order != null) {
+			
+			// Get customer details from the order
+	        Customers customer = order.getCustomer();
+	        String customerEmail = customer.getEmail();
+			
 			order.setStatus(status);
 			ordersRepo.saveAndFlush(order);
+			
+			// Send email to the customer
+	        sendOrderStatusUpdateEmail(customerEmail, orderId, status);
 			
 			logger.info("Order statuts has been updated");
 		}
@@ -141,6 +170,19 @@ public class OrderServiceImp implements IOrderService {
 		}
 		return status;
 		
+	}
+	
+	//send email
+	private void sendOrderStatusUpdateEmail(String customerEmail, int orderId, String status) {
+	    String message = String.format("Thank you for ordering from HOTBYTE. Enjoy your food !! Your order (ID: %d) status has been updated to: %s", orderId, status);
+
+	    SimpleMailMessage mailMessage = new SimpleMailMessage();
+	    mailMessage.setTo(customerEmail);
+	    mailMessage.setSubject("Order Status Update");
+	    mailMessage.setText(message);
+
+	    
+	    javaMailSender.send(mailMessage);
 	}
 
 	@Override
