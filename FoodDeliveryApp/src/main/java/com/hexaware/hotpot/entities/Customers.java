@@ -94,10 +94,10 @@ public final class Customers {
 	@JoinColumn(name = "aid")
 	private DeliveryAddress address;
 
-	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "customer", cascade = CascadeType.REMOVE)
 	private Set<Orders> orderSet = new HashSet<>();
 
-	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "customer")
 	 @JsonIgnoreProperties("customer")
 	private Set<Payment> paymentSet = new HashSet<>();
 

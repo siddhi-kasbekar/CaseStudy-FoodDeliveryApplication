@@ -50,7 +50,7 @@ public class Orders {
 	private Customers customer;
 
 	@JsonIgnore
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "resId")
 	private Restaurants restaurant;
 

@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hexaware.hotpot.dto.AuthRequest;
 import com.hexaware.hotpot.dto.CustomersDTO;
+import com.hexaware.hotpot.dto.PasswordDTO;
 import com.hexaware.hotpot.entities.Customers;
 import com.hexaware.hotpot.entities.Discount;
 import com.hexaware.hotpot.entities.Restaurants;
@@ -139,7 +140,22 @@ public class CustomersRestController {
 	    
 
 	}
-
+	
+	@PutMapping("/updatePassword")
+//	 @PreAuthorize("hasAuthority('customer')")
+	public String updatePassword( @RequestBody PasswordDTO passwordDTO) {
+		
+		return customerService.updateCustomerPassword(passwordDTO);
+		
+	}
+	
+	@GetMapping("/getById/{customerId}")
+	@PreAuthorize("hasAuthority('customer')")
+	public Customers getCustById(@PathVariable long customerId) {
+		return customerService.getCustomerById(customerId);
+		
+	}
+	
 	
 
 }

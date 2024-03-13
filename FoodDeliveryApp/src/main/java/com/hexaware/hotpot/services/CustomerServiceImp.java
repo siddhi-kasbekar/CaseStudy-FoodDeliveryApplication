@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.hexaware.hotpot.dto.CustomersDTO;
 import com.hexaware.hotpot.dto.DeliveryAddressDTO;
+import com.hexaware.hotpot.dto.PasswordDTO;
 import com.hexaware.hotpot.entities.Cart;
 import com.hexaware.hotpot.entities.Customers;
 import com.hexaware.hotpot.entities.DeliveryAddress;
@@ -129,7 +130,7 @@ public class CustomerServiceImp implements ICustomerService {
 		customers.setEmail(Objects.requireNonNullElse(updatedCustomerDTO.getEmail(), customers.getEmail()));
 		customers.setPhone(Objects.requireNonNullElse(updatedCustomerDTO.getPhone(), customers.getPhone()));
 		customers.setUsername(Objects.requireNonNullElse(updatedCustomerDTO.getUsername(), customers.getUsername()));
-		customers.setPassword(Objects.requireNonNullElse(updatedCustomerDTO.getPassword(), customers.getPassword()));
+		customers.setPassword(passwordEncoder.encode(Objects.requireNonNullElse(updatedCustomerDTO.getPassword(), customers.getPassword())));
 
 
 		DeliveryAddressDTO updatedAddressDTO = updatedCustomerDTO.getAddressDTO();
@@ -168,6 +169,22 @@ public class CustomerServiceImp implements ICustomerService {
 	public Discount findActiveDiscount(LocalDate currentDate) throws DiscountNotFoundException {
 	    return discountRepo.findByStartDateBeforeAndEndDateAfter(currentDate, currentDate)
 	            .orElseThrow(() -> new DiscountNotFoundException("No active discount found for the current date"));
+	}
+	
+	 @Override
+	    public String updateCustomerPassword(PasswordDTO passwordDTO) {
+		 String email = passwordDTO.getEmail();
+	        String newPassword = passwordDTO.getNewPassword();
+	        Customers customer = customerRepo.findByEmail(email).orElse(null);
+	        customer.setPassword(passwordEncoder.encode(newPassword));
+	        customerRepo.save(customer);
+	        return "Customer password updated successfully";
+	    }
+
+	@Override
+	public Customers getCustomerById(long customerId) {
+		
+		return customerRepo.getById(customerId);
 	}
 	
 

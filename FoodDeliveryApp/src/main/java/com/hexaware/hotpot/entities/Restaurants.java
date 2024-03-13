@@ -53,11 +53,11 @@ public class Restaurants {
 																	// nullPoitner Escep
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "restaurant")
 	private Set<Orders> orderSet = new HashSet<>();
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "restaurant")
 	private Set<Discount> discountSet = new HashSet<>();
 	
 	@JsonIgnore

@@ -3,8 +3,9 @@ package com.hexaware.hotpot.services;
 import java.time.LocalDate;
 import java.util.List;
 
-
 import com.hexaware.hotpot.dto.CustomersDTO;
+import com.hexaware.hotpot.dto.PasswordDTO;
+import com.hexaware.hotpot.entities.Customers;
 import com.hexaware.hotpot.entities.Discount;
 import com.hexaware.hotpot.entities.Restaurants;
 import com.hexaware.hotpot.exception.CustomerNotFoundException;
@@ -23,5 +24,9 @@ public interface ICustomerService {
 	public List<Restaurants> getRestaurantByLocation(String location) throws LocationNotFoundException;
 	
 	public Discount findActiveDiscount(LocalDate currentDate)throws DiscountNotFoundException;
+	
+	 public String updateCustomerPassword(PasswordDTO passwordDTO);
+	 
+	 public Customers getCustomerById(long customerId);
 
 }

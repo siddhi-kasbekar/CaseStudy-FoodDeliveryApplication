@@ -87,7 +87,7 @@ public class MenuItems {
 	@JsonIgnore
 	private Restaurants restaurant;
 
-	@OneToMany(mappedBy = "menuItem", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "menuItem")
 	@JsonIgnore // Prevent infinite recursion
 	private Set<OrderDetails> orderDetailsSet = new HashSet<>();
 
