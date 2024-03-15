@@ -51,4 +51,10 @@ public interface IAdminService {
 	public List<MenuItems> getAllMenusForManager(int adminId);
 	
 	public List<MenuCategory> getAllCategoriesForManager(int adminId);
+
+
+	public Administrator getManagerById(long adminId);
+
+
+	public long updateManager(long adminId, AdminDTO updatedAdminDTO);
 }

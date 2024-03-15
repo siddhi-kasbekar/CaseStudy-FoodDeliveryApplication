@@ -9,14 +9,18 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.hexaware.hotpot.dto.AdminDTO;
+import com.hexaware.hotpot.dto.CustomersDTO;
+import com.hexaware.hotpot.dto.DeliveryAddressDTO;
 import com.hexaware.hotpot.dto.DiscountDTO;
 import com.hexaware.hotpot.dto.RestaurantsDTO;
 import com.hexaware.hotpot.entities.Administrator;
 import com.hexaware.hotpot.entities.Customers;
+import com.hexaware.hotpot.entities.DeliveryAddress;
 import com.hexaware.hotpot.entities.Discount;
 import com.hexaware.hotpot.entities.MenuCategory;
 import com.hexaware.hotpot.entities.MenuItems;
 import com.hexaware.hotpot.entities.Restaurants;
+import com.hexaware.hotpot.exception.CustomerNotFoundException;
 import com.hexaware.hotpot.exception.RestaurantNotFoundException;
 import com.hexaware.hotpot.repository.AdministratorRepository;
 import com.hexaware.hotpot.repository.CustomersRepository;
@@ -198,8 +202,26 @@ public class AdminServiceImp implements IAdminService {
 		return adminRepo.findCategoryByAdminId(adminId);
 	}
 	
+	@Override
+	public Administrator getManagerById(long adminId) {
+		
+		return adminRepo.getByAdminId(adminId);
+	}
 	
-	
+	@Override
+	public long updateManager(long adminId, AdminDTO updatedAdminDTO)  {
+
+		Administrator admin = adminRepo.findByAdminId(adminId);
+
+
+		admin.setName(Objects.requireNonNullElse(updatedAdminDTO.getName(), admin.getName()));
+		admin.setEmail(Objects.requireNonNullElse(updatedAdminDTO.getEmail(), admin.getEmail()));
+		admin.setPassword(passwordEncoder.encode(Objects.requireNonNullElse(updatedAdminDTO.getPassword(), admin.getPassword())));
+
+		adminRepo.save(admin);
+
+		return adminId;
+	}
 
 
 	
