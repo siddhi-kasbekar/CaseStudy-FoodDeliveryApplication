@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hexaware.hotpot.dto.AdminDTO;
 import com.hexaware.hotpot.dto.AuthRequest;
+import com.hexaware.hotpot.dto.CustomersDTO;
 import com.hexaware.hotpot.dto.DiscountDTO;
 import com.hexaware.hotpot.dto.RestaurantsDTO;
 import com.hexaware.hotpot.entities.Administrator;
@@ -31,6 +32,7 @@ import com.hexaware.hotpot.entities.Discount;
 import com.hexaware.hotpot.entities.MenuCategory;
 import com.hexaware.hotpot.entities.MenuItems;
 import com.hexaware.hotpot.entities.Restaurants;
+import com.hexaware.hotpot.exception.CustomerNotFoundException;
 import com.hexaware.hotpot.exception.RestaurantNotFoundException;
 import com.hexaware.hotpot.repository.AdministratorRepository;
 import com.hexaware.hotpot.services.IAdminService;
@@ -231,4 +233,19 @@ public class AdminRestController {
 		return "Manager removed successfully";
 	}
 
+	@PutMapping("/update-info/{adminId}")
+    @PreAuthorize("hasAuthority('manager')")
+	public long updateManager(@PathVariable long adminId,  @RequestBody AdminDTO updatedAdminDTO) {
+
+		
+		return adminservice.updateManager(adminId, updatedAdminDTO);
+		
+	}
+	
+	@GetMapping("/getById/{adminId}")
+	@PreAuthorize("hasAuthority('manager')")
+	public Administrator getManagerById(@PathVariable long adminId) {
+		return adminservice.getManagerById(adminId);
+		
+	}
 }

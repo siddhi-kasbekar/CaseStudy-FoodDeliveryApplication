@@ -8,8 +8,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.hexaware.hotpot.entities.Administrator;
+import com.hexaware.hotpot.entities.Customers;
 import com.hexaware.hotpot.entities.MenuCategory;
 import com.hexaware.hotpot.entities.MenuItems;
+import com.hexaware.hotpot.entities.Restaurants;
 
 @Repository
 public interface AdministratorRepository extends JpaRepository<Administrator, Integer> {
@@ -23,6 +25,10 @@ public interface AdministratorRepository extends JpaRepository<Administrator, In
     @Query("SELECT c FROM MenuCategory c WHERE c.restaurant = (SELECT a.restaurant FROM Administrator a WHERE a.adminId = :adminId)")
     List<MenuCategory> findCategoryByAdminId(int adminId);
 
+	Administrator findByAdminId(long adminId);
 
+	Administrator getByAdminId(long adminId);
+
+	
 
 }
